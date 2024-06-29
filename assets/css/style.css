@@ -47,6 +47,10 @@ img {
     max-height: auto;
 }
 
+#intro-box {
+    margin: 0 5vw;
+}
+
 a {
     /* Stop links changing style when clicked */
     text-decoration: none;
