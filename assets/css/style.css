@@ -3,6 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "DM Sans";
 }
 
 body {
@@ -16,11 +17,11 @@ body {
 /* Header */
 header {
     width: 100%;
-    box-shadow: 0 2px 2px #1f1f1f;
-    background-color: black;
-    color: white;
+    box-shadow: 0 2px 2px black;
+    background-color: white;
+    color: black;
     z-index: 99;
-    padding: 0 1rem;
+    padding: 20px 20px;
     position: fixed;
     /* Parent flex properties */
     display: flex;
@@ -28,15 +29,33 @@ header {
     justify-content: space-between;
 }
 
-
 main {
     /* Fill all page space */
     flex: 1 0 auto;
-    background-color: grey;
+    background-color: white;
 }
 
 a {
     /* Stop links changing style when clicked */
     text-decoration: none;
     color: inherit;
+    display: inline;
 }
+
+header nav a {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 35%;
+    font-size: 1.2em;
+}
+
+header nav a:hover {
+    background-color: #E2E2E2 ;
+    z-index: 2;
+}
+
+li {
+    display: inline;
+}
+
+/* F6F6F6 */
