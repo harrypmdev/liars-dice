@@ -30,9 +30,21 @@ header {
 }
 
 main {
-    /* Fill all page space */
-    flex: 1 0 auto;
     background-color: white;
+    padding-top: 82px;
+    /* Child flex properties to fill all page space */
+    flex: 1 0 auto;
+    /* Parent flex properties */
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+}
+
+img {
+    display: inline-block;
+    max-width: 50%;
+    max-height: auto;
 }
 
 a {
