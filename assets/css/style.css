@@ -41,6 +41,11 @@ footer {
     justify-content: space-around;
 }
 
+.selected {
+    text-decoration: underline #111827;
+    text-underline-offset: 5px;
+}
+
 footer iframe {
     width: 50%;
     flex: 1;
