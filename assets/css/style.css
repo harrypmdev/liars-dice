@@ -40,9 +40,9 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    height: 80vh;
+    height: 70vh;
     width: 100vw;
-    padding: 20px 20px;
+    padding: 20px 20px 10px 20px;
 }
 
 #intro-box div {
@@ -116,7 +116,7 @@ hr {
     text-align: center;
     height: 5px;
     width: 90%;
-    margin: auto;
+    margin: 40px auto;
   }
 
 hr::after {
@@ -127,5 +127,18 @@ hr::after {
     position: relative;
     top: -27px;
   }
+
+.section-header {
+    margin: 10px 0 30px 0;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+.center-paragraph {
+    text-align: center;
+    margin: 0 10%;
+    font-size: 1.2rem;
+    line-height: 48px;
+}
 
 /* F6F6F6 */
