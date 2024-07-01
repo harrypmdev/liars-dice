@@ -3,10 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "DM Sans";
 }
 
 body {
+    font-family: "DM Sans";
+    color: #111827;
     /* Set minimum viewport height */
     min-height: 100vh;
     /* Parent flex properties */
@@ -19,7 +20,6 @@ header {
     width: 100%;
     box-shadow: 0 2px 2px #dadbdd;
     background-color: white;
-    color: #111827;
     z-index: 99;
     padding: 20px 25px;
     position: fixed;
@@ -34,11 +34,6 @@ main {
     padding-top: 82px;
     /* Child flex properties to fill all page space */
     flex: 1 0 auto;
-    /* Parent flex properties */
-    display: flex;
-    justify-content: center;
-    align-content: center;
-
 }
 
 #intro-box {
@@ -111,5 +106,26 @@ header nav a:hover {
 li {
     display: inline;
 }
+
+/* HRs taken from DEVELOPER MOZILLA */
+hr {
+    border: none;
+    border-top: 3px double #111827;
+    color: #111827;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 90%;
+    margin: auto;
+  }
+
+hr::after {
+    background: transparent #f3f4f6;
+    content: url('../images/dice-logo.webp');
+    display: inline-block;
+    transform: rotate(45deg);
+    position: relative;
+    top: -27px;
+  }
 
 /* F6F6F6 */
