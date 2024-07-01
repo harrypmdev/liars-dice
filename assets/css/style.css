@@ -75,7 +75,7 @@ main {
 }
 
 #play-box a:hover {
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 
@@ -84,7 +84,6 @@ main {
     margin: 40px 30px;
     height: 80%;
     width: auto;
-    border: inset 1px #111827;
     border-radius: 5px;
 }
 
