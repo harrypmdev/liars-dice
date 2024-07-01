@@ -29,11 +29,39 @@ header {
     justify-content: space-between;
 }
 
+/* Header */
+footer {
+    width: 100%;
+    box-shadow: 0 -2px 2px #dadbdd;
+    background-color: white;
+    z-index: 99;
+    /* Parent flex properties */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+footer iframe {
+    width: 50%;
+    flex: 1;
+}
+
+.footer-paragraph {
+    flex:1;
+    text-align: center;
+    font-size: 1.35rem;
+    line-height: 35px;
+}
+
 main {
     background-color: #f3f4f6;
-    padding-top: 82px;
+    padding: 82px 0 60px 0;
     /* Child flex properties to fill all page space */
     flex: 1 0 auto;
+}
+
+.bold {
+    font-weight: bold;
 }
 
 #intro-box {
