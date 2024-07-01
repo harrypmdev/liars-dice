@@ -17,9 +17,9 @@ body {
 /* Header */
 header {
     width: 100%;
-    box-shadow: 0 2px 2px black;
+    box-shadow: 0 2px 2px #dadbdd;
     background-color: white;
-    color: black;
+    color: #111827;
     z-index: 99;
     padding: 20px 25px;
     position: fixed;
@@ -30,7 +30,7 @@ header {
 }
 
 main {
-    background-color: white;
+    background-color: #f3f4f6;
     padding-top: 82px;
     /* Child flex properties to fill all page space */
     flex: 1 0 auto;
@@ -41,14 +41,51 @@ main {
 
 }
 
-img {
-    display: inline-block;
-    max-width: 50%;
-    max-height: auto;
+#intro-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 80vh;
+    width: 100vw;
+    padding: 20px 20px;
 }
 
-#intro-box {
-    margin: 0 5vw;
+#intro-box div {
+    margin: 40px 30px;
+    font-size: 1.5rem;
+}
+
+#intro-box div h2 {
+    margin-bottom: 40px;
+}
+
+#play-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+#play-box a {
+    padding: 18px;
+    border: solid 2px #111827;
+    border-radius: 8px;
+}
+
+#play-box a {
+    transition: opacity ease-in 0.3s;
+}
+
+#play-box a:hover {
+    opacity: 0.6;
+}
+
+
+#intro-box img {
+    display: inline-block;
+    margin: 40px 30px;
+    height: 80%;
+    width: auto;
+    border: inset 1px #111827;
+    border-radius: 5px;
 }
 
 a {
@@ -61,14 +98,14 @@ a {
 header nav a {
     padding: 15px;
     margin: 10px;
-    border-radius: 35%;
+    border-radius: 35px;
     font-size: 1.2em;
     transition: 0.8s;
 }
 
 header nav a:hover {
     /* background-color: #E2E2E2; */
-    background-color: #E2E2E2;
+    background-color: #dadbdd;
     z-index: 2;
 }
 
