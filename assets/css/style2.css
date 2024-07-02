@@ -37,18 +37,24 @@ header {
     justify-content: space-between;
 }
 
-/* Hide dice logo */
-#logo {
+header img {
     display: none;
 }
 
-/* Hide burger checkbox */
+/* Align header title and logo */
+header > a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #toggle-navbar {
+    /* Hide burger checkbox */
     display: none;
 }
 
-/* Display nav dropdown if burger is clicked */
 #toggle-navbar:checked~nav {
+    /* Display nav dropdown if burger is clicked */
     display: block;
 }
 
@@ -57,48 +63,35 @@ header {
     padding-right: 18px;
 }
 
-/* Navbar */
 nav {
-    background-color: #dadbdd;
-    box-shadow: 0 2px 2px #111827;
+    width: 100%;
+    background-color: #f3f4f6;
     /* Do not display by default, display toggled by burger */
     display: none;
     /* Position navbar relative to header */
     position: absolute;
-    left: 0;
     top: 100%;
-    width: 100%;
+    left: 0;
 }
 
-#menu {
-    letter-spacing: 2px;
+nav ul {
     list-style-type: none;
-    line-height: 38px;
+    line-height: 32px;
+    letter-spacing: 2px;
     text-align: center;
-    font-size: 1.25rem;
+    font-size: 1.5rem;
 }
 
-#menu a {
-    height: 100%;
+nav li {
     width: 100%;
-    padding: 0.3em 1.5em;
-    display: block;
-    transition: background 1.5s ease, font-size 1.5s ease;
+    padding: 20px;
+    border-bottom: solid 1px #dadbdd;
 }
 
-#menu li:not(:last-child) {
-    /* Add border lines separating navbar options */
-    border-bottom: 1.2px #1f1f1f solid;
-}
-
-#menu a:hover:not(.active) {
-    /* Hover styling for navbar links except current page*/
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.active {
-    background-color: #1f1f1f;
-    color: white;
+/* Navbar link for current page */
+.selected {
+    text-decoration: underline #111827;
+    text-underline-offset: 5px;
 }
 
 /* Main page */
@@ -110,6 +103,7 @@ main {
     flex: 1 0 auto;
 }
 
+/* HRs taken from DEVELOPER MOZILLA */
 hr {
     border: none;
     border-top: 3px double #111827;
@@ -131,46 +125,60 @@ hr::after {
     transform: rotate(45deg);
   }
 
+.bold {
+    font-weight: bold;
+}
+
+/* Intro box */
 #intro-box {
     display: flex;
-    flex-direction: column;
     align-items: center;
-}
-
-#play-box {
-    display: flex;
+    justify-content: space-around;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    width: 100%;
+    padding: 20px 20px 10px 20px;
 }
 
-#play-box h2 {
-    margin: 20px 0;
-}
-
-#buttons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-#buttons a {
+#intro-box > div {
+    margin: 0 15px 0 30px;
+    font-size: 1.5rem;
     padding: 15px;
-    margin: 15px;
-    font-size: 1.3rem;
-    border: solid #111827 2px;
-    border-radius: 5px;
-    width: fit-content;
 }
 
-#dice-image {
+#intro-box div h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#intro-box img {
     width: 80%;
     height: auto;
-    margin: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
+    margin: 15px 0;
 }
 
-/* Section headers and paragraph styling */
+/* Play box */
+#intro-box #play-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+#play-box a {
+    padding: 18px;
+    border: solid 2px #111827;
+    border-radius: 8px;
+    text-align: center;
+    margin: 10px;
+}
+
+#play-box a {
+    transition: opacity ease-in 0.3s;
+}
+
+#play-box a:hover {
+    opacity: 0.5;
+}
+
 .section-header {
     margin: 10px 0 30px 0;
     font-size: 1.6rem;
@@ -212,78 +220,80 @@ footer iframe {
 
 /* Media query - tablets and larger (768px) */
 @media screen and (min-width:768px) {
+}
 
-    /* Header */
-    header a {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-
-    #logo {
+/* Media query - laptops and larger (1028px) */
+@media screen and (min-width:1028px) {
+    
+    /* Header logo */
+    header img {
         display: inline-block;
-        margin-left: 20px;
+        /* Rotate 45 degrees */
         transform: rotate(45deg);
+        margin: 0px 20px;
+        border-radius: 5px;
+    }
+    #intro-box {
+        background-image: none;
+        background-color: inherit;
+        height: 70vh;
+        flex-direction: row;
     }
 
-    /* Navbar */
-    nav {
-        display: block;
-        position: relative;
-        width: fit-content;
+    #intro-box div {
         background-color: transparent;
-        border: none;
-        box-shadow: none;
     }
 
-    #menu li {
-        text-align: center;
+    #intro-box div h2 {
+        margin-bottom: 40px;
+    }
+
+    #intro-box img {
         display: inline-block;
+        margin: 40px 20px 40px 30px;
+        height: 80%;
+        width: auto;
+        max-width: 50%;
+        border-radius: 5px;
+        object-fit: contain;
     }
 
-    #menu a {
-        border-radius: 20px;
+    footer {
+        flex-direction: row;
     }
 
-    #menu li:not(:last-child) {
-        border-bottom: none;
+    footer iframe {
+        width: 50%;
     }
 
-    #menu a:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-
-    .active {
-        background-color: transparent;
-        color: #111827;
-        text-decoration: underline #111827;
-        text-underline-offset: 5px;
+    footer p {
+        margin: 0;
     }
 
     #burger {
         display: none;
     }
 
-    /* Main */
-    #intro-box {
-        flex-direction: row;
-        justify-content: space-evenly;
-        padding: 40px 0px;
+    header nav {
+        display: block;
     }
 
-    #play-box {
-        font-size: 1.5rem;
-        width: 50%;
+    /* Navbar links */
+    header nav a {
+        padding: 15px;
+        margin: 10px;
+        border-radius: 35px;
+        font-size: 1.2em;
+        transition: 0.8s;
     }
 
-    #dice-image {
-        width: 40%;
-        margin-right: 40px;
+    header nav a:hover {
+        background-color: #dadbdd;
+        z-index: 2;
     }
+
+    /* Display list items inline so navbar reads horizontally */
+    header li {
+        display: inline;
 }
-
-/* Media query - laptops and larger (1028px) */
-@media screen and (min-width:1028px) {
-  
-    
 }
