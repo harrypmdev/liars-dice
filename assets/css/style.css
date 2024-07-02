@@ -119,11 +119,16 @@ hr::after {
     height: 70vh;
     width: 100vw;
     padding: 20px 20px 10px 20px;
+    background: no-repeat center/cover url('../images/dice.jpg') rgba(0, 0, 0, 0.3);
+    background-blend-mode: lighten;
 }
 
 #intro-box div {
     margin: 40px 30px;
     font-size: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 15px;
+    border-radius: 10px;
 }
 
 #intro-box div h2 {
@@ -132,23 +137,22 @@ hr::after {
 }
 
 #intro-box img {
-    display: inline-block;
-    margin: 40px 30px;
-    height: 80%;
-    width: auto;
-    border-radius: 5px;
+    display: none;
 }
 
 /* Play box */
-#play-box {
+#intro-box #play-box {
     display: flex;
     justify-content: space-around;
+    background-color: rgba(255, 255, 255, 0);
 }
 
 #play-box a {
     padding: 18px;
     border: solid 2px #111827;
     border-radius: 8px;
+    text-align: center;
+    margin: 10px;
 }
 
 #play-box a {
@@ -194,4 +198,29 @@ footer iframe {
     text-align: center;
     font-size: 1.35rem;
     line-height: 35px;
+}
+
+/* Media query - tablets and larger (768px) */
+@media screen and (min-width:768px) {
+}
+
+/* Media query - laptops and larger (1028px) */
+@media screen and (min-width:1028px) {
+    
+    #intro-box {
+        background-image: none;
+        background-color: inherit;
+    }
+
+    #intro-box div {
+        background-color: transparent;
+    }
+
+    #intro-box img {
+        display: inline-block;
+        margin: 40px 30px;
+        height: 80%;
+        width: auto;
+        border-radius: 5px;
+    }
 }
