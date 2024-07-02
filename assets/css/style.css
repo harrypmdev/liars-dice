@@ -15,6 +15,13 @@ body {
     flex-direction: column;
 }
 
+a {
+    /* Stop links changing style when clicked */
+    text-decoration: none;
+    color: inherit;
+    display: inline;
+}
+
 /* Header */
 header {
     width: 100%;
@@ -29,58 +36,82 @@ header {
     justify-content: space-between;
 }
 
+/* Align header title and logo */
 header > a {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
+/* Header logo */
 header img {
     display: inline-block;
+    /* Rotate 45 degrees */
     transform: rotate(45deg);
     margin: 0px 20px;
 }
 
-/* Header */
-footer {
-    width: 100%;
-    box-shadow: 0 -2px 2px #dadbdd;
-    background-color: white;
-    z-index: 99;
-    /* Parent flex properties */
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+/* Navbar links */
+header nav a {
+    padding: 15px;
+    margin: 10px;
+    border-radius: 35px;
+    font-size: 1.2em;
+    transition: 0.8s;
 }
 
+header nav a:hover {
+    background-color: #dadbdd;
+    z-index: 2;
+}
+
+/* Display list items inline so navbar reads horizontally */
+header li {
+    display: inline;
+}
+
+/* Navbar link for current page */
 .selected {
     text-decoration: underline #111827;
     text-underline-offset: 5px;
 }
 
-footer iframe {
-    width: 50%;
-    flex: 1;
-}
-
-.footer-paragraph {
-    flex:1;
-    text-align: center;
-    font-size: 1.35rem;
-    line-height: 35px;
-}
-
+/* Main page */
 main {
     background-color: #f3f4f6;
+    /* 82px padding-top to account for fixed header and bottom padding to space out content from footer */
     padding: 82px 0 60px 0;
     /* Child flex properties to fill all page space */
     flex: 1 0 auto;
 }
 
+/* HRs taken from DEVELOPER MOZILLA */
+hr {
+    border: none;
+    border-top: 3px double #111827;
+    color: #111827;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+    width: 90%;
+    margin: 40px auto;
+  }
+
+/* Pseudo-element to add dice image to all horizontal rule elements */
+hr::after {
+    content: url('../images/dice-logo.webp');
+    position: relative;
+    top: -27px;
+    /* Rotate 45 degrees */
+    display: inline-block;
+    transform: rotate(45deg);
+  }
+
 .bold {
     font-weight: bold;
 }
 
+/* Intro box */
 #intro-box {
     display: flex;
     align-items: center;
@@ -100,6 +131,15 @@ main {
     text-align: center;
 }
 
+#intro-box img {
+    display: inline-block;
+    margin: 40px 30px;
+    height: 80%;
+    width: auto;
+    border-radius: 5px;
+}
+
+/* Play box */
 #play-box {
     display: flex;
     justify-content: space-around;
@@ -119,60 +159,6 @@ main {
     opacity: 0.5;
 }
 
-
-#intro-box img {
-    display: inline-block;
-    margin: 40px 30px;
-    height: 80%;
-    width: auto;
-    border-radius: 5px;
-}
-
-a {
-    /* Stop links changing style when clicked */
-    text-decoration: none;
-    color: inherit;
-    display: inline;
-}
-
-header nav a {
-    padding: 15px;
-    margin: 10px;
-    border-radius: 35px;
-    font-size: 1.2em;
-    transition: 0.8s;
-}
-
-header nav a:hover {
-    /* background-color: #E2E2E2; */
-    background-color: #dadbdd;
-    z-index: 2;
-}
-
-li {
-    display: inline;
-}
-
-/* HRs taken from DEVELOPER MOZILLA */
-hr {
-    border: none;
-    border-top: 3px double #111827;
-    color: #111827;
-    overflow: visible;
-    text-align: center;
-    height: 5px;
-    width: 90%;
-    margin: 40px auto;
-  }
-
-hr::after {
-    content: url('../images/dice-logo.webp');
-    display: inline-block;
-    transform: rotate(45deg);
-    position: relative;
-    top: -27px;
-  }
-
 .section-header {
     margin: 10px 0 30px 0;
     font-size: 1.6rem;
@@ -186,4 +172,26 @@ hr::after {
     line-height: 48px;
 }
 
-/* F6F6F6 */
+/* Footer */
+footer {
+    width: 100%;
+    box-shadow: 0 -2px 2px #dadbdd;
+    background-color: white;
+    z-index: 99;
+    /* Parent flex properties */
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+footer iframe {
+    width: 50%;
+    flex: 1;
+}
+
+.footer-paragraph {
+    flex:1;
+    text-align: center;
+    font-size: 1.35rem;
+    line-height: 35px;
+}
