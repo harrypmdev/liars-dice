@@ -161,6 +161,11 @@ hr::after {
     border: solid #111827 2px;
     border-radius: 5px;
     width: fit-content;
+    transition: opacity ease-in 0.4s;
+}
+
+#buttons a:hover {
+    opacity: 0.6;
 }
 
 #dice-image {
@@ -170,7 +175,7 @@ hr::after {
     border-radius: 5px;
 }
 
-/* Section headers and paragraph styling */
+/* Rules and about */
 .section-header {
     margin: 10px 0 30px 0;
     font-size: 1.6rem;

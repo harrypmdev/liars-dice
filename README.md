@@ -265,8 +265,8 @@ The site was tested with Lighthouse and received the following results:
 
 |  Bug Number |  Problem | Outcome |
 |---|---|---|
-|1 |WAVE evaluator shows empty form label | Fixed
-|2 |Services page images not appearing as circles | Fixed
+|1 |Dice image not rotating | 
+|2 |Clicking play goes to wrong part of page | Fixed
 3 | Services page videos not appearing correctly | Fixed
 4 | WAVE evaluator shows skipped heading level on services.html | Fixed
 ||||

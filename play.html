@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="assets/images/dice-favicon.ico">
+    <!-- Link to Font Awesome icons -->
+    <script src="https://kit.fontawesome.com/cd5674c3b8.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- Header -->
@@ -17,23 +19,28 @@
         <!-- Website main heading and logo -->
         <a href="index.html">
             <h1>The Liar's Dice Club</h1>
-            <img src="assets/images/dice-logo.webp" alt="A die (dice)">
+            <img id="logo" src="assets/images/dice-logo.webp" alt="A die (dice)">
         </a>
-        <!-- Site navigation -->
+        <!-- Burger for mobile users -->
+        <input type="checkbox" id="toggle-navbar" name="toggle-navbar">
+        <label for="toggle-navbar" id="burger" aria-label="Open navbar menu"><i class="fa-solid fa-bars"></i></label>
+        <!-- Navbar -->
         <nav>
-            <ul>
+            <ul id="menu">
                 <li><a href="index.html">Home</a></li>
-                <li class="selected"><a href="play.html">Play</a></li>
+                <li><a class="active" href="play.html">Play</a></li>
             </ul>
         </nav>
     </header>
-    <!-- Main page -->
-    <main></main>
-    <!-- Footer page -->
+   <!-- Main page -->
+    <main>
+    </main>
+   <!-- Footer page -->
     <footer>
         <p class="footer-paragraph"><span class="bold">Meeting times:</span><br>Thursday 7PM<br>Sunday 6PM</p>
         <!-- Iframe from google for map -->
         <iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=Guildbourne%20Centre,%20Worthing%20BN11%201LZ,%20United%20Kingdom+(The%20Guildborne%20Centre)&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/">gps systems</a></iframe>
     </footer>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
