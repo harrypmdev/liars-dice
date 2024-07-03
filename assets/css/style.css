@@ -131,6 +131,7 @@ hr::after {
     transform: rotate(45deg);
   }
 
+/* Intro box */
 #intro-box {
     display: flex;
     flex-direction: column;
@@ -187,6 +188,21 @@ hr::after {
     margin: 0 10%;
     font-size: 1.2rem;
     line-height: 48px;
+}
+
+/* Liar's Dice Game */
+#player-board {
+
+}
+
+#player-hand {
+    width: 80%;
+    height: 500px;
+    border-radius: 5px;
+    background-color: #dadbdd;
+    align-self: center;
+    margin: 20px auto;
+    box-shadow: 1px 1px 3px #111827 inset;
 }
 
 /* Footer */
