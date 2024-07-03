@@ -195,9 +195,13 @@ hr::after {
 
 }
 
-#player-hand {
+#player-board h2, #opponent-board h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#player-hand, #opponent-hand {
     width: 80%;
-    height: 500px;
     border-radius: 5px;
     background-color: #dadbdd;
     align-self: center;

@@ -28,6 +28,7 @@ function accountForHeader() {
  */
 function startNewGame() {
     populateHand('player-hand');
+    populateHand('opponent-hand');
 }
 
 /**
@@ -36,16 +37,25 @@ function startNewGame() {
  */
 function populateHand(hand) {
     let myHand = document.getElementById(hand);
+    // Generate six dice
     for(i = 0; i < 6; i++) {
         let newDice = document.createElement('img');
         let diceNumber = generateDiceNumber();
         newDice.setAttribute('dots', diceNumber);
-        newDice.src = getDiceImage(diceNumber);
         newDice.style.margin = '20px';
         newDice.style.width = '20%';
         newDice.style.height = 'auto';
         newDice.style.objectFit = 'contain';
-        console.log(getDiceImage(diceNumber));
+        /* If player's hand, assign dice faces as per dice number.
+        If opponent's hand, assign all dices faces to unknown dice face. */
+        switch (hand) {
+            case 'player-hand':
+                newDice.src = getDiceImage(diceNumber);
+                break;
+            case 'opponent-hand':
+                newDice.src = '../assets/images/dice-faces/dice-unknown.webp';
+                break;
+        }
         myHand.appendChild(newDice);
     }
 
