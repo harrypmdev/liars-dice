@@ -1,12 +1,15 @@
+/**
+ * 
+ */
+class Bet {
+    constructor(quantity, pips) {
+        this.quantity = quantity;
+        this.pips = pips;
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     accountForHeader();
-    // Create 'Bet' class so all bets can have the attributes quantity and pips
-    class Bet {
-        constructor(quantity, pips) {
-            this.quantity = quantity;
-            this.pips = pips;
-        }
-    }
     // Find current page and assign to fileName
     let path = window.location.pathname;
     let fileName = path.substring(path.lastIndexOf('/') + 1);
@@ -29,7 +32,6 @@ function accountForHeader() {
     document.getElementsByTagName('main')[0].style.paddingTop = `${height}px`;
 }
 
-
 /**
  * Starts a new game of Liar's Dice.
  * Runs when play.html first loads and every time the game is restarted
@@ -43,7 +45,7 @@ function startNewGame() {
 /**
  * Updates the current bet on the page.
  * Pass any falsy value to produce 'Current Bet: None'.
- * @param {Bet} Bet bet object to update the current bet with
+ * @param {Bet} bet Bet object to update the current bet with
  */
 function updateCurrentBet(bet) {
     currentBet = document.getElementById('current-bet');
@@ -57,7 +59,7 @@ function updateCurrentBet(bet) {
 
 /**
  * Populates the player or opponents hand with six new dice
- * Takes one string parameter, 'player-hand' or 'opponent-hand'
+ * @param {string} hand 'player-hand' or 'opponent-hand'
  */
 function populateHand(hand) {
     let myHand = document.getElementById(hand);
@@ -70,8 +72,8 @@ function populateHand(hand) {
         newDice.style.width = '20%';
         newDice.style.height = 'auto';
         newDice.style.objectFit = 'contain';
-        /* If player's hand, assign dice faces as per dice number.
-        If opponent's hand, assign all dices faces to unknown dice face. */
+        /* If player's hand, assign dice face images as per dice number.
+        If opponent's hand, assign all dices faces to unknown dice face image. */
         switch (hand) {
             case 'player-hand':
                 newDice.src = getDiceImage(diceNumber);
@@ -96,7 +98,7 @@ function generateDiceNumber() {
 
 /**
  * Returns the file of the relevant dice image for a dice number.
- * Takes one integer parameter, the dice number (1-6)
+ * @param {integer} diceNumber The dice number (1-6)
  */
 function getDiceImage(diceNumber) {
     let DiceImages = ['../assets/images/dice-faces/dice-one.webp',
@@ -107,4 +109,16 @@ function getDiceImage(diceNumber) {
         '../assets/images/dice-faces/dice-six.webp'
     ]
     return DiceImages[diceNumber - 1];
+}
+
+function handleBet(quantity, dots) {
+	let newBet = new Bet(quantity, dots);
+	updateCurrentBet(newBet);
+}
+
+function callGame() {
+}
+
+function createOpponentGame() {
+    
 }
