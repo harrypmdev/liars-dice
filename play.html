@@ -38,7 +38,32 @@
             <h2>Your Dice</h2>
             <div id="player-hand">
             </div>
-            <p id="current-bet">Current Bet: </p>
+            <form class="game-text" id="bet-form" action="">
+                <p>I bet a quantity of </p>
+                <select class="game-text" name="" id="">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <p> dice with </p>
+                <select class="game-text" name="" id="">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+                <p> pips</p>
+                <br>
+                <input id="bet-button" type="submit" value="Bet">
+                <p class="bold">OR</p>
+                <button id="call-button">Call</button>
+            </form>
+            <br>
+            <p id="current-bet" class="game-text">Current Bet: </p>
         </div>
         <hr>
         <div id="opponent-board">

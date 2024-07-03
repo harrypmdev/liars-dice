@@ -37,11 +37,13 @@ function accountForHeader() {
 function startNewGame() {
     populateHand('player-hand');
     populateHand('opponent-hand');
+    updateCurrentBet(null);
 }
 
 /**
- * Updates the current bet on the page
- * @param {Bet} object to update the current bet with
+ * Updates the current bet on the page.
+ * Pass any falsy value to produce 'Current Bet: None'.
+ * @param {Bet} Bet bet object to update the current bet with
  */
 function updateCurrentBet(bet) {
     currentBet = document.getElementById('current-bet');

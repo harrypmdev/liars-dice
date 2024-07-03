@@ -110,6 +110,10 @@ main {
     flex: 1 0 auto;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 hr {
     border: none;
     border-top: 3px double #111827;
@@ -200,9 +204,36 @@ hr::after {
     text-decoration: underline;
 }
 
-#current-bet {
+.game-text {
     text-align: center;
     font-size: 1.3rem;
+    margin: 0 10%;
+    line-height: 38px;
+}
+
+.game-text > * {
+    margin: 0;
+    display: inline;
+}
+
+#bet-button {
+    padding: 12px;
+    margin: 10px;
+    background-color: #30bf56;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.25rem;
+}
+
+#call-button {
+    padding: 12px;
+    margin: 10px;
+    background-color: #a34433;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.25rem;
 }
 
 #player-hand, #opponent-hand {
