@@ -203,6 +203,10 @@ hr::after {
     align-self: center;
     margin: 20px auto;
     box-shadow: 1px 1px 3px #111827 inset;
+    /* Parent flex properties */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Footer */

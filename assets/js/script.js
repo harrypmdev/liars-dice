@@ -27,7 +27,7 @@ function accountForHeader() {
  * Runs when play.html first loads and every time the game is restarted
  */
 function startNewGame() {
-
+    populateHand('player-hand');
 }
 
 /**
@@ -37,9 +37,18 @@ function startNewGame() {
 function populateHand(hand) {
     let myHand = document.getElementById(hand);
     for(i = 0; i < 6; i++) {
-        let newDice = document.createElement(img);
+        let newDice = document.createElement('img');
+        let diceNumber = generateDiceNumber();
+        newDice.setAttribute('dots', diceNumber);
+        newDice.src = getDiceImage(diceNumber);
+        newDice.style.margin = '20px';
+        newDice.style.width = '20%';
+        newDice.style.height = 'auto';
+        newDice.style.objectFit = 'contain';
+        console.log(getDiceImage(diceNumber));
+        myHand.appendChild(newDice);
     }
-    myHand.appendChild();
+
 }
 
 /**
@@ -56,12 +65,12 @@ function generateDiceNumber() {
  * Takes one integer parameter, the dice number (1-6)
  */
 function getDiceImage(diceNumber) {
-    let DiceImages = ['../images/dice-faces/dice-one.webp',
-        '../images/dice-faces/dice-two.webp',
-        '../images/dice-faces/dice-three.webp',
-        '../images/dice-faces/dice-four.webp',
-        '../images/dice-faces/dice-five.webp',
-        '../images/dice-faces/dice-six.webp'
+    let DiceImages = ['../assets/images/dice-faces/dice-one.webp',
+        '../assets/images/dice-faces/dice-two.webp',
+        '../assets/images/dice-faces/dice-three.webp',
+        '../assets/images/dice-faces/dice-four.webp',
+        '../assets/images/dice-faces/dice-five.webp',
+        '../assets/images/dice-faces/dice-six.webp'
     ]
     return DiceImages[diceNumber - 1];
 }
