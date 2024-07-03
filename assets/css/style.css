@@ -200,6 +200,11 @@ hr::after {
     text-decoration: underline;
 }
 
+#current-bet {
+    text-align: center;
+    font-size: 1.3rem;
+}
+
 #player-hand, #opponent-hand {
     width: 80%;
     border-radius: 5px;

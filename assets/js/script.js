@@ -1,8 +1,16 @@
 document.addEventListener("DOMContentLoaded", function() {
     accountForHeader();
+    // Create 'Bet' class so all bets can have the attributes quantity and pips
+    class Bet {
+        constructor(quantity, pips) {
+            this.quantity = quantity;
+            this.pips = pips;
+        }
+    }
     // Find current page and assign to fileName
     let path = window.location.pathname;
     let fileName = path.substring(path.lastIndexOf('/') + 1);
+    // If current page 'play.html', start game
     if (fileName === 'play.html') {
         startNewGame();
     }
@@ -29,6 +37,20 @@ function accountForHeader() {
 function startNewGame() {
     populateHand('player-hand');
     populateHand('opponent-hand');
+}
+
+/**
+ * Updates the current bet on the page
+ * @param {Bet} object to update the current bet with
+ */
+function updateCurrentBet(bet) {
+    currentBet = document.getElementById('current-bet');
+    if (bet) {
+        currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} pips`;
+    } else {
+        currentBet.innerHTML = 'Current Bet: None';
+    }
+
 }
 
 /**
