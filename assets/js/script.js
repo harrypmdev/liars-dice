@@ -36,7 +36,9 @@ function startNewGame() {
  */
 function populateHand(hand) {
     let myHand = document.getElementById(hand);
-    
+    for(i = 0; i < 6; i++) {
+        let newDice = document.createElement(img);
+    }
     myHand.appendChild();
 }
 
@@ -47,4 +49,19 @@ function populateHand(hand) {
 function generateDiceNumber() {
     let randomNumber = Math.ceil(Math.random() * 6);
     return randomNumber;
+}
+
+/**
+ * Returns the file of the relevant dice image for a dice number.
+ * Takes one integer parameter, the dice number (1-6)
+ */
+function getDiceImage(diceNumber) {
+    let DiceImages = ['../images/dice-faces/dice-one.webp',
+        '../images/dice-faces/dice-two.webp',
+        '../images/dice-faces/dice-three.webp',
+        '../images/dice-faces/dice-four.webp',
+        '../images/dice-faces/dice-five.webp',
+        '../images/dice-faces/dice-six.webp'
+    ]
+    return DiceImages[diceNumber - 1];
 }
