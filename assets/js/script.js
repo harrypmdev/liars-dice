@@ -54,10 +54,12 @@ function updateCurrentBet(bet) {
     currentBet = document.getElementById('current-bet');
     if (bet) {
         currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} pips`;
+        // Update current bet attributes so quantity and pips easily accessible
+        currentBet.quantity = bet.quantity;
+        currentBet.pips = bet.pips;
     } else {
         currentBet.innerHTML = 'Current Bet: None';
     }
-
 }
 
 /**
@@ -119,17 +121,48 @@ function getDiceImage(diceNumber) {
  * @param {*} event 
  */
 function handleBet(event) {
+    console.log("handling bet");
     // Stops default submit action
-    event.preventDefault;
+    event.preventDefault();
+    // Retrieves 'quantity' and 'pips' from bet form
     let quantitySelector = document.getElementById('quantity-selector');
     let pipSelector = document.getElementById('pip-selector');
-	let newBet = new Bet(quantitySelector.selectedIndex, pipSelector.selectedIndex);
+	let newBet = new Bet(quantitySelector.value, pipSelector.value);
+    // Updates current bet
 	updateCurrentBet(newBet);
+    // Create opponent response
+    createOpponentResponse();
 }
 
 function callGame() {
+    updateComputerResponse('The computer has called!');
 }
 
-function createOpponentGame() {
-    
+function createOpponentResponse() {
+    // Create random number from which to generate bet response
+    let randomNum = Math.random();
+    // Choose randomly whether to 'call' or bet
+    if (Math.random() < 0.3) {
+        callGame();
+    } else {
+        let newBet = new Bet(0, 0);
+        currentBet = document.getElementById('current-bet');
+        if (randomNum < 0.7) {
+            newBet.quantity = parseInt(currentBet.quantity) + 1;
+        } else {
+            newBet.quantity = parseInt(currentBet.quantity) + 2;
+        }
+        newBet.pips = generateDiceNumber();
+        updateCurrentBet(newBet);
+        updateComputerResponse(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
+    }
+}
+
+/**
+ * Updates the computer's response section on the board
+ * @param {string} response The response the computer should output
+ */
+function updateComputerResponse(response) {
+    let computerResponse = document.getElementById('computer-response')
+    computerResponse.innerHTML = response;
 }
