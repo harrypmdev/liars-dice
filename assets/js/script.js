@@ -79,7 +79,7 @@ function populateHand(hand) {
                 newDice.src = getDiceImage(diceNumber);
                 break;
             case 'opponent-hand':
-                newDice.src = '../assets/images/dice-faces/dice-unknown.webp';
+                newDice.src = 'assets/images/dice-faces/dice-unknown.webp';
                 break;
         }
         myHand.appendChild(newDice);
@@ -101,12 +101,12 @@ function generateDiceNumber() {
  * @param {integer} diceNumber The dice number (1-6)
  */
 function getDiceImage(diceNumber) {
-    let DiceImages = ['../assets/images/dice-faces/dice-one.webp',
-        '../assets/images/dice-faces/dice-two.webp',
-        '../assets/images/dice-faces/dice-three.webp',
-        '../assets/images/dice-faces/dice-four.webp',
-        '../assets/images/dice-faces/dice-five.webp',
-        '../assets/images/dice-faces/dice-six.webp'
+    let DiceImages = ['assets/images/dice-faces/dice-one.webp',
+        'assets/images/dice-faces/dice-two.webp',
+        'assets/images/dice-faces/dice-three.webp',
+        'assets/images/dice-faces/dice-four.webp',
+        'assets/images/dice-faces/dice-five.webp',
+        'assets/images/dice-faces/dice-six.webp'
     ]
     return DiceImages[diceNumber - 1];
 }
