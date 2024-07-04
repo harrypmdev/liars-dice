@@ -75,7 +75,7 @@ function populateHand(hand) {
     for(i = 0; i < 6; i++) {
         let newDice = document.createElement('img');
         let diceNumber = generateDiceNumber();
-        newDice.setAttribute('dots', diceNumber);
+        newDice.setAttribute('pips', diceNumber);
         newDice.style.margin = '20px';
         newDice.style.width = '20%';
         newDice.style.height = 'auto';
@@ -186,6 +186,7 @@ function handlePipChange(){
 
 function callGame() {
     updateComputerResponse('The computer has called!');
+    revealDice();
 }
 
 function createOpponentResponse() {
@@ -236,5 +237,11 @@ function updateBetOptions(){
         newOption.innerHTML = quantity + i;
         quantitySelector.appendChild(newOption);
     }
+}
 
+function revealDice() {
+    let opponentHand = document.getElementById('opponent-hand');
+    for (let child of opponentHand.children) {
+        child.src = getDiceImage(child.getAttribute('pips'))
+    }
 }
