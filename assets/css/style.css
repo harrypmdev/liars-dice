@@ -216,6 +216,10 @@ hr::after {
     display: inline;
 }
 
+.game-text > .hide {
+    display: none;
+}
+
 #bet-button {
     padding: 12px 20px;
     margin: 10px;

@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add event listener to bet form submit button
     let betForm = document.getElementById('bet-form');
     betForm.addEventListener('submit', handleBet);
+    // Add event listener to bet form pip selector
+    let pipSelector = document.getElementById('pip-selector');
+    pipSelector.addEventListener('change', handlePipChange)
 });
 
 addEventListener("resize", accountForHeader);
@@ -55,8 +58,8 @@ function updateCurrentBet(bet) {
     if (bet) {
         currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} pips`;
         // Update current bet attributes so quantity and pips easily accessible
-        currentBet.quantity = bet.quantity;
-        currentBet.pips = bet.pips;
+        currentBet.setAttribute("quantity", bet.quantity)
+        currentBet.setAttribute("pips", bet.pips);
     } else {
         currentBet.innerHTML = 'Current Bet: None';
     }
@@ -132,6 +135,53 @@ function handleBet(event) {
 	updateCurrentBet(newBet);
     // Create opponent response
     createOpponentResponse();
+    // Updates the bet options according to the new current bet (the opponent's bet)
+    updateBetOptions();
+}
+
+/**
+ * Runs when the pip value is changed in the pip selector.
+ * If the pip value is higher than the current bet, adds the current quantity
+ * as an option to the quantity selector. If the pip value goes lower again, removes
+ * the current quantity.
+ */
+function handlePipChange(){
+    let currentBet = document.getElementById('current-bet');
+    // If first turn of the game, exit function
+    if (currentBet.getAttribute('quantity') == 0) {
+        return;
+    }
+    let quantitySelector = document.getElementById('quantity-selector');
+    let pipSelector = document.getElementById('pip-selector');
+    // Check if the current bet quantity is currently an option of the quantity selector
+    let containsCurrentQuantity = false;
+    for (option of quantitySelector.options) {
+        if (option.value === currentBet.getAttribute('quantity')) {
+            containsCurrentQuantity = true;
+        }
+    }
+    /* If the currently selected pip is higher than current bet pip value, 
+    add the quantity from current bet to quantity selector
+    */
+   console.log(pipSelector.value + " > " + currentBet.getAttribute('pips'));
+    if (parseInt(pipSelector.value) > parseInt(currentBet.getAttribute('pips'))) {
+        // If current bet quantity not an option, add it
+        if (!containsCurrentQuantity) {
+            let newOption = document.createElement('option');
+            newOption.value = currentBet.getAttribute('quantity');
+            newOption.innerHTML = currentBet.getAttribute('quantity');
+            quantitySelector.insertBefore(newOption, quantitySelector.firstChild);
+        }
+    } else {
+        // If current bet quantity is already an option, remove it
+        if (containsCurrentQuantity) {
+            for (option of quantitySelector.options) {
+                if (option.value == currentBet.getAttribute('quantity')) {
+                    quantitySelector.remove(option);
+                } 
+            }
+        }
+    }
 }
 
 function callGame() {
@@ -148,9 +198,9 @@ function createOpponentResponse() {
         let newBet = new Bet(0, 0);
         currentBet = document.getElementById('current-bet');
         if (randomNum < 0.7) {
-            newBet.quantity = parseInt(currentBet.quantity) + 1;
+            newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 1;
         } else {
-            newBet.quantity = parseInt(currentBet.quantity) + 2;
+            newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 2;
         }
         newBet.pips = generateDiceNumber();
         updateCurrentBet(newBet);
@@ -165,4 +215,26 @@ function createOpponentResponse() {
 function updateComputerResponse(response) {
     let computerResponse = document.getElementById('computer-response')
     computerResponse.innerHTML = response;
+}
+
+/**
+ * Update the options the player has for betting in the bet form
+ */
+function updateBetOptions(){
+    let quantitySelector = document.getElementById('quantity-selector');
+    let pipSelector = document.getElementById('pip-selector');
+    let currentBet = document.getElementById('current-bet');
+    // Clear quantity selector options except for blank default
+    quantitySelector.innerHTML = "<option class='hide' disabled selected value></option>";
+    // Set pip selector to blank
+    pipSelector.value = "";
+    // Add new quantity selector options
+    let quantity = parseInt(currentBet.getAttribute("quantity"));
+    for (i = 1; i <= 5; i++) {
+        let newOption = document.createElement('option');
+        newOption.value = quantity + i;
+        newOption.innerHTML = quantity + i;
+        quantitySelector.appendChild(newOption);
+    }
+
 }
