@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function() {
     if (fileName === 'play.html') {
         startNewGame();
     }
+    // Add event listener to bet form submit button
+    let betForm = document.getElementById('bet-form');
+    betForm.addEventListener('submit', handleBet);
 });
 
 addEventListener("resize", accountForHeader);
@@ -111,8 +114,16 @@ function getDiceImage(diceNumber) {
     return DiceImages[diceNumber - 1];
 }
 
-function handleBet(quantity, dots) {
-	let newBet = new Bet(quantity, dots);
+/**
+ * Handles the submission of the bet form
+ * @param {*} event 
+ */
+function handleBet(event) {
+    // Stops default submit action
+    event.preventDefault;
+    let quantitySelector = document.getElementById('quantity-selector');
+    let pipSelector = document.getElementById('pip-selector');
+	let newBet = new Bet(quantitySelector.selectedIndex, pipSelector.selectedIndex);
 	updateCurrentBet(newBet);
 }
 

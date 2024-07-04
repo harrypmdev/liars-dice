@@ -39,8 +39,8 @@
             <div id="player-hand">
             </div>
             <form class="game-text" id="bet-form" action="">
-                <p>I bet a quantity of </p>
-                <select class="game-text" name="" id="">
+                <p>I bet a <label for="quanttiy-selector">quantity</label> of </p>
+                <select name="quantity-selector" id="quantity-selector" class="game-text" name="" id="">
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
@@ -48,7 +48,7 @@
                     <option value="6">6</option>
                 </select>
                 <p> dice with </p>
-                <select class="game-text" name="" id="">
+                <select name="pip-selector" id="pip-selector"class="game-text" name="" id="">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -56,7 +56,7 @@
                     <option value="5">5</option>
                     <option value="6">6</option>
                 </select>
-                <p> pips</p>
+                <label for="pip-selector">pips</label>
                 <br>
                 <input id="bet-button" type="submit" value="Bet">
                 <p class="bold">OR</p>
