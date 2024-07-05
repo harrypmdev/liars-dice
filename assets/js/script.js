@@ -52,6 +52,7 @@ function startNewGame() {
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
     updateCurrentBet(null);
+    updateBetOptions();
 }
 
 /**
@@ -68,6 +69,8 @@ function updateCurrentBet(bet) {
         currentBet.setAttribute("pips", bet.pips);
     } else {
         currentBet.innerHTML = 'Current Bet: None';
+        currentBet.setAttribute("quantity", 0)
+        currentBet.setAttribute("pips", 0);
     }
 }
 
@@ -230,6 +233,8 @@ function callGame(caller) {
     let outcomeTextPhrasing = ["dice", "pips"];
     if (quantity == 1) {
         outcomeTextPhrasing[0] = 'die';
+    } else if (quantity == 0) {
+        outcomeTextPhrasing[0] = 'none';
     }
     if (currentBet.getAttribute('pips') == 1) {
         outcomeTextPhrasing[1] = 'pip';
@@ -238,17 +243,29 @@ function callGame(caller) {
     if ((currentBet.getAttribute('quantity') - quantity) <= 0) {
         // If player called, they have lost the round
         if (caller === 'player') {
-            document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
-            There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
-             ${outcomeTextPhrasing[1]} on the board. You lost the round.`;
+            if (outcomeTextPhrasing[0] == 'none') {
+                document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
+                There was no dice with ${currentBet.getAttribute('pips')}
+                 ${outcomeTextPhrasing[1]} on the board. You lost the round.`;
+            } else {
+                document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
+                There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You lost the round.`;
+            }
             // Decrement player's hand by one die
             playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
             console.log(playerHand.getAttribute('dice'));
         // If opponent called, the player has won the round
         } else {
-            document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
-            There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
-             ${outcomeTextPhrasing[1]} on the board. You won the round.`;    
+            if (outcomeTextPhrasing[0] == 'none') {
+                document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
+                There was no dice with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You won the round.`; 
+            } else {
+                document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
+                There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You won the round.`;               
+            }   
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
             console.log(opponentHand.getAttribute('dice'));
@@ -258,17 +275,29 @@ function callGame(caller) {
     } else {
         // If player called, they have won the round
         if (caller === 'player') {
-            document.getElementById('outcome-text').innerHTML = `You called and you were right! 
-            There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
-             ${outcomeTextPhrasing[1]} on the board. You won the round.`;
+            if (outcomeTextPhrasing[0] == 'none') {
+                document.getElementById('outcome-text').innerHTML = `You called and you were right! 
+                There was no dice with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You won the round.`;
+            } else {
+                document.getElementById('outcome-text').innerHTML = `You called and you were right! 
+                There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You won the round.`;
+            }
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
             console.log(opponentHand.getAttribute('dice'));
         // If opponent called, the player has lost the round
         } else {
-            document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
-            There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
-             ${outcomeTextPhrasing[1]} on the board. You lost the round.`;    
+            if (outcomeTextPhrasing[0] == 'none') {
+                document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
+                There was no dice with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You lost the round.`;
+            } else {
+                document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
+                There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
+                ${outcomeTextPhrasing[1]} on the board. You lost the round.`;    
+            } 
             // Decrement player's hand by one die
             playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
             console.log(playerHand.getAttribute('dice'));
@@ -279,6 +308,19 @@ function callGame(caller) {
     document.getElementById('quantity-selector').disabled = true;
     document.getElementById('pip-selector').disabled = true;
     document.getElementById('next-turn').disabled = false;
+    // If the result of this call means the player has ran out of dice
+    if (playerHand.getAttribute('dice') <= 0) {
+        document.getElementById('outcome-text').innerHTML += ` You have ran out of dice so you have lost
+        the game! Better luck next time.`
+        document.getElementById('next-turn').innerText = 'Start New Game';
+    }
+    // If the result of this call means the opponent has ran out of dice
+    if (opponentHand.getAttribute('dice') <= 0) {
+        document.getElementById('outcome-text').innerHTML += ` The computer has ran out of dice so you have
+        won the game! Well done.`
+        console.log('why is this not working?');
+        document.getElementById('next-turn').innerText = 'Start New Game';
+    }
 }
 
 function createOpponentResponse() {
@@ -331,6 +373,10 @@ function updateBetOptions(){
     pipSelector.value = "";
     // Add new quantity selector options
     let quantity = parseInt(currentBet.getAttribute("quantity"));
+    // If first turn of game, don't add an option for one die
+    if (quantity == 0) {
+        quantity = 1;
+    }
     for (i = 1; i <= 5; i++) {
         let newOption = document.createElement('option');
         newOption.value = quantity + i;
@@ -347,8 +393,6 @@ function revealDice() {
 }
 
 function handleNextTurn() {
-    populateHand('player-hand', document.getElementById('player-hand').getAttribute('dice'));
-    populateHand('opponent-hand', document.getElementById('opponent-hand').getAttribute('dice'));
     updateComputerResponse("");
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
@@ -356,8 +400,15 @@ function handleNextTurn() {
     document.getElementById('next-turn').disabled = true;
     document.getElementById('outcome-text').innerHTML = "";
     let currentBet = document.getElementById('current-bet');
-    currentBet.innerHTML = "Current Bet: None";
-    currentBet.setAttribute('quantity', 0);
-    currentBet.setAttribute('pips', 0);
+    // If either player's hand is empty, restart the game
+    let playerHand = document.getElementById('player-hand');
+    let opponentHand = document.getElementById('opponent-hand');
+    if (opponentHand.getAttribute('dice') <= 0 || playerHand.getAttribute('dice') <= 0) {
+        startNewGame();
+        return;
+    }
+    updateCurrentBet(null);
     updateBetOptions();
+    populateHand('player-hand', playerHand.getAttribute('dice'));
+    populateHand('opponent-hand', opponentHand.getAttribute('dice'));
 }
