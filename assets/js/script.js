@@ -63,7 +63,11 @@ function startNewGame() {
 function updateCurrentBet(bet) {
     currentBet = document.getElementById('current-bet');
     if (bet) {
-        currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} pips`;
+        let pipGrammar = 'pips';
+        if (bet.pips == 1) {
+            pipGrammar = 'pip';
+        }
+        currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}`;
         // Update current bet attributes so quantity and pips easily accessible
         currentBet.setAttribute("quantity", bet.quantity)
         currentBet.setAttribute("pips", bet.pips);
@@ -252,6 +256,8 @@ function callGame(caller) {
                 There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
                 ${outcomeTextPhrasing[1]} on the board. You lost the round.`;
             }
+            // Set the last winner to opponent
+            currentBet.setAttribute('last-winner', 'opponent');
             // Decrement player's hand by one die
             playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
             console.log(playerHand.getAttribute('dice'));
@@ -265,7 +271,9 @@ function callGame(caller) {
                 document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
                 There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
                 ${outcomeTextPhrasing[1]} on the board. You won the round.`;               
-            }   
+            }
+            // Set the last winner to player
+            currentBet.setAttribute('last-winner', 'player');
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
             console.log(opponentHand.getAttribute('dice'));
@@ -283,7 +291,10 @@ function callGame(caller) {
                 document.getElementById('outcome-text').innerHTML = `You called and you were right! 
                 There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
                 ${outcomeTextPhrasing[1]} on the board. You won the round.`;
+
             }
+            // Set the last winner to player
+            currentBet.setAttribute('last-winner', 'player');
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
             console.log(opponentHand.getAttribute('dice'));
@@ -298,6 +309,8 @@ function callGame(caller) {
                 There was a quantity of ${quantity} ${outcomeTextPhrasing[0]} with ${currentBet.getAttribute('pips')}
                 ${outcomeTextPhrasing[1]} on the board. You lost the round.`;    
             } 
+            // Set the last winner to opponent
+            currentBet.setAttribute('last-winner', 'opponent');
             // Decrement player's hand by one die
             playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
             console.log(playerHand.getAttribute('dice'));
@@ -331,6 +344,8 @@ function createOpponentResponse() {
     let currentBet = document.getElementById('current-bet');
     // Make computer more likely to call game if quantity of dice is higher
     randomNumTwo -= (parseInt(currentBet.getAttribute('quantity'))*0.5) / 10
+    // If opponent is playing first, make the chance of calling zero
+    randomNumTwo = 1;
     // If quantity of dice is already 12 or higher, call the game.
     if (parseInt(currentBet.getAttribute('quantity')) >= 12) {
         callGame('opponent')
@@ -339,11 +354,15 @@ function createOpponentResponse() {
         callGame('opponent');
     } else {
         let newBet = new Bet(0, 0);
-        currentBet = document.getElementById('current-bet');
+        currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
+        // If opponent is betting first, then bet at least two
+        if (currentQuantity == 0) {
+            currentQuantity++;
+        }
         if (randomNum < 0.8) {
-            newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 1;
+            newBet.quantity = parseInt(currentQuantity) + 1;
         } else {
-            newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 2;
+            newBet.quantity = parseInt(currentQuantity) + 2;
         }
         newBet.pips = generateDiceNumber();
         updateCurrentBet(newBet);
@@ -399,16 +418,19 @@ function handleNextTurn() {
     document.getElementById('pip-selector').disabled = false;
     document.getElementById('next-turn').disabled = true;
     document.getElementById('outcome-text').innerHTML = "";
-    let currentBet = document.getElementById('current-bet');
-    // If either player's hand is empty, restart the game
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
+    // If either player's hand is empty, restart the game
     if (opponentHand.getAttribute('dice') <= 0 || playerHand.getAttribute('dice') <= 0) {
         startNewGame();
         return;
     }
     updateCurrentBet(null);
-    updateBetOptions();
     populateHand('player-hand', playerHand.getAttribute('dice'));
     populateHand('opponent-hand', opponentHand.getAttribute('dice'));
+    if (document.getElementById('current-bet').getAttribute('last-winner') == 'opponent') {
+        createOpponentResponse();
+        document.getElementById('call-button').disabled = false;
+    }
+    updateBetOptions();
 }
