@@ -33,7 +33,7 @@
         </nav>
     </header>
    <!-- Main page -->
-    <main>
+    <main id="game">
         <div id="player-board">
             <h2>Your Dice</h2>
             <div dice='6' id="player-hand">
@@ -66,6 +66,7 @@
             </form>
         </div>
         <hr class="mobile-hr">
+        <!-- <hr class="widescreen-hr"> -->
         <div id="game-status" >
             <p last-winner="" id="current-bet" class="game-text" quantity="0" pips="0">Current Bet: </p>
             <br>
@@ -73,11 +74,12 @@
             <button disabled class="option-button" id="next-turn">Next turn</button>
         </div>
         <hr class="mobile-hr">
+        <!-- <hr class="widescreen-hr"> -->
         <div id="opponent-board">
             <h2>Computer's Dice</h2>
             <div dice='6' id="opponent-hand">
             </div>
-            <p id="computer-response" class="game-text"></p>
+            <p id="computer-response" class="game-text">Computer is awaiting your move.</p>
         </div>
     </main>
    <!-- Footer page -->

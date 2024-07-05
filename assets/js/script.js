@@ -9,13 +9,15 @@ class Bet {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    accountForHeader();
     // Find current page and assign to fileName
     let path = window.location.pathname;
     let fileName = path.substring(path.lastIndexOf('/') + 1);
     // If current page 'play.html', start game
     if (fileName === 'play.html') {
         startNewGame();
+        accountForHeader('play.html');
+    } else {
+        accountForHeader('index.html');
     }
     // Add event listener to bet form submit button
     let betForm = document.getElementById('bet-form');
@@ -36,11 +38,17 @@ addEventListener("resize", accountForHeader);
 /**
  * Adjusts the offset of the main section of the page to account
  * for different header sizes on different devices.
- * Runs when the page first loads
+ * Runs when the page first loads.
+ * On play.html, gives extra padding-top.
+ * @param {string} page The page being loaded
  */
-function accountForHeader() {
+function accountForHeader(page) {
     let height = document.getElementsByTagName('header')[0].offsetHeight;
-    height += 15;
+    if (page === 'play.html') {
+        height += 50;
+    } else {
+        height += 15;
+    }
     document.getElementsByTagName('main')[0].style.paddingTop = `${height}px`;
 }
 
@@ -53,6 +61,7 @@ function startNewGame() {
     populateHand('opponent-hand', 6);
     updateCurrentBet(null);
     updateBetOptions();
+    document.getElementById('next-turn').textContent = 'Next turn';
 }
 
 /**
@@ -85,6 +94,7 @@ function updateCurrentBet(bet) {
  */
 function populateHand(hand, dieNumber) {
     let myHand = document.getElementById(hand);
+    myHand.setAttribute('dice', dieNumber);
     // If any dice currently in hand, then remove them
     myHand.innerHTML = "";
     // Generate dice
@@ -144,7 +154,6 @@ function handleBet(event) {
     if (callButton.disabled) {
         callButton.disabled = false;
     }
-    console.log("handling bet");
     // Stops default submit action
     event.preventDefault();
     // Retrieves 'quantity' and 'pips' from bet form
@@ -204,6 +213,23 @@ function handlePipChange(){
     }
 }
 
+function returnDiceArray(hand) {
+    let totalPips = [];
+    if (hand === "player-hand" || hand === "both") {
+        let playerHand = document.getElementById('player-hand');
+        for (let die of playerHand.children) {
+            totalPips.push(die.getAttribute('pips'));
+        }
+    }
+    if (hand === "opponent-hand" || hand === "both") {
+        let opponentHand = document.getElementById('opponent-hand');
+        for (let die of opponentHand.children) {
+            totalPips.push(die.getAttribute('pips'));
+        }
+    }
+    return totalPips;
+}
+
 /**
  * 'Calls' the game, revealing all dice and the winner of the round.
  * @param {string} caller Either 'player' or 'opponent', the player who called the game.
@@ -218,13 +244,7 @@ function callGame(caller) {
     // Check if the the bet was correct
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
-    let totalPips = [];
-    for (let die of playerHand.children) {
-        totalPips.push(die.getAttribute('pips'));
-    }
-    for (let die of opponentHand.children) {
-        totalPips.push(die.getAttribute('pips'));
-    } 
+    let totalPips = returnDiceArray("both");
     let currentBet = document.getElementById('current-bet');
     let quantity = 0;
     for (let pip of totalPips) {
@@ -343,7 +363,7 @@ function createOpponentResponse() {
     let randomNumTwo = Math.random();
     let currentBet = document.getElementById('current-bet');
     // Make computer more likely to call game if quantity of dice is higher
-    randomNumTwo -= (parseInt(currentBet.getAttribute('quantity'))*0.5) / 10
+    randomNumTwo -= (parseInt(currentBet.getAttribute('quantity'))*0.65) / 10
     // If opponent is playing first, make the chance of calling zero
     randomNumTwo = 1;
     // If quantity of dice is already 12 or higher, call the game.
@@ -353,18 +373,52 @@ function createOpponentResponse() {
     } else if ( randomNumTwo < 0.15) {
         callGame('opponent');
     } else {
+        // Make bet
         let newBet = new Bet(0, 0);
         currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
         // If opponent is betting first, then bet at least two
         if (currentQuantity == 0) {
             currentQuantity++;
         }
-        if (randomNum < 0.8) {
+        if (randomNum < 0.9) {
             newBet.quantity = parseInt(currentQuantity) + 1;
         } else {
             newBet.quantity = parseInt(currentQuantity) + 2;
         }
-        newBet.pips = generateDiceNumber();
+        let opponentDice = returnDiceArray('opponent-hand');
+        let pipOptions = [1, 2, 3, 4, 5, 6];
+        let pipObject = {}
+        for (let option of pipOptions) {
+            let count = 0;
+            for (let pips of opponentDice) {
+                if (option == pips) {
+                    count += 1;
+                }
+            }
+            pipObject[option] = count;
+        }
+        let highest = [0, 0];
+        for (const [key, value] of Object.entries(pipObject)) {
+            if (value > highest[1]) {
+                highest[1] = value;
+                highest[0] = key;
+            } else if (value == highest[1]) {
+                if (Math.random() > 0.5) {
+                    highest[1] = value;
+                    highest[0] = key;
+                }
+            }
+        }
+        if (Math.random() < 0.22) {
+            newBet.pips = generateDiceNumber();
+        } else {
+            newBet.pips = highest[0];
+        }
+        if (newBet.pips > currentBet.getAttribute('pips')) {
+            if (Math.random < 0.72) {
+                newBet.quantity -= 1;
+            }
+        }
         updateCurrentBet(newBet);
         updateComputerResponse(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
     }
@@ -412,7 +466,7 @@ function revealDice() {
 }
 
 function handleNextTurn() {
-    updateComputerResponse("");
+    updateComputerResponse("The computer is awaiting your move.");
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
     document.getElementById('pip-selector').disabled = false;

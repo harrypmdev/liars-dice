@@ -217,6 +217,10 @@ hr::after {
     display: none;
 }
 
+.widescreen-hr {
+    display:none;
+}
+
 #bet-button {
     background-color: #30bf56;
 }
@@ -381,8 +385,32 @@ footer iframe {
         display:none;
     }
 
-    .widescreen-vr {
-        display:none;
+    .widescreen-hr {
+        display: inline-block;
+        width: 1px;
+        heigth: 80%;
+    }
+
+    #player-board {
+        width: 40%;
+    }
+
+    #game-status {
+        width: 20%;
+        margin: auto;
+    }
+
+    #opponent-board {
+        width: 40%;
+    }
+
+    #next-turn {
+        margin-top: 15px;
+    }
+
+    #game {
+        display: flex;
+        flex-direction: row;
     }
 }
 
