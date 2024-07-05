@@ -228,6 +228,26 @@ hr::after {
     background-color: #a34433;
 
 }
+
+#game-status {
+    text-align: center;
+}
+
+#next-turn {
+    background-color: #ffb64f;
+}
+
+#next-turn:hover {
+    cursor: pointer;
+    background-color: #1c0950;
+}
+
+#next-turn:disabled {
+    margin: 15px 5px;
+    background-color: #dadbdd;
+    cursor: default;
+}
+
 .option-button {
     padding: 12px 20px;
     margin: 10px;

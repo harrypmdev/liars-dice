@@ -84,7 +84,7 @@ function populateHand(hand) {
         newDice.style.height = 'auto';
         newDice.style.objectFit = 'contain';
         /* If player's hand, assign dice face images as per dice number.
-        If opponent's hand, assign all dices faces to unknown dice face image. */
+        If opponent's hand, assign all dice faces to unknown dice face image. */
         switch (hand) {
             case 'player-hand':
                 newDice.src = getDiceImage(diceNumber);
@@ -192,11 +192,63 @@ function handlePipChange(){
  * @param {string} caller Either 'player' or 'opponent', the player who called the game.
  */
 function callGame(caller) {
+    // Reveal the opponent's dice
     revealDice();
+    // If the computer called the game, put out a message from the computer
     if (caller === 'opponent') {
         updateComputerResponse('The computer has called!');
     }
+    // Check if the the bet was correct
+    let playerHand = document.getElementById('player-hand');
+    let opponentHand = document.getElementById('opponent-hand');
+    let totalPips = [];
+    for (let die of playerHand.children) {
+        totalPips.push(die.getAttribute('pips'));
+    }
+    for (let die of opponentHand.children) {
+        totalPips.push(die.getAttribute('pips'));
+    } 
+    let currentBet = document.getElementById('current-bet');
+    let quantity = 0;
+    for (let pip of totalPips) {
+        if (pip == currentBet.getAttribute('pips')) {
+            quantity += 1;
+        }
+    }
+    console.log("quantity: " + parseInt(quantity));
+    // If bet is correct
+    if ((currentBet.getAttribute('quantity') - quantity) <= 0) {
+        // If player called, they have lost the round
+        if (caller === 'player') {
+            document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You lost the round.`;
+            // Decrement player's hand by one die
+            playerHand.dice--;
+        // If opponent called, the player has won the round
+        } else {
+            document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You won the round.`;    
+            // Decrement opponent's hand by one die
+            opponentHand.dice--;
 
+        }
+    // If bet is incorrect
+    } else {
+        // If player called, they have won the round
+        if (caller === 'player') {
+            document.getElementById('outcome-text').innerHTML = `You called and you were right! 
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You won the round.`;
+            // Decrement opponent's hand by one die
+            opponentHand.dice--;
+        // If opponent called, the player has lost the round
+        } else {
+            document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You lost the round.`;    
+            // Decrement player's hand by one die
+            playerHand.dice--;
+        }
+    }
+    document.getElementById('next-turn').disabled = false;
 }
 
 function createOpponentResponse() {
@@ -259,7 +311,7 @@ function updateBetOptions(){
 
 function revealDice() {
     let opponentHand = document.getElementById('opponent-hand');
-    for (let child of opponentHand.children) {
-        child.src = getDiceImage(child.getAttribute('pips'))
+    for (let die of opponentHand.children) {
+        die.src = getDiceImage(die.getAttribute('pips'))
     }
 }

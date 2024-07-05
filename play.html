@@ -36,7 +36,7 @@
     <main>
         <div id="player-board">
             <h2>Your Dice</h2>
-            <div id="player-hand">
+            <div dice = '6' id="player-hand">
             </div>
             <form class="game-text" id="bet-form" action="">
                 <p>I bet a <label for="quantity-selector">quantity</label> of </p>
@@ -64,13 +64,16 @@
                 <p class="bold">OR</p>
                 <button class="option-button" type="button" id="call-button">Call</button>
             </form>
-            <br>
+        </div>
+        <div id="game-status" >
             <p id="current-bet" class="game-text" quantity="0" pips="0">Current Bet: </p>
+            <p class="game-text" id="outcome-text"></p>
+            <button disabled class="option-button" id="next-turn">Next turn</button>
         </div>
         <hr>
         <div id="opponent-board">
             <h2>Computer's Dice</h2>
-            <div id="opponent-hand">
+            <div dice = '6' id="opponent-hand">
             </div>
             <p id="computer-response" class="game-text"></p>
         </div>
