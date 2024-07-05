@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add event listener to bet form submit button
     let betForm = document.getElementById('bet-form');
     betForm.addEventListener('submit', handleBet);
+    // Add event listener to bet form call button
+    let callButton = document.getElementById('call-button');
+    callButton.addEventListener('click', () => {callGame('player')});
     // Add event listener to bet form pip selector
     let pipSelector = document.getElementById('pip-selector');
     pipSelector.addEventListener('change', handlePipChange)
@@ -184,21 +187,36 @@ function handlePipChange(){
     }
 }
 
-function callGame() {
-    updateComputerResponse('The computer has called!');
+/**
+ * 'Calls' the game, revealing all dice and the winner of the round.
+ * @param {string} caller Either 'player' or 'opponent', the player who called the game.
+ */
+function callGame(caller) {
     revealDice();
+    if (caller === 'opponent') {
+        updateComputerResponse('The computer has called!');
+    }
+
 }
 
 function createOpponentResponse() {
     // Create random number from which to generate bet response
     let randomNum = Math.random();
     // Choose randomly whether to 'call' or bet
-    if (Math.random() < 0.3) {
-        callGame();
+    let randomNumTwo = Math.random();
+    let currentBet = document.getElementById('current-bet');
+    // Make computer more likely to call game if quantity of dice is higher
+    randomNumTwo -= (parseInt(currentBet.getAttribute('quantity'))*0.5) / 10
+    // If quantity of dice is already 12 or higher, call the game.
+    if (parseInt(currentBet.getAttribute('quantity')) >= 12) {
+        callGame('opponent')
+    // Otherwise, randomly call or bet
+    } else if ( randomNumTwo < 0.15) {
+        callGame('opponent');
     } else {
         let newBet = new Bet(0, 0);
         currentBet = document.getElementById('current-bet');
-        if (randomNum < 0.7) {
+        if (randomNum < 0.8) {
             newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 1;
         } else {
             newBet.quantity = parseInt(currentBet.getAttribute("quantity")) + 2;

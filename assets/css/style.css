@@ -221,23 +221,27 @@ hr::after {
 }
 
 #bet-button {
-    padding: 12px 20px;
-    margin: 10px;
     background-color: #30bf56;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.25rem;
 }
 
 #call-button {
+    background-color: #a34433;
+
+}
+.option-button {
     padding: 12px 20px;
     margin: 10px;
-    background-color: #a34433;
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 1.25rem;
+    transition: background ease-in-out 0.3s;
+}
+
+/* Hover effect for bet and call buttons, done by ID rather than class for specificity reasons*/
+#bet-button:hover, #call-button:hover{
+    background: #1c0950;
+    cursor: pointer;
 }
 
 #player-hand, #opponent-hand {
