@@ -195,9 +195,6 @@ hr::after {
 }
 
 /* Liar's Dice Game */
-#player-board {
-
-}
 
 #player-board h2, #opponent-board h2 {
     text-align: center;
@@ -377,6 +374,15 @@ footer iframe {
     #dice-image {
         width: 40%;
         margin-right: 40px;
+    }
+
+    /* Liar's Dice Game */
+    .mobile-hr {
+        display:none;
+    }
+
+    .widescreen-vr {
+        display:none;
     }
 }
 
