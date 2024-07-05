@@ -216,18 +216,23 @@ function callGame(caller) {
         }
     }
     console.log("quantity: " + parseInt(quantity));
+    // Determine whether the outcome text should say 'pip' or 'pips'
+    let outcomeTextPhrasing = "pips";
+    if (currentBet.getAttribute('pips') == 1) {
+        outcomeTextPhrasing = "pip";
+    }
     // If bet is correct
     if ((currentBet.getAttribute('quantity') - quantity) <= 0) {
         // If player called, they have lost the round
         if (caller === 'player') {
             document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
-            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You lost the round.`;
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} ${outcomeTextPhrasing} on the board. You lost the round.`;
             // Decrement player's hand by one die
             playerHand.dice--;
         // If opponent called, the player has won the round
         } else {
             document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
-            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You won the round.`;    
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} ${outcomeTextPhrasing} on the board. You won the round.`;    
             // Decrement opponent's hand by one die
             opponentHand.dice--;
 
@@ -237,17 +242,21 @@ function callGame(caller) {
         // If player called, they have won the round
         if (caller === 'player') {
             document.getElementById('outcome-text').innerHTML = `You called and you were right! 
-            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You won the round.`;
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} ${outcomeTextPhrasing} on the board. You won the round.`;
             // Decrement opponent's hand by one die
             opponentHand.dice--;
         // If opponent called, the player has lost the round
         } else {
             document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
-            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} pips on the board. You lost the round.`;    
+            There was a quantity of ${quantity} dice with ${currentBet.getAttribute('pips')} ${outcomeTextPhrasing} on the board. You lost the round.`;    
             // Decrement player's hand by one die
             playerHand.dice--;
         }
     }
+    document.getElementById('bet-button').disabled = true;
+    document.getElementById('call-button').disabled = true;
+    document.getElementById('quantity-selector').disabled = true;
+    document.getElementById('pip-selector').disabled = true;
     document.getElementById('next-turn').disabled = false;
 }
 

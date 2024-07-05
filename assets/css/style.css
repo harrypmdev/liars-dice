@@ -234,7 +234,7 @@ hr::after {
 }
 
 #next-turn {
-    background-color: #ffb64f;
+    background-color: #eba84b;
 }
 
 #next-turn:hover {
@@ -262,6 +262,11 @@ hr::after {
 #bet-button:hover, #call-button:hover{
     background: #1c0950;
     cursor: pointer;
+}
+
+#bet-button:disabled, #call-button:disabled {
+    cursor: default;
+    background-color: #dadbdd;
 }
 
 #player-hand, #opponent-hand {
