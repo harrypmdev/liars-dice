@@ -14,23 +14,24 @@ document.addEventListener("DOMContentLoaded", function() {
     let fileName = path.substring(path.lastIndexOf('/') + 1);
     // If current page 'play.html', start game
     if (fileName === 'play.html') {
-        startNewGame();
         accountForHeader('play.html');
+        // Add event listener to bet form submit button
+        let betForm = document.getElementById('bet-form');
+        betForm.addEventListener('submit', handleBet);
+        // Add event listener to bet form call button
+        let callButton = document.getElementById('call-button');
+        callButton.addEventListener('click', () => {callGame('player')});
+        // Add event listener to next turn button
+        let nextTurn = document.getElementById('next-turn');
+        nextTurn.addEventListener('click', handleNextTurn);
+        // Add event listener to bet form pip selector
+        let pipSelector = document.getElementById('pip-selector');
+        pipSelector.addEventListener('change', handlePipChange)
+        // Start game
+        startNewGame();
     } else {
         accountForHeader('index.html');
     }
-    // Add event listener to bet form submit button
-    let betForm = document.getElementById('bet-form');
-    betForm.addEventListener('submit', handleBet);
-    // Add event listener to bet form call button
-    let callButton = document.getElementById('call-button');
-    callButton.addEventListener('click', () => {callGame('player')});
-    // Add event listener to next turn button
-    let nextTurn = document.getElementById('next-turn');
-    nextTurn.addEventListener('click', handleNextTurn);
-    // Add event listener to bet form pip selector
-    let pipSelector = document.getElementById('pip-selector');
-    pipSelector.addEventListener('change', handlePipChange)
 });
 
 addEventListener("resize", accountForHeader);
@@ -44,7 +45,8 @@ addEventListener("resize", accountForHeader);
  */
 function accountForHeader(page) {
     let height = document.getElementsByTagName('header')[0].offsetHeight;
-    if (page === 'play.html') {
+    console.log(window.screen.width);
+    if (page === 'play.html' && window.screen.width >= 768) {
         height += 50;
     } else {
         height += 15;
