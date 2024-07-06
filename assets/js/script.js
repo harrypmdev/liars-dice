@@ -1,13 +1,20 @@
-/**
- * 
+ /**
+ * A class for bets to simplify the game's data
+ * @class
  */
 class Bet {
+    /**
+     * Create a bet
+     * @param {number} quantity The quantity of dice being bet
+     * @param {number} pips The number of pips being bet
+     */
     constructor(quantity, pips) {
         this.quantity = quantity;
         this.pips = pips;
     }
 }
 
+/* Runs when the page is loaded */
 document.addEventListener("DOMContentLoaded", function() {
     // Find current page and assign to fileName
     let path = window.location.pathname;
@@ -344,7 +351,8 @@ function callGame(caller) {
 
 /**
  * Checks the hands to see if either has ran out of dice.
- * If so, ends the game.
+ * If so, outputs the end game message and updates the 'next turn'
+ * button to 'Start New Game'.
  */
 function checkForGameFinish() {
     // If the result of this call means the player has ran out of dice
@@ -364,7 +372,7 @@ function checkForGameFinish() {
 
 /**
  * Ends the turn.
- * Disables the bet form, and enables the 'next turn' button.
+ * Reveals the opponent's dice, disables the bet form, and enables the 'next turn' button.
  */
 function endTurn(){
     // Reveal the opponent's dice
@@ -378,6 +386,9 @@ function endTurn(){
     document.getElementById('next-turn').disabled = false;
 }
 
+/**
+ * Create a bet from the opponent
+ */
 function createOpponentResponse() {
     // Create random number from which to generate bet response
     let randomNum = Math.random();
@@ -480,6 +491,9 @@ function updateBetOptions(){
     }
 }
 
+/** 
+ * Reveal the opponent's dice 
+ */
 function revealDice() {
     let opponentHand = document.getElementById('opponent-hand');
     for (let die of opponentHand.children) {
@@ -487,23 +501,32 @@ function revealDice() {
     }
 }
 
+/**
+ * Handles the next turn button
+ */
 function handleNextTurn() {
     updateComputerResponse("The computer is awaiting your move.");
+    // Enable the bet form
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
     document.getElementById('pip-selector').disabled = false;
+    // Disable the 'next turn' button
     document.getElementById('next-turn').disabled = true;
+    // Remove outcome text
     document.getElementById('outcome-text').innerHTML = "";
+    // If either player's hand is empty, restart the game
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
-    // If either player's hand is empty, restart the game
     if (opponentHand.getAttribute('dice') <= 0 || playerHand.getAttribute('dice') <= 0) {
         startNewGame();
         return;
     }
+    // Reset current bet
     updateCurrentBet(null);
+    // Populate hands with updated dice count
     populateHand('player-hand', playerHand.getAttribute('dice'));
     populateHand('opponent-hand', opponentHand.getAttribute('dice'));
+    // Starts new round with opponent bet if player lost the last round
     if (document.getElementById('current-bet').getAttribute('last-winner') == 'opponent') {
         createOpponentResponse();
         document.getElementById('call-button').disabled = false;
