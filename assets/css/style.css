@@ -5,6 +5,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: "DM Sans";
     color: #111827;
@@ -104,7 +108,7 @@ nav {
 /* Main page */
 main {
     background-color: #f3f4f6;
-    /* 82px padding-top to account for fixed header and bottom padding to space out content from footer */
+    /* 82px is default padding to account for header, script.js will change to specific value */
     padding: 82px 0 60px 0;
     /* Child flex properties to fill all page space */
     flex: 1 0 auto;
@@ -185,6 +189,7 @@ hr::after {
     margin: 10px 0 30px 0;
     font-size: 1.6rem;
     text-align: center;
+    scroll-margin: 155px;
 }
 
 .center-paragraph {
@@ -195,7 +200,6 @@ hr::after {
 }
 
 /* Liar's Dice Game */
-
 #player-board h2, #opponent-board h2 {
     text-align: center;
     text-decoration: underline;
@@ -238,15 +242,9 @@ hr::after {
     background-color: #eba84b;
 }
 
-#next-turn:hover {
-    cursor: pointer;
-    background-color: #1c0950;
-}
-
 #next-turn:disabled {
-    margin: 15px 5px;
-    background-color: #dadbdd;
-    cursor: default;
+    background-color: #dadbdd !important;
+    cursor: default !important;
 }
 
 .option-button {
@@ -260,14 +258,10 @@ hr::after {
 }
 
 /* Hover effect for bet and call buttons, done by ID rather than class for specificity reasons*/
-#bet-button:hover, #call-button:hover{
-    background: #1c0950;
-    cursor: pointer;
-}
 
 #bet-button:disabled, #call-button:disabled {
-    cursor: default;
-    background-color: #dadbdd;
+    cursor: default !important;
+    background-color: #dadbdd !important;
 }
 
 #player-hand, #opponent-hand {
@@ -385,10 +379,9 @@ footer iframe {
         display:none;
     }
 
-    .widescreen-hr {
-        display: inline-block;
-        width: 1px;
-        heigth: 80%;
+    #game {
+        display: flex;
+        flex-direction: row;
     }
 
     #player-board {
@@ -408,14 +401,18 @@ footer iframe {
         margin-top: 15px;
     }
 
-    #game {
-        display: flex;
-        flex-direction: row;
-    }
 }
 
 /* Media query - laptops and larger (1028px) */
 @media screen and (min-width:1028px) {
-  
     
+    #bet-button:hover, #call-button:hover{
+        background: #1c0950;
+        cursor: pointer;
+    }
+
+    #next-turn:hover {
+        cursor: pointer;
+        background-color: #1c0950;
+    }
 }
