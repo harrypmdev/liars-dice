@@ -41,16 +41,6 @@ header {
     justify-content: space-between;
 }
 
-#logo {
-    /* Hide dice logo */
-    display: none;
-}
-
-#toggle-navbar {
-    /* Hide burger checkbox */
-    display: none;
-}
-
 #toggle-navbar:checked~nav {
     /* Display nav dropdown if burger is clicked */
     display: block;
@@ -221,6 +211,10 @@ hr::after {
     /* Make the bet form appear as one continuous sentence */
     margin: 0;
     display: inline;
+}
+
+.hide {
+    display: none;
 }
 
 .option-button {
