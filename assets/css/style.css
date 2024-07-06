@@ -41,18 +41,18 @@ header {
     justify-content: space-between;
 }
 
-/* Hide dice logo */
 #logo {
+    /* Hide dice logo */
     display: none;
 }
 
-/* Hide burger checkbox */
 #toggle-navbar {
+    /* Hide burger checkbox */
     display: none;
 }
 
-/* Display nav dropdown if burger is clicked */
 #toggle-navbar:checked~nav {
+    /* Display nav dropdown if burger is clicked */
     display: block;
 }
 
@@ -87,20 +87,10 @@ nav {
     width: 100%;
     padding: 0.3em 1.5em;
     display: block;
-    transition: background 1.5s ease, font-size 1.5s ease;
-}
-
-#menu li:not(:last-child) {
-    /* Add border lines separating navbar options */
-    border-bottom: 1.2px #1f1f1f solid;
-}
-
-#menu a:hover:not(.active) {
-    /* Hover styling for navbar links except current page*/
-    background: rgba(0, 0, 0, 0.2);
 }
 
 .active {
+    /* Make the current page appear 'selected' */
     background-color: #1f1f1f;
     color: white;
 }
@@ -129,8 +119,8 @@ hr {
     margin: 40px auto;
   }
 
-/* Pseudo-element to add dice image to all horizontal rule elements */
 hr::after {
+    /* Adds dice image to all horizontal rule elements */
     content: url('../images/dice-logo.webp');
     position: relative;
     top: -27px;
@@ -141,12 +131,14 @@ hr::after {
 
 /* Intro box */
 #intro-box {
+    /* Parent flex properties */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #play-box {
+    /* Parent flex properties */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -157,24 +149,20 @@ hr::after {
     margin: 20px 0;
 }
 
-#buttons {
+#intro-button-box {
+    /* Parent flex properties */
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-#buttons a {
+#intro-button-box a {
     padding: 15px;
     margin: 15px;
     font-size: 1.3rem;
     border: solid #111827 2px;
     border-radius: 5px;
     width: fit-content;
-    transition: opacity ease-in 0.4s;
-}
-
-#buttons a:hover {
-    opacity: 0.6;
 }
 
 #dice-image {
@@ -184,7 +172,7 @@ hr::after {
     border-radius: 5px;
 }
 
-/* Rules and about */
+/* Rules and about the club */
 .section-header {
     margin: 10px 0 30px 0;
     font-size: 1.6rem;
@@ -200,6 +188,23 @@ hr::after {
 }
 
 /* Liar's Dice Game */
+#player-hand, #opponent-hand {
+    width: 80%;
+    border-radius: 5px;
+    background-color: #dadbdd;
+    align-self: center;
+    margin: 20px auto;
+    box-shadow: 1px 1px 3px #111827 inset;
+    /* Parent flex properties */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#game-status {
+    text-align: center;
+}
+
 #player-board h2, #opponent-board h2 {
     text-align: center;
     text-decoration: underline;
@@ -213,16 +218,26 @@ hr::after {
 }
 
 .game-text > * {
+    /* Make the bet form appear as one continuous sentence */
     margin: 0;
     display: inline;
 }
 
-.game-text > .hide {
-    display: none;
+.option-button {
+    /* Styling for both 'bet' and 'call' buttons */
+    padding: 12px 20px;
+    margin: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    transition: background ease-in-out 0.3s;
 }
 
-.widescreen-hr {
-    display:none;
+.option-button:disabled, #next-turn:disabled {
+    /* Make disabled buttons appear 'greyed out' */
+    cursor: default !important;
+    background-color: #dadbdd !important;
 }
 
 #bet-button {
@@ -234,47 +249,9 @@ hr::after {
 
 }
 
-#game-status {
-    text-align: center;
-}
-
 #next-turn {
+    margin-top: 18px;
     background-color: #eba84b;
-}
-
-#next-turn:disabled {
-    background-color: #dadbdd !important;
-    cursor: default !important;
-}
-
-.option-button {
-    padding: 12px 20px;
-    margin: 10px;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1.25rem;
-    transition: background ease-in-out 0.3s;
-}
-
-/* Hover effect for bet and call buttons, done by ID rather than class for specificity reasons*/
-
-#bet-button:disabled, #call-button:disabled {
-    cursor: default !important;
-    background-color: #dadbdd !important;
-}
-
-#player-hand, #opponent-hand {
-    width: 80%;
-    border-radius: 5px;
-    background-color: #dadbdd;
-    align-self: center;
-    margin: 20px auto;
-    box-shadow: 1px 1px 3px #111827 inset;
-    /* Parent flex properties */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
 }
 
 /* Footer */
@@ -291,12 +268,13 @@ footer {
 }
 
 footer iframe {
+    /* Set map to full width on mobile */
     width: 100%;
     flex: 1;
 }
 
 .footer-paragraph {
-    flex:1;
+    flex: 1;
     text-align: center;
     font-size: 1.35rem;
     line-height: 35px;
@@ -314,6 +292,7 @@ footer iframe {
     }
 
     #logo {
+        /* Display logo */
         display: inline-block;
         margin-left: 20px;
         transform: rotate(45deg);
@@ -321,6 +300,7 @@ footer iframe {
 
     /* Navbar */
     nav {
+        /* Display navbar by default */
         display: block;
         position: relative;
         width: fit-content;
@@ -331,22 +311,12 @@ footer iframe {
 
     #menu li {
         text-align: center;
+        /* Make menu display horizontally */
         display: inline-block;
     }
 
-    #menu a {
-        border-radius: 20px;
-    }
-
-    #menu li:not(:last-child) {
-        border-bottom: none;
-    }
-
-    #menu a:hover {
-        background-color: rgba(0, 0, 0, 0.2);
-    }
-
     .active {
+        /* Add underline to current page */
         background-color: transparent;
         color: #111827;
         text-decoration: underline #111827;
@@ -354,6 +324,7 @@ footer iframe {
     }
 
     #burger {
+        /* Hide burger */
         display: none;
     }
 
@@ -376,6 +347,7 @@ footer iframe {
 
     /* Liar's Dice Game */
     .mobile-hr {
+        /* Hide hr elements */
         display:none;
     }
 
@@ -396,16 +368,21 @@ footer iframe {
     #opponent-board {
         width: 40%;
     }
-
-    #next-turn {
-        margin-top: 15px;
-    }
-
 }
 
 /* Media query - laptops and larger (1028px) */
 @media screen and (min-width:1028px) {
     
+    /* Add hover effects */
+    #menu a {
+        border-radius: 20px;
+        transition: background 1.5s ease, font-size 1.5s ease;
+    }
+
+    #menu a:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
     #bet-button:hover, #call-button:hover{
         background: #1c0950;
         cursor: pointer;
@@ -414,5 +391,13 @@ footer iframe {
     #next-turn:hover {
         cursor: pointer;
         background-color: #1c0950;
+    }
+    
+    #intro-button-box a {
+        transition: opacity ease-in 0.4s;
+    }
+
+    #intro-button-box a:hover {
+        opacity: 0.6;
     }
 }
