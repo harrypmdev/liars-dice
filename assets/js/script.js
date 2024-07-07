@@ -390,20 +390,23 @@ function endTurn(){
  * Create a bet from the opponent
  */
 function createOpponentResponse() {
+    // Variables that determine the opponent's response style
+    let scepticism = 0.46 // How likely the computer is to 'call' - (0 is never, 1 is very likely)
     // Create random number from which to generate bet response
     let randomNum = Math.random();
     // Choose randomly whether to 'call' or bet
     let randomNumTwo = Math.random();
     let currentBet = document.getElementById('current-bet');
     // Make computer more likely to call game if quantity of dice is higher
-    randomNumTwo -= (parseInt(currentBet.getAttribute('quantity'))*0.65) / 10
+    if (currentBet.getAttribute('quantity') > 2) {
+        randomNumTwo += (currentBet.getAttribute('quantity')-2) * scepticism/3;
+    }
     // If opponent is playing first, make the chance of calling zero
-    randomNumTwo = 1;
-    // If quantity of dice is already 12 or higher, call the game.
-    if (parseInt(currentBet.getAttribute('quantity')) >= 12) {
-        callGame('opponent')
-    // Otherwise, randomly call or bet
-    } else if ( randomNumTwo < 0.15) {
+    if (currentBet.getAttribute('last-winner') === "opponent") {
+        randomNumTwo = 0;
+    }
+    // Randomly call or bet
+    if ( randomNumTwo > 0.85) {
         callGame('opponent');
     } else {
         // Make bet
