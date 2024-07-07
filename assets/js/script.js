@@ -146,6 +146,12 @@ function generateDiceNumber() {
  * @return {string} The path of the relevant dice image. Erroneous arguments will return the 'dice unknown' image
  */
 function getDiceImage(dieNumber) {
+    // Returns 'dice unknown' image if passed value other than 1-6
+    dieNumber = parseInt(dieNumber);
+    if (!([1, 2, 3, 4, 5, 6].includes(dieNumber))){
+        return 'assets/images/dice-faces/dice-unknown.webp';
+    }
+    // Returns relevant image
     let DiceImages = ['assets/images/dice-faces/dice-one.webp',
         'assets/images/dice-faces/dice-two.webp',
         'assets/images/dice-faces/dice-three.webp',
@@ -153,9 +159,6 @@ function getDiceImage(dieNumber) {
         'assets/images/dice-faces/dice-five.webp',
         'assets/images/dice-faces/dice-six.webp'
     ]
-    if (![1, 2, 3, 4, 5, 6].includes(dieNumber)) {
-        return 'assets/images/dice-faces/dice-unknown.webp';
-    }
     return DiceImages[dieNumber - 1];
 }
 
@@ -270,7 +273,6 @@ function callGame(caller) {
             quantity += 1;
         }
     }
-    console.log("quantity: " + parseInt(quantity));
     // Determine the phrasing of the outcome text
     let diePhrasing = quantity == 1 ? 'die' : 'dice';
     let pipPhrasing = currentBet.getAttribute('pips') == 1 ? 'pip' : 'pips';
@@ -291,7 +293,6 @@ function callGame(caller) {
             currentBet.setAttribute('last-winner', 'opponent');
             // Decrement player's hand by one die
             playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
-            console.log(playerHand.getAttribute('dice'));
         // If opponent called, the player has won the round
         } else {
             if (quantity == 0) {
@@ -328,7 +329,6 @@ function callGame(caller) {
             currentBet.setAttribute('last-winner', 'player');
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
-            console.log(opponentHand.getAttribute('dice'));
         // If opponent called, the player has lost the round
         } else {
             if (quantity == 0) {
@@ -497,7 +497,7 @@ function updateBetOptions(){
 function revealDice() {
     let opponentHand = document.getElementById('opponent-hand');
     for (let die of opponentHand.children) {
-        die.src = getDiceImage(die.getAttribute('pips'))
+        die.src = getDiceImage(die.getAttribute('pips'));
     }
 }
 
