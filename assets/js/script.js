@@ -391,73 +391,111 @@ function endTurn(){
  */
 function createOpponentResponse() {
     // Variables that determine the opponent's response style
-    let scepticism = 0.46 // How likely the computer is to 'call' - (0 is never, 1 is very likely)
-    // Create random number from which to generate bet response
-    let randomNum = Math.random();
+    let scepticism = 0.47; // How likely the computer is to 'call' - (0 is never, 1 is very likely)
+    let chanceOfPickingRandom = 0.15; // How likely the computer is to bet a random pip number - (0 is never, 1 is very likely)
+    let chanceOfSame = 0.85; // How likely the computer is pick the same quantity when possible - (0 is never, 1 is very likely)
     // Choose randomly whether to 'call' or bet
-    let randomNumTwo = Math.random();
+    let callChanceRandomNum = Math.random();
     let currentBet = document.getElementById('current-bet');
     // Make computer more likely to call game if quantity of dice is higher
-    if (currentBet.getAttribute('quantity') > 2) {
-        randomNumTwo += (currentBet.getAttribute('quantity')-2) * scepticism/3;
+    currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
+    if (currentQuantity > 2) {
+        callChanceRandomNum += (currentQuantity-2) * (scepticism/3);
     }
     // If opponent is playing first, make the chance of calling zero
     if (currentBet.getAttribute('last-winner') === "opponent") {
-        randomNumTwo = 0;
+        callChanceRandomNum = 0;
     }
     // Randomly call or bet
-    if ( randomNumTwo > 0.85) {
+    if (callChanceRandomNum > 0.9) {
         callGame('opponent');
     } else {
         // Make bet
         let newBet = new Bet(0, 0);
-        currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
-        // If opponent is betting first, then bet at least two
-        if (currentQuantity == 0) {
-            currentQuantity++;
-        }
-        if (randomNum < 0.9) {
-            newBet.quantity = parseInt(currentQuantity) + 1;
-        } else {
-            newBet.quantity = parseInt(currentQuantity) + 2;
-        }
-        let opponentDice = returnDiceArray('opponent-hand');
-        let pipOptions = [1, 2, 3, 4, 5, 6];
-        let pipObject = {}
-        for (let option of pipOptions) {
-            let count = 0;
-            for (let pips of opponentDice) {
-                if (option == pips) {
-                    count += 1;
-                }
-            }
-            pipObject[option] = count;
-        }
-        let highest = [0, 0];
-        for (const [key, value] of Object.entries(pipObject)) {
-            if (value > highest[1]) {
-                highest[1] = value;
-                highest[0] = key;
-            } else if (value == highest[1]) {
-                if (Math.random() > 0.5) {
-                    highest[1] = value;
-                    highest[0] = key;
-                }
-            }
-        }
-        if (Math.random() < 0.22) {
+        // Find the pip number which occurs the most in the hand, and the second most
+        let totalPipTally = tallyPipTotals(returnDiceArray('opponent-hand'));
+        let highestPip = findHighestPipTotal(totalPipTally);
+        delete totalPipTally[highestPip];
+        let secondHighestPip = findHighestPipTotal(totalPipTally);
+        // Pick the pip number
+        let pipChoiceRandomNum = Math.random();
+        let smartPipChoiceRandomNum = Math.random();
+        // Depending on the 'chanceOfPickingRandom' variables, potentially pick a random number
+        if (pipChoiceRandomNum < chanceOfPickingRandom) {
+            console.log("RANDOM PIP CHOSEN!");
             newBet.pips = generateDiceNumber();
+        // Otherwise, pick the highest occuring pip number, second highest, or raise the current bet
+        } else if (smartPipChoiceRandomNum < 0.33) {
+            console.log("HIGHEST PIP CHOSEN!");
+            newBet.pips = highestPip;
+        } else if (smartPipChoiceRandomNum < 0.66) {
+            console.log("SECOND HIGHEST PIP CHOSEN!");
+            newBet.pips = secondHighestPip;
         } else {
-            newBet.pips = highest[0];
-        }
-        if (newBet.pips > currentBet.getAttribute('pips')) {
-            if (Math.random < 0.72) {
-                newBet.quantity -= 1;
+            if (currentBet.getAttribute('last-winner') === "opponent") {
+                console.log("HIGHEST PIP CHOSEN!");
+                newBet.pips = highestPip;
+            } else {
+                console.log("CURRENT PIP CHOSEN!");
+                newBet.pips = currentBet.getAttribute('pips');
             }
+        }
+        // Pick quantity - either the current quantity if the pip number allows, or higher if not
+        if (newBet.pips > currentBet.getAttribute('pips') && Math.random() < chanceOfSame) {
+            console.log("CURRENT QUANTITY CHOSEN!");
+            newBet.quantity = currentQuantity;
+        } else {
+            console.log("current quantity: " + currentQuantity);
+            newBet.quantity = parseInt(currentQuantity) + 1;
+        }
+        if (currentBet.getAttribute('last-winner') == 'opponent') {
+            newBet.quantity = 2;
         }
         updateCurrentBet(newBet);
         updateComputerResponse(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
     }
+}
+
+/**
+ * Tallies up the total amount of times pip numbers occur in a hand.
+ * @param {Array} diceArray An array of the dice in a hand, usually the returned value of returnDiceArray().
+ * @returns {Object} A dictionary for which the key is the pip number and the value the amount of times it occurs.
+ */
+function tallyPipTotals(diceArray) {
+    let pipOptions = [1, 2, 3, 4, 5, 6];
+    let pipObject = {}
+    for (let option of pipOptions) {
+        let count = 0;
+        for (let pips of diceArray) {
+            if (option == pips) {
+                count += 1;
+            }
+        }
+        pipObject[option] = count;
+    }
+    return pipObject;
+}
+
+/**
+ * Finds the pip number that occurs the most from a tally of pip totals.
+ * @param {Object} pipTally A dictionary which has the tally of the total amount of times
+ * pip numbers occur in a hand, usually the returned value of tallyPipTotals().
+ * @returns {number} The pip number which occurs the most
+ */
+function findHighestPipTotal(pipTally) {
+    let highest = [0, 0];
+    for (const [key, value] of Object.entries(pipTally)) {
+        if (value > highest[1]) {
+            highest[1] = value;
+            highest[0] = key;
+        } else if (value == highest[1]) {
+            if (Math.random() > 0.5) {
+                highest[1] = value;
+                highest[0] = key;
+            }
+        }
+    }
+    return highest[0];
 }
 
 /**
