@@ -391,10 +391,10 @@ function endTurn(){
  */
 function createOpponentResponse() {
     // Variables that determine the opponent's response style
-    let confidence = 0.47; // How likely the computer is to refrain from calling based on how its dice match the bet - (0 is not at all, 1 is largely)
+    let confidence = 0.47; // How likely the computer is to refrain from calling based on how its dice match the bet - (0 is never, 1 is very likely)
     let scepticism = 0.51; // How likely the computer is to call based on the overall dice quantity - (0 is never, 1 is very likely)
     let chanceOfPickingRandom = 0.15; // How likely the computer is to bet a random pip number - (0 is never, 1 is very likely)
-    let chanceOfSame = 0.85; // How likely the computer is pick the same quantity when possible - (0 is never, 1 is very likely)
+    let chanceOfSame = 0.85; // How likely the computer is pick the same quantity of dice when possible - (0 is never, 1 is very likely)
     // Choose randomly whether to 'call' or bet
     let callChanceRandomNum = Math.random();
     let currentBet = document.getElementById('current-bet');
