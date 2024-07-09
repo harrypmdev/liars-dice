@@ -181,25 +181,15 @@ function returnDiceArray(hand) {
  */
 function callGame(caller) {
     endTurn();
+    let playerHand = document.getElementById('player-hand');
+    let opponentHand = document.getElementById('opponent-hand');
+    let currentBet = document.getElementById('current-bet');
     // If the computer called the game, put out a message from the computer
     if (caller === 'opponent') {
         updateComputerResponse('The computer has called!');
     }
-    // Check if the the bet was correct
-    let playerHand = document.getElementById('player-hand');
-    let opponentHand = document.getElementById('opponent-hand');
-    let currentBet = document.getElementById('current-bet');
-    /*
-    let totalPips = returnDiceArray('player-hand') + returnDiceArray('opponent-hand');
-    
-    let quantity = 0;
-    for (let pip of totalPips) {
-        if (pip == currentBet.getAttribute('pips')) {
-            quantity += 1;
-        }
-    }*/
     let allPipsObject = tallyPipTotals(returnDiceArray('player-hand') + returnDiceArray('opponent-hand'));
-    let quantity = allPipsObject[currentBet.getAttribute('pips')]
+    let quantity = allPipsObject[currentBet.getAttribute('pips')] // Quantity is the total times the current pip appears
     // Determine the phrasing of the outcome text
     let diePhrasing = quantity == 1 ? 'die' : 'dice';
     let pipPhrasing = currentBet.getAttribute('pips') == 1 ? 'pip' : 'pips';
