@@ -40,20 +40,21 @@ function accountForHeader(page) {
 function startNewGame() {
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
-    updateCurrentBet(new Bet(0, 0));
+    let myBet = new Bet(0, 0);
+    updateCurrentBet(myBet);
     updateBetOptions();
     document.getElementById('next-turn').textContent = 'Next turn';
 }
 
 /**
  * Updates the current bet on the page.
- * Produces 'Current Bet: None' if bet has no quantity or no pips.
+ * Produces 'Current Bet: None' if bet has no pips.
  * @param {Bet} bet Bet object to update the current bet with
  */
 function updateCurrentBet(bet) {
     let currentBet = document.getElementById('current-bet');
     let pipGrammar = bet.pips == 1 ? 'pip' : 'pips';
-    currentBet.innerHTML = bet ? `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}` : 'Current Bet: None';
+    currentBet.innerHTML = bet.pips !== 0 ? `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}` : 'Current Bet: None';
     // Update current bet attributes so quantity and pips easily accessible
     currentBet.setAttribute("quantity", bet.quantity)
     currentBet.setAttribute("pips", bet.pips);
