@@ -456,25 +456,10 @@ function createOpponentResponse() {
  * @returns {Object} A dictionary for which the key is the pip number and the value the amount of times it occurs.
  */
 function tallyPipTotals(diceArray) {
-    /*
-    let pipOptions = [1, 2, 3, 4, 5, 6];
-    let pipObject = {}
-    for (let option of pipOptions) {
-        let count = 0;
-        for (let pips of diceArray) {
-            if (option == pips) {
-                count += 1;
-            }
-        }
-        pipObject[option] = count;
-    }
-    return pipObject;*/
     let pipObject = {};
     for (let pip of diceArray) {
         pipObject[pip] = pip in pipObject ? pipObject[pip] + 1 : 1;
     }
-    console.log("TALLY PIP TOTALS - made from array: " + diceArray);
-    console.log(pipObject);
     return pipObject;
 }
 
@@ -490,11 +475,6 @@ function findHighestPipTotal(pipTally) {
         if (value > highest[1]) {
             highest[1] = value;
             highest[0] = key;
-        } else if (value == highest[1]) {
-            if (Math.random() > 0.5) {
-                highest[1] = value;
-                highest[0] = key;
-            }
         }
     }
     return highest;
@@ -516,20 +496,17 @@ function updateBetOptions(){
     let quantitySelector = document.getElementById('quantity-selector');
     let pipSelector = document.getElementById('pip-selector');
     let currentBet = document.getElementById('current-bet');
+    pipSelector.value = "";
     // Clear quantity selector options except for blank default
     quantitySelector.innerHTML = "<option class='hide' disabled selected value></option>";
-    // Set pip selector to blank
-    pipSelector.value = "";
     // Add new quantity selector options
     let quantity = parseInt(currentBet.getAttribute("quantity"));
-    // If first turn of game, don't add an option for one die
     if (quantity == 0) {
-        quantity = 1;
+        quantity = 1; // If first turn of game, don't add an option for one die
     }
     for (let i = 1; i <= 5; i++) {
         let newOption = document.createElement('option');
-        newOption.value = quantity + i;
-        newOption.innerHTML = quantity + i;
+        newOption.value = newOption.innerHTML = quantity + i;
         quantitySelector.appendChild(newOption);
     }
 }
