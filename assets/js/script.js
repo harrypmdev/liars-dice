@@ -60,32 +60,21 @@ function updateCurrentBet(bet) {
  * @param {integer} dieNumber the number of dice which should be added
  */
 function populateHand(hand, dieNumber) {
-    let myHand = document.getElementById(hand);
-    myHand.setAttribute('dice', dieNumber);
-    // If any dice currently in hand, then remove them
-    myHand.innerHTML = "";
+    let cachedHand = document.getElementById(hand);
+    cachedHand.setAttribute('dice', dieNumber);
+    cachedHand.innerHTML = ""; // If any dice currently in hand, then remove them
     // Generate dice
     for(let i = 0; i < dieNumber; i++) {
-        let newDice = document.createElement('img');
+        let newDie = document.createElement('img');
         let diceNumber = generateDiceNumber();
-        newDice.setAttribute('pips', diceNumber);
-        newDice.style.margin = '20px';
-        newDice.style.width = '20%';
-        newDice.style.height = 'auto';
-        newDice.style.objectFit = 'contain';
-        /* If player's hand, assign dice face images as per dice number.
-        If opponent's hand, assign all dice faces to unknown dice face image. */
-        switch (hand) {
-            case 'player-hand':
-                newDice.src = getDiceImage(diceNumber);
-                break;
-            case 'opponent-hand':
-                newDice.src = 'assets/images/dice-faces/dice-unknown.webp';
-                break;
-        }
-        myHand.appendChild(newDice);
+        newDie.setAttribute('pips', diceNumber);
+        newDie.style.margin = '20px';
+        newDie.style.width = '20%';
+        newDie.style.height = 'auto';
+        newDie.style.objectFit = 'contain';
+        newDie.src = hand == 'player-hand' ? getDiceImage(diceNumber) : 'assets/images/dice-faces/dice-unknown.webp';
+        cachedHand.appendChild(newDie);
     }
-
 }
 
 /**
@@ -103,12 +92,10 @@ function generateDiceNumber() {
  * @return {string} The path of the relevant dice image. Erroneous arguments will return the 'dice unknown' image
  */
 function getDiceImage(dieNumber) {
-    // Returns 'dice unknown' image if passed value other than 1-6
     dieNumber = parseInt(dieNumber);
     if (!([1, 2, 3, 4, 5, 6].includes(dieNumber))){
-        return 'assets/images/dice-faces/dice-unknown.webp';
+        return 'assets/images/dice-faces/dice-unknown.webp'; // Returns 'dice unknown' image if passed value other than 1-6
     }
-    // Returns relevant image
     let DiceImages = ['assets/images/dice-faces/dice-one.webp',
         'assets/images/dice-faces/dice-two.webp',
         'assets/images/dice-faces/dice-three.webp',
@@ -116,7 +103,7 @@ function getDiceImage(dieNumber) {
         'assets/images/dice-faces/dice-five.webp',
         'assets/images/dice-faces/dice-six.webp'
     ]
-    return DiceImages[dieNumber - 1];
+    return DiceImages[dieNumber - 1]; // Returns relevant image
 }
 
 /**
