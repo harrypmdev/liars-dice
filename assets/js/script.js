@@ -33,7 +33,7 @@ function accountForHeader(page) {
  * Runs when play.html first loads and every time the game is restarted
  */
 function startNewGame() {
-    updateCurrentBet(new Bet(0, 0)); // Resets current bet
+    updateCurrentBet(new Bet(0, 0)); // Sets current bet to 'none'
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
     updateBetOptions();
@@ -66,13 +66,13 @@ function populateHand(hand, dieNumber) {
     // Generate dice
     for(let i = 0; i < dieNumber; i++) {
         let newDie = document.createElement('img');
-        let diceNumber = generateDiceNumber();
-        newDie.setAttribute('pips', diceNumber);
+        let dieNumber = generateDiceNumber();
+        newDie.setAttribute('pips', dieNumber);
         newDie.style.margin = '20px';
         newDie.style.width = '20%';
         newDie.style.height = 'auto';
         newDie.style.objectFit = 'contain';
-        newDie.src = hand == 'player-hand' ? getDiceImage(diceNumber) : 'assets/images/dice-faces/dice-unknown.webp';
+        newDie.src = hand == 'player-hand' ? getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
         cachedHand.appendChild(newDie);
     }
 }
@@ -82,8 +82,7 @@ function populateHand(hand, dieNumber) {
  * Takes no parameters
  */
 function generateDiceNumber() {
-    let randomNumber = Math.ceil(Math.random() * 6);
-    return randomNumber;
+    return Math.ceil(Math.random() * 6);
 }
 
 /**
