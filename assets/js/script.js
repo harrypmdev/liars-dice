@@ -183,17 +183,9 @@ function handlePipChange(){
  */
 function returnDiceArray(hand) {
     let totalPips = [];
-    if (hand === "player-hand" || hand === "both") {
-        let playerHand = document.getElementById('player-hand');
-        for (let die of playerHand.children) {
-            totalPips.push(die.getAttribute('pips'));
-        }
-    }
-    if (hand === "opponent-hand" || hand === "both") {
-        let opponentHand = document.getElementById('opponent-hand');
-        for (let die of opponentHand.children) {
-            totalPips.push(die.getAttribute('pips'));
-        }
+    let cachedHand = document.getElementById(hand);
+    for (let die of cachedHand.children) {
+        totalPips.push(die.getAttribute('pips'));
     }
     return totalPips;
 }
@@ -211,7 +203,7 @@ function callGame(caller) {
     // Check if the the bet was correct
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
-    let totalPips = returnDiceArray("both");
+    let totalPips = returnDiceArray('player-hand') + returnDiceArray('opponent-hand');
     let currentBet = document.getElementById('current-bet');
     let quantity = 0;
     for (let pip of totalPips) {
@@ -316,8 +308,8 @@ function checkForGameFinish() {
 }
 
 /**
- * Ends the turn.
- * Reveals the opponent's dice, disables the bet form, and enables the 'next turn' button.
+ * Ends the turn - 
+ * reveals the opponent's dice, disables the bet form, and enables the 'next turn' button.
  */
 function endTurn(){
     revealDice();
