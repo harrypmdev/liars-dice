@@ -33,9 +33,9 @@ function accountForHeader(page) {
  * Runs when play.html first loads and every time the game is restarted
  */
 function startNewGame() {
+    updateCurrentBet(new Bet(0, 0)); // Resets current bet
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
-    updateCurrentBet(new Bet(0, 0));
     updateBetOptions();
     document.getElementById('next-turn').textContent = 'Next turn';
 }
@@ -129,7 +129,6 @@ function handleBet(event) {
 	updateCurrentBet(new Bet(document.getElementById('quantity-selector').value, document.getElementById('pip-selector').value));
     createOpponentResponse();
     updateBetOptions();
-
 }
 
 /**
@@ -451,12 +450,11 @@ function updateComputerResponse(response) {
  */
 function updateBetOptions(){
     let quantitySelector = document.getElementById('quantity-selector');
-    let currentBet = document.getElementById('current-bet');
     document.getElementById('pip-selector').value = "";
     // Clear quantity selector options except for blank default
     quantitySelector.innerHTML = "<option class='hide' disabled selected value></option>";
     // Add new quantity selector options
-    let quantity = parseInt(currentBet.getAttribute("quantity"));
+    let quantity = parseInt(document.getElementById('current-bet').getAttribute("quantity"));
     if (quantity == 0) {
         quantity = 1; // If first turn of game, don't add an option for one die
     }
@@ -482,26 +480,21 @@ function revealDice() {
  */
 function handleNextTurn() {
     updateComputerResponse("The computer is awaiting your move.");
-    // Enable the bet form
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
     document.getElementById('pip-selector').disabled = false;
-    // Disable the 'next turn' button
     document.getElementById('next-turn').disabled = true;
-    // Remove outcome text
     document.getElementById('outcome-text').innerHTML = "";
+    let playerDice = document.getElementById('player-hand').getAttribute('dice');
+    let opponentDice = document.getElementById('opponent-hand').getAttribute('dice');
     // If either player's hand is empty, restart the game
-    let playerHand = document.getElementById('player-hand');
-    let opponentHand = document.getElementById('opponent-hand');
-    if (opponentHand.getAttribute('dice') <= 0 || playerHand.getAttribute('dice') <= 0) {
+    if (opponentDice <= 0 || playerDice <= 0) {
         startNewGame();
         return;
     }
-    // Reset current bet
-    updateCurrentBet(new Bet(0, 0));
-    // Populate hands with updated dice count
-    populateHand('player-hand', playerHand.getAttribute('dice'));
-    populateHand('opponent-hand', opponentHand.getAttribute('dice'));
+    updateCurrentBet(new Bet(0, 0)); // Resets current bet
+    populateHand('player-hand', playerDice);
+    populateHand('opponent-hand', opponentDice);
     // Starts new round with opponent bet if player lost the last round
     if (document.getElementById('current-bet').getAttribute('last-winner') == 'opponent') {
         createOpponentResponse();
