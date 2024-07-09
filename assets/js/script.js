@@ -52,7 +52,7 @@ function startNewGame() {
  */
 function updateCurrentBet(bet) {
     let currentBet = document.getElementById('current-bet');
-    let pipGrammer = bet.pips == 1 ? 'pip' : 'pips';
+    let pipGrammar = bet.pips == 1 ? 'pip' : 'pips';
     currentBet.innerHTML = bet ? `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}` : 'Current Bet: None';
     // Update current bet attributes so quantity and pips easily accessible
     currentBet.setAttribute("quantity", bet.quantity)
