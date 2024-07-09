@@ -40,32 +40,23 @@ function accountForHeader(page) {
 function startNewGame() {
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
-    updateCurrentBet(null);
+    updateCurrentBet(new Bet(0, 0));
     updateBetOptions();
     document.getElementById('next-turn').textContent = 'Next turn';
 }
 
 /**
  * Updates the current bet on the page.
- * Pass any falsy value to produce 'Current Bet: None'.
+ * Produces 'Current Bet: None' if bet has no quantity or no pips.
  * @param {Bet} bet Bet object to update the current bet with
  */
 function updateCurrentBet(bet) {
     let currentBet = document.getElementById('current-bet');
-    if (bet) {
-        let pipGrammar = 'pips';
-        if (bet.pips == 1) {
-            pipGrammar = 'pip';
-        }
-        currentBet.innerHTML = `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}`;
-        // Update current bet attributes so quantity and pips easily accessible
-        currentBet.setAttribute("quantity", bet.quantity)
-        currentBet.setAttribute("pips", bet.pips);
-    } else {
-        currentBet.innerHTML = 'Current Bet: None';
-        currentBet.setAttribute("quantity", 0)
-        currentBet.setAttribute("pips", 0);
-    }
+    let pipGrammer = bet.pips == 1 ? 'pip' : 'pips';
+    currentBet.innerHTML = bet ? `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}` : 'Current Bet: None';
+    // Update current bet attributes so quantity and pips easily accessible
+    currentBet.setAttribute("quantity", bet.quantity)
+    currentBet.setAttribute("pips", bet.pips);
 }
 
 /**
@@ -518,7 +509,7 @@ function handleNextTurn() {
         return;
     }
     // Reset current bet
-    updateCurrentBet(null);
+    updateCurrentBet(new Bet(0, 0));
     // Populate hands with updated dice count
     populateHand('player-hand', playerHand.getAttribute('dice'));
     populateHand('opponent-hand', opponentHand.getAttribute('dice'));
