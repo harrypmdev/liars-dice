@@ -2,31 +2,16 @@ import {Bet} from './bet.js';
 
 /* Runs when the page is loaded */
 document.addEventListener("DOMContentLoaded", function() {
-    // Find current page and assign to fileName
-    let path = window.location.pathname;
-    let fileName = path.substring(path.lastIndexOf('/') + 1);
-    // If current page 'play.html', start game
+    let path = window.location.pathname
+    let fileName = path.substring(path.lastIndexOf('/') + 1); // Find current page and assign to fileName
     if (fileName === 'play.html') {
-        // Add event listener to bet form submit button
-        let betForm = document.getElementById('bet-form');
-        betForm.addEventListener('submit', handleBet);
-        // Add event listener to bet form call button
-        let callButton = document.getElementById('call-button');
-        callButton.addEventListener('click', () => {callGame('player')});
-        // Add event listener to next turn button
-        let nextTurn = document.getElementById('next-turn');
-        nextTurn.addEventListener('click', handleNextTurn);
-        // Add event listener to bet form pip selector
-        let pipSelector = document.getElementById('pip-selector');
-        pipSelector.addEventListener('change', handlePipChange)
-        // Start game
         startNewGame();
-    } else {
-        accountForHeader('index.html');
-        window.addEventListener("resize", () => {accountForHeader('index.html')});
+        // Add liar's dice game event listeners
+        document.getElementById('bet-form').addEventListener('submit', handleBet);
+        document.getElementById('call-button').addEventListener('click', () => {callGame('player')});
+        document.getElementById('next-turn').addEventListener('click', handleNextTurn);
+        document.getElementById('pip-selector').addEventListener('change', handlePipChange)
     }
-    /* Account for fixed header and add event listener
-    to adjust padding whenever window is resized */
     accountForHeader(fileName);
     window.addEventListener("resize", () => {accountForHeader(fileName)});
 });
@@ -341,13 +326,11 @@ function checkForGameFinish() {
     let opponentLost = document.getElementById('opponent-hand').getAttribute('dice') <= 0;
     let outcomeTextContent = document.getElementById('outcome-text').innerHTML;
     if (playerLost) {
-        document.getElementById('outcome-text').innerHTML += ` You have ran out of dice so you have lost
+        outcomeTextContent += ` You have ran out of dice so you have lost
         the game! Better luck next time.`
     }
-    document.getElementById('outcome-text').innerHTML =  `You have ran out of dice so you have lost
-        the game! Better luck next time.`
     if (opponentLost) {
-        document.getElementById('outcome-text').innerHTML += ` The computer has ran out of dice so you have
+        outcomeTextContent += ` The computer has ran out of dice so you have
         won the game! Well done.`
     }
     document.getElementById('next-turn').innerText = playerLost || opponentLost ? 'Start New Game' : 'Next turn';
