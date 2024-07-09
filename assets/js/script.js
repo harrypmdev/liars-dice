@@ -19,21 +19,12 @@ document.addEventListener("DOMContentLoaded", function() {
 /**
  * Adjusts the offset of the main section of the page to account
  * for different header sizes on different devices.
- * Runs when the page first loads.
  * On play.html, gives extra padding-top.
  * @param {string} page The page being loaded
  */
 function accountForHeader(page) {
     let height = document.getElementsByTagName('header')[0].offsetHeight;
-    console.log("BEFORE: " + height);
     height += page === 'play.html' && window.screen.width >= 768 ? 50 : 15;
-    console.log("AFTER: " + height);
-    /*
-    if (page === 'play.html' && window.screen.width >= 768) {
-        height += 50;
-    } else {
-        height += 15;
-    }*/
     document.getElementsByTagName('main')[0].style.paddingTop = `${height}px`;
 }
 
@@ -133,18 +124,12 @@ function getDiceImage(dieNumber) {
  * @param {*} event The callback event 
  */
 function handleBet(event) {
-    let callButton = document.getElementById('call-button');
-    if (callButton.disabled) {
-        callButton.disabled = false;
-    }
     event.preventDefault();
-    // Retrieves 'quantity' and 'pips' from bet form
-    let quantitySelector = document.getElementById('quantity-selector');
-    let pipSelector = document.getElementById('pip-selector');
-	let newBet = new Bet(quantitySelector.value, pipSelector.value);
-	updateCurrentBet(newBet);
+    document.getElementById('call-button').disabled = false;
+	updateCurrentBet(new Bet(document.getElementById('quantity-selector').value, document.getElementById('pip-selector').value));
     createOpponentResponse();
     updateBetOptions();
+
 }
 
 /**
