@@ -141,7 +141,6 @@ function handlePipChange(){
     /* If the currently selected pip is higher than current bet pip value, 
     add the quantity from current bet to quantity selector
     */
-   console.log(pipSelector.value + " > " + currentBet.getAttribute('pips'));
     if (parseInt(pipSelector.value) > parseInt(currentBet.getAttribute('pips'))) {
         // If current bet quantity not an option, add it
         if (!containsCurrentQuantity) {
@@ -189,14 +188,18 @@ function callGame(caller) {
     // Check if the the bet was correct
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
-    let totalPips = returnDiceArray('player-hand') + returnDiceArray('opponent-hand');
     let currentBet = document.getElementById('current-bet');
+    /*
+    let totalPips = returnDiceArray('player-hand') + returnDiceArray('opponent-hand');
+    
     let quantity = 0;
     for (let pip of totalPips) {
         if (pip == currentBet.getAttribute('pips')) {
             quantity += 1;
         }
-    }
+    }*/
+    let allPipsObject = tallyPipTotals(returnDiceArray('player-hand') + returnDiceArray('opponent-hand'));
+    let quantity = allPipsObject[currentBet.getAttribute('pips')]
     // Determine the phrasing of the outcome text
     let diePhrasing = quantity == 1 ? 'die' : 'dice';
     let pipPhrasing = currentBet.getAttribute('pips') == 1 ? 'pip' : 'pips';
@@ -232,8 +235,6 @@ function callGame(caller) {
             currentBet.setAttribute('last-winner', 'player');
             // Decrement opponent's hand by one die
             opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
-            console.log(opponentHand.getAttribute('dice'));
-
         }
     // If bet is incorrect
     } else {
