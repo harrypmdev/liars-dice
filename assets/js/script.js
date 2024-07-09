@@ -1,4 +1,5 @@
 import {Bet} from './bet.js';
+import * as utility from './utility.js';
 
 /* Runs when the page is loaded */
 document.addEventListener("DOMContentLoaded", function() {
@@ -33,25 +34,11 @@ function accountForHeader(page) {
  * Runs when play.html first loads and every time the game is restarted
  */
 function startNewGame() {
-    updateCurrentBet(new Bet(0, 0)); // Sets current bet to 'none'
+    new Bet(0, 0).updateCurrentBet(); // Sets current bet to 'none'
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
     updateBetOptions();
     document.getElementById('next-turn').textContent = 'Next turn';
-}
-
-/**
- * Updates the current bet on the page.
- * Produces 'Current Bet: None' if bet has no pips.
- * @param {Bet} bet Bet object to update the current bet with
- */
-function updateCurrentBet(bet) {
-    let currentBet = document.getElementById('current-bet');
-    let pipGrammar = bet.pips == 1 ? 'pip' : 'pips';
-    currentBet.innerHTML = bet.pips !== 0 ? `Current Bet: ${bet.quantity} dice with ${bet.pips} ${pipGrammar}` : 'Current Bet: None';
-    // Update current bet attributes so quantity and pips easily accessible
-    currentBet.setAttribute("quantity", bet.quantity)
-    currentBet.setAttribute("pips", bet.pips);
 }
 
 /**
@@ -66,43 +53,15 @@ function populateHand(hand, dieNumber) {
     // Generate dice
     for(let i = 0; i < dieNumber; i++) {
         let newDie = document.createElement('img');
-        let dieNumber = generateDiceNumber();
+        let dieNumber = utility.generateDiceNumber();
         newDie.setAttribute('pips', dieNumber);
         newDie.style.margin = '20px';
         newDie.style.width = '20%';
         newDie.style.height = 'auto';
         newDie.style.objectFit = 'contain';
-        newDie.src = hand == 'player-hand' ? getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
+        newDie.src = hand == 'player-hand' ? utility.getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
         cachedHand.appendChild(newDie);
     }
-}
-
-/**
- * Generates a random number between 1 and 6.
- * Takes no parameters
- */
-function generateDiceNumber() {
-    return Math.ceil(Math.random() * 6);
-}
-
-/**
- * Returns the webp file of the relevant dice image for a dice number.
- * @param {integer} dieNumber The dice number (1-6)
- * @return {string} The path of the relevant dice image. Erroneous arguments will return the 'dice unknown' image
- */
-function getDiceImage(dieNumber) {
-    dieNumber = parseInt(dieNumber);
-    if (!([1, 2, 3, 4, 5, 6].includes(dieNumber))){
-        return 'assets/images/dice-faces/dice-unknown.webp'; // Returns 'dice unknown' image if passed value other than 1-6
-    }
-    let DiceImages = ['assets/images/dice-faces/dice-one.webp',
-        'assets/images/dice-faces/dice-two.webp',
-        'assets/images/dice-faces/dice-three.webp',
-        'assets/images/dice-faces/dice-four.webp',
-        'assets/images/dice-faces/dice-five.webp',
-        'assets/images/dice-faces/dice-six.webp'
-    ]
-    return DiceImages[dieNumber - 1]; // Returns relevant image
 }
 
 /**
@@ -112,7 +71,7 @@ function getDiceImage(dieNumber) {
 function handleBet(event) {
     event.preventDefault();
     document.getElementById('call-button').disabled = false;
-	updateCurrentBet(new Bet(document.getElementById('quantity-selector').value, document.getElementById('pip-selector').value));
+	new Bet(document.getElementById('quantity-selector').value, document.getElementById('pip-selector').value).updateCurrentBet();
     createOpponentResponse();
     updateBetOptions();
 }
@@ -162,20 +121,6 @@ function handlePipChange(){
 }
 
 /**
- * Returns the pips from the dice of either or both hands in an array.
- * @param {string} hand The hand for which the dice pips should be counted - 'player-hand', 'opponent-hand', or 'both'.
- * @returns {Array} An array of all the dice pips in question.
- */
-function returnDiceArray(hand) {
-    let totalPips = [];
-    let cachedHand = document.getElementById(hand);
-    for (let die of cachedHand.children) {
-        totalPips.push(die.getAttribute('pips'));
-    }
-    return totalPips;
-}
-
-/**
  * 'Calls' the game, revealing all dice and the winner of the round.
  * @param {string} caller Either 'player' or 'opponent', the player who called the game.
  */
@@ -184,83 +129,24 @@ function callGame(caller) {
     let playerHand = document.getElementById('player-hand');
     let opponentHand = document.getElementById('opponent-hand');
     let currentBet = document.getElementById('current-bet');
-    // If the computer called the game, put out a message from the computer
     if (caller === 'opponent') {
-        updateComputerResponse('The computer has called!');
+        updateOpponentResponseMessage('The computer has called!');
     }
-    let allPipsObject = tallyPipTotals(returnDiceArray('player-hand') + returnDiceArray('opponent-hand'));
-    let quantity = allPipsObject[currentBet.getAttribute('pips')] // Quantity is the total times the current pip appears
-    // Determine the phrasing of the outcome text
-    let diePhrasing = quantity == 1 ? 'die' : 'dice';
-    let pipPhrasing = currentBet.getAttribute('pips') == 1 ? 'pip' : 'pips';
-    // If bet is correct
-    if ((currentBet.getAttribute('quantity') - quantity) <= 0) {
-        // If player called, they have lost the round
-        if (caller === 'player') {
-            if (quantity == 0) {
-                document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
-                There was no dice with ${currentBet.getAttribute('pips')}
-                 ${pipPhrasing} on the board. You lost the round.`;
-            } else {
-                document.getElementById('outcome-text').innerHTML = `You called but the computer's bet was correct! 
-                There was a quantity of ${quantity} ${diePhrasing} with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You lost the round.`;
-            }
-            // Set the last winner to opponent
-            currentBet.setAttribute('last-winner', 'opponent');
-            // Decrement player's hand by one die
-            playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
-        // If opponent called, the player has won the round
-        } else {
-            if (quantity == 0) {
-                document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
-                There was no dice with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You won the round.`; 
-            } else {
-                document.getElementById('outcome-text').innerHTML = `The computer called but the bet was correct!
-                There was a quantity of ${quantity} ${diePhrasing} with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You won the round.`;               
-            }
-            // Set the last winner to player
-            currentBet.setAttribute('last-winner', 'player');
-            // Decrement opponent's hand by one die
-            opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
-        }
-    // If bet is incorrect
+    let bothHandsDiceArray = utility.returnDiceArray('player-hand') + utility.returnDiceArray('opponent-hand')
+    let allPipsObject = utility.tallyPipTotals(bothHandsDiceArray);
+    let pipOccurrences = allPipsObject[currentBet.getAttribute('pips')]; // Pip occurrences is the total times the current pip appears
+    if (pipOccurrences === undefined) {
+        pipOccurrences = 0;
+    }
+    let betIsCorrect = currentBet.getAttribute('quantity') <= pipOccurrences;
+    if ((caller == 'player' && !betIsCorrect) || (caller == 'opponent' && betIsCorrect)) {
+        currentBet.setAttribute('last-winner', 'player');
+        opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
     } else {
-        // If player called, they have won the round
-        if (caller === 'player') {
-            if (quantity == 0) {
-                document.getElementById('outcome-text').innerHTML = `You called and you were right! 
-                There was no dice with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You won the round.`;
-            } else {
-                document.getElementById('outcome-text').innerHTML = `You called and you were right! 
-                There was a quantity of ${quantity} ${diePhrasing} with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You won the round.`;
-
-            }
-            // Set the last winner to player
-            currentBet.setAttribute('last-winner', 'player');
-            // Decrement opponent's hand by one die
-            opponentHand.setAttribute('dice', opponentHand.getAttribute('dice')-1);
-        // If opponent called, the player has lost the round
-        } else {
-            if (quantity == 0) {
-                document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
-                There was no dice with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You lost the round.`;
-            } else {
-                document.getElementById('outcome-text').innerHTML = `The computer called and it was right!
-                There was a quantity of ${quantity} ${diePhrasing} with ${currentBet.getAttribute('pips')}
-                ${pipPhrasing} on the board. You lost the round.`;    
-            } 
-            // Set the last winner to opponent
-            currentBet.setAttribute('last-winner', 'opponent');
-            // Decrement player's hand by one die
-            playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
-        }
+        currentBet.setAttribute('last-winner', 'opponent');
+        playerHand.setAttribute('dice', playerHand.getAttribute('dice')-1);
     }
+    document.getElementById('outcome-text').innerHTML = utility.constructOutcomeText(caller, betIsCorrect, pipOccurrences);
     checkForGameFinish();
 }
 
@@ -297,6 +183,17 @@ function endTurn(){
     document.getElementById('next-turn').disabled = false;
 }
 
+/** 
+ * Reveal the opponent's dice 
+ */
+function revealDice() {
+    let opponentHand = document.getElementById('opponent-hand');
+    for (let die of opponentHand.children) {
+        die.src = utility.getDiceImage(die.getAttribute('pips'));
+    }
+}
+
+
 /**
  * Create a bet from the opponent
  */
@@ -310,12 +207,12 @@ function createOpponentResponse() {
     let callChanceRandomNum = Math.random();
     let currentBet = document.getElementById('current-bet');
     // Find the pip number which occurs the most in the hand, and the second most
-    let totalPipTally = tallyPipTotals(returnDiceArray('opponent-hand'));
-    let highestPip = findHighestPipTotal(totalPipTally)[0];
-    let highestPipOccurrences = findHighestPipTotal(totalPipTally)[1];
+    let totalPipTally = utility.tallyPipTotals(utility.returnDiceArray('opponent-hand'));
+    let highestPip = utility.findHighestPipTotal(totalPipTally)[0];
+    let highestPipOccurrences = utility.findHighestPipTotal(totalPipTally)[1];
     delete totalPipTally[highestPip];
-    let secondHighestPip = findHighestPipTotal(totalPipTally)[0];
-    let secondHighestPipOccurrences = findHighestPipTotal(totalPipTally)[1];
+    let secondHighestPip = utility.findHighestPipTotal(totalPipTally)[0];
+    let secondHighestPipOccurrences = utility.findHighestPipTotal(totalPipTally)[1];
     // Make computer more likely to call game if overall quantity of dice is higher
     let currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
     if (currentQuantity > 2) {
@@ -346,7 +243,7 @@ function createOpponentResponse() {
         let smartPipChoiceRandomNum = Math.random();
         // Depending on the 'chanceOfPickingRandom' variables, potentially pick a random number
         if (pipChoiceRandomNum < chanceOfPickingRandom) {
-            newBet.pips = generateDiceNumber();
+            newBet.pips = utility.generateDiceNumber();
         // Otherwise, pick the highest occuring pip number, second highest, or raise the current bet
         } else if (smartPipChoiceRandomNum < 0.33) {
             newBet.pips = highestPip;
@@ -370,48 +267,18 @@ function createOpponentResponse() {
             newBet.quantity = 2;
         }
         // Update the board
-        updateCurrentBet(newBet);
-        updateComputerResponse(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
+        newBet.updateCurrentBet();
+        updateOpponentResponseMessage(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
     }
-}
-
-/**
- * Tallies up the total amount of times pip numbers occur in a hand.
- * @param {Array} diceArray An array of the dice in a hand, usually the returned value of returnDiceArray().
- * @returns {Object} A dictionary for which the key is the pip number and the value the amount of times it occurs.
- */
-function tallyPipTotals(diceArray) {
-    let pipObject = {};
-    for (let pip of diceArray) {
-        pipObject[pip] = pip in pipObject ? pipObject[pip] + 1 : 1;
-    }
-    return pipObject;
-}
-
-/**
- * Finds the pip number that occurs the most from a tally of pip totals.
- * @param {Object} pipTally A dictionary which has the tally of the total amount of times
- * pip numbers occur in a hand, usually the returned value of tallyPipTotals().
- * @returns {Array} An array with two values: the pip number that occurs the most and the amount of times it occurs.
- */
-function findHighestPipTotal(pipTally) {
-    let highest = [0, 0];
-    for (const [key, value] of Object.entries(pipTally)) {
-        if (value > highest[1]) {
-            highest[1] = value;
-            highest[0] = key;
-        }
-    }
-    return highest;
 }
 
 /**
  * Updates the computer's response section on the board
  * @param {string} response The response the computer should output
  */
-function updateComputerResponse(response) {
-    let computerResponse = document.getElementById('computer-response')
-    computerResponse.innerHTML = response;
+function updateOpponentResponseMessage(response) {
+    let opponentResponse = document.getElementById('computer-response')
+    opponentResponse.innerHTML = response;
 }
 
 /**
@@ -434,21 +301,11 @@ function updateBetOptions(){
     }
 }
 
-/** 
- * Reveal the opponent's dice 
- */
-function revealDice() {
-    let opponentHand = document.getElementById('opponent-hand');
-    for (let die of opponentHand.children) {
-        die.src = getDiceImage(die.getAttribute('pips'));
-    }
-}
-
 /**
  * Handles the next turn button
  */
 function handleNextTurn() {
-    updateComputerResponse("The computer is awaiting your move.");
+    updateOpponentResponseMessage("The computer is awaiting your move.");
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
     document.getElementById('pip-selector').disabled = false;
@@ -461,7 +318,7 @@ function handleNextTurn() {
         startNewGame();
         return;
     }
-    updateCurrentBet(new Bet(0, 0)); // Resets current bet
+    new Bet(0, 0).updateCurrentBet(); // Resets current bet
     populateHand('player-hand', playerDice);
     populateHand('opponent-hand', opponentDice);
     // Starts new round with opponent bet if player lost the last round
