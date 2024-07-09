@@ -157,17 +157,13 @@ function handleBet(event) {
     if (callButton.disabled) {
         callButton.disabled = false;
     }
-    // Stops default submit action
     event.preventDefault();
     // Retrieves 'quantity' and 'pips' from bet form
     let quantitySelector = document.getElementById('quantity-selector');
     let pipSelector = document.getElementById('pip-selector');
 	let newBet = new Bet(quantitySelector.value, pipSelector.value);
-    // Updates current bet
 	updateCurrentBet(newBet);
-    // Create opponent response
     createOpponentResponse();
-    // Updates the bet options according to the new current bet (the opponent's bet)
     updateBetOptions();
 }
 
@@ -341,19 +337,20 @@ function callGame(caller) {
  * button to 'Start New Game'.
  */
 function checkForGameFinish() {
-    // If the result of this call means the player has ran out of dice
-    if (document.getElementById('player-hand').getAttribute('dice') <= 0) {
+    let playerLost = document.getElementById('player-hand').getAttribute('dice') <= 0;
+    let opponentLost = document.getElementById('opponent-hand').getAttribute('dice') <= 0;
+    let outcomeTextContent = document.getElementById('outcome-text').innerHTML;
+    if (playerLost) {
         document.getElementById('outcome-text').innerHTML += ` You have ran out of dice so you have lost
         the game! Better luck next time.`
-        document.getElementById('next-turn').innerText = 'Start New Game';
     }
-    // If the result of this call means the opponent has ran out of dice
-    if (document.getElementById('opponent-hand').getAttribute('dice') <= 0) {
+    document.getElementById('outcome-text').innerHTML =  `You have ran out of dice so you have lost
+        the game! Better luck next time.`
+    if (opponentLost) {
         document.getElementById('outcome-text').innerHTML += ` The computer has ran out of dice so you have
         won the game! Well done.`
-        console.log('why is this not working?');
-        document.getElementById('next-turn').innerText = 'Start New Game';
     }
+    document.getElementById('next-turn').innerText = playerLost || opponentLost ? 'Start New Game' : 'Next turn';
 }
 
 /**
@@ -361,14 +358,11 @@ function checkForGameFinish() {
  * Reveals the opponent's dice, disables the bet form, and enables the 'next turn' button.
  */
 function endTurn(){
-    // Reveal the opponent's dice
     revealDice();
-    // Disable the bet form
     document.getElementById('bet-button').disabled = true;
     document.getElementById('call-button').disabled = true;
     document.getElementById('quantity-selector').disabled = true;
     document.getElementById('pip-selector').disabled = true;
-    // Enable the 'next turn' button
     document.getElementById('next-turn').disabled = false;
 }
 
@@ -494,9 +488,8 @@ function updateComputerResponse(response) {
  */
 function updateBetOptions(){
     let quantitySelector = document.getElementById('quantity-selector');
-    let pipSelector = document.getElementById('pip-selector');
     let currentBet = document.getElementById('current-bet');
-    pipSelector.value = "";
+    document.getElementById('pip-selector').value = "";
     // Clear quantity selector options except for blank default
     quantitySelector.innerHTML = "<option class='hide' disabled selected value></option>";
     // Add new quantity selector options
