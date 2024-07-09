@@ -456,20 +456,25 @@ function createOpponentResponse() {
  * @returns {Object} A dictionary for which the key is the pip number and the value the amount of times it occurs.
  */
 function tallyPipTotals(diceArray) {
+    /*
     let pipOptions = [1, 2, 3, 4, 5, 6];
     let pipObject = {}
-    // For each pip number
     for (let option of pipOptions) {
         let count = 0;
-        // Iterate through the array and count how many match the current pip
         for (let pips of diceArray) {
             if (option == pips) {
                 count += 1;
             }
         }
-        // Add the total for the current pip to the pipObject dictionary
         pipObject[option] = count;
     }
+    return pipObject;*/
+    let pipObject = {};
+    for (let pip of diceArray) {
+        pipObject[pip] = pip in pipObject ? pipObject[pip] + 1 : 1;
+    }
+    console.log("TALLY PIP TOTALS - made from array: " + diceArray);
+    console.log(pipObject);
     return pipObject;
 }
 
@@ -481,13 +486,10 @@ function tallyPipTotals(diceArray) {
  */
 function findHighestPipTotal(pipTally) {
     let highest = [0, 0];
-    // For each key/value pair in the pipTally dictionary
     for (const [key, value] of Object.entries(pipTally)) {
-        // If the value is higher than all prior iterations, update the variable highest
         if (value > highest[1]) {
             highest[1] = value;
             highest[0] = key;
-        // If the loop encounters a tie, randomly pick one which one to deem 'highest'
         } else if (value == highest[1]) {
             if (Math.random() > 0.5) {
                 highest[1] = value;
