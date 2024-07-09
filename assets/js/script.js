@@ -25,11 +25,15 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 function accountForHeader(page) {
     let height = document.getElementsByTagName('header')[0].offsetHeight;
+    console.log("BEFORE: " + height);
+    height += page === 'play.html' && window.screen.width >= 768 ? 50 : 15;
+    console.log("AFTER: " + height);
+    /*
     if (page === 'play.html' && window.screen.width >= 768) {
         height += 50;
     } else {
         height += 15;
-    }
+    }*/
     document.getElementsByTagName('main')[0].style.paddingTop = `${height}px`;
 }
 
@@ -40,8 +44,7 @@ function accountForHeader(page) {
 function startNewGame() {
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
-    let myBet = new Bet(0, 0);
-    updateCurrentBet(myBet);
+    updateCurrentBet(new Bet(0, 0));
     updateBetOptions();
     document.getElementById('next-turn').textContent = 'Next turn';
 }
