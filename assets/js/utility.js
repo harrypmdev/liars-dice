@@ -94,3 +94,12 @@ export function constructOutcomeText(caller, betIsCorrect, pipOccurrences) {
     let sentence = `${rightOrWrong} There ${noDice} ${pipOccurrences} ${diePhrasing} with ${currentBet.getAttribute('pips')} ${pipPhrasing}.`;
     return sentence;
 }
+
+/**
+ * Updates the opponent's response section on the board
+ * @param {string} response The response the opponent should output
+ */
+export function updateOpponentResponseMessage(response) {
+    let opponentResponse = document.getElementById('computer-response')
+    opponentResponse.innerHTML = response;
+}

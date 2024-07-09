@@ -1,6 +1,7 @@
 import {Bet} from './bet.js';
 import * as utility from './utility.js';
 
+
 /* Runs when the page is loaded */
 document.addEventListener("DOMContentLoaded", function() {
     let path = window.location.pathname
@@ -72,7 +73,7 @@ function handleBet(event) {
     event.preventDefault();
     document.getElementById('call-button').disabled = false;
 	new Bet(document.getElementById('quantity-selector').value, document.getElementById('pip-selector').value).updateCurrentBet();
-    opponent.createResponse();
+    createOpponentResponse();
     updateBetOptions();
 }
 
@@ -89,12 +90,15 @@ function handlePipChange(){
     let pipSelector = document.getElementById('pip-selector');
     let firstTurn = currentBet.getAttribute('quantity') == 0;
     let current = false;
-    for (let option of quantitySelector.options) {
-	    current = option.value == currentBet.getAttribute('quantity') ? option : false;
+    for (let option of quantitySelector.children) {
+        if (option.value == currentBet.getAttribute('quantity'))
+	    current = option;
+        break;
     }
     let shouldHaveCurrent = parseInt(pipSelector.value) > parseInt(currentBet.getAttribute('pips'));
     // If the selector has the current quantity but shouldn't do, remove it
     if (current && !shouldHaveCurrent && !firstTurn) {
+        console.log("DELETING!");
 	    quantitySelector.remove(current);
     }
     // If the selector doesn't have the current quantity but should do, add it
@@ -139,7 +143,7 @@ function callGame(caller) {
 /**
  * Create a bet from the opponent
  */
-function createResponse() {
+function createOpponentResponse() {
     // Variables that determine the opponent's response style
     let confidence = 0.47; // How likely the computer is to refrain from calling based on how its dice match the bet - (0 is never, 1 is very likely)
     let scepticism = 0.51; // How likely the computer is to call based on the overall dice quantity - (0 is never, 1 is very likely)
@@ -210,7 +214,7 @@ function createResponse() {
         }
         // Update the board
         newBet.updateCurrentBet();
-        updateResponseMessage(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
+        utility.updateOpponentResponseMessage(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
     }
 }
 
@@ -299,7 +303,7 @@ function handleNextTurn() {
     populateHand('opponent-hand', opponentDice);
     // Starts new round with opponent bet if player lost the last round
     if (document.getElementById('current-bet').getAttribute('last-winner') == 'opponent') {
-        opponent.createResponse();
+        createOpponentResponse();
         document.getElementById('call-button').disabled = false;
     }
     updateBetOptions();
