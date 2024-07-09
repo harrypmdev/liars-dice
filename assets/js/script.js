@@ -60,6 +60,7 @@ function populateHand(hand, dieNumber) {
         newDie.style.width = '20%';
         newDie.style.height = 'auto';
         newDie.style.objectFit = 'contain';
+        newDie.alt = dieNumber == 1 ? `A playing die with ${dieNumber} pip` : `A playing die with ${dieNumber} pips`;
         newDie.src = hand == 'player-hand' ? utility.getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
         cachedHand.appendChild(newDie);
     }
@@ -84,28 +85,26 @@ function handleBet(event) {
  * the current quantity.
  */
 function handlePipChange(){
-    console.log("HANDLING PIP CHANGE!");
     let currentBet = document.getElementById('current-bet');
     let quantitySelector = document.getElementById('quantity-selector');
     let pipSelector = document.getElementById('pip-selector');
     let firstTurn = currentBet.getAttribute('quantity') == 0;
     let current = false;
     for (let option of quantitySelector.children) {
-        if (option.value == currentBet.getAttribute('quantity'))
-	    current = option;
-        break;
+        if (option.value == currentBet.getAttribute('quantity')) {
+	        current = option;
+            break;
+        }
     }
     let shouldHaveCurrent = parseInt(pipSelector.value) > parseInt(currentBet.getAttribute('pips'));
     // If the selector has the current quantity but shouldn't do, remove it
     if (current && !shouldHaveCurrent && !firstTurn) {
-        console.log("DELETING!");
 	    quantitySelector.remove(current);
     }
     // If the selector doesn't have the current quantity but should do, add it
     if (!current && shouldHaveCurrent  && !firstTurn) {            
 	    let newOption = document.createElement('option');
-        newOption.value = currentBet.getAttribute('quantity');
-        newOption.innerHTML = currentBet.getAttribute('quantity');
+        newOption.value = newOption.innerHTML = currentBet.getAttribute('quantity');
         quantitySelector.insertBefore(newOption, quantitySelector.firstChild);
     }
 }
