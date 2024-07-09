@@ -1,18 +1,4 @@
- /**
- * A class for bets to simplify the game's data
- * @class
- */
-class Bet {
-    /**
-     * Create a bet
-     * @param {number} quantity The quantity of dice being bet
-     * @param {number} pips The number of pips being bet
-     */
-    constructor(quantity, pips) {
-        this.quantity = quantity;
-        this.pips = pips;
-    }
-}
+import {Bet} from './bet.js';
 
 /* Runs when the page is loaded */
 document.addEventListener("DOMContentLoaded", function() {
@@ -80,7 +66,7 @@ function startNewGame() {
  * @param {Bet} bet Bet object to update the current bet with
  */
 function updateCurrentBet(bet) {
-    currentBet = document.getElementById('current-bet');
+    let currentBet = document.getElementById('current-bet');
     if (bet) {
         let pipGrammar = 'pips';
         if (bet.pips == 1) {
@@ -108,7 +94,7 @@ function populateHand(hand, dieNumber) {
     // If any dice currently in hand, then remove them
     myHand.innerHTML = "";
     // Generate dice
-    for(i = 0; i < dieNumber; i++) {
+    for(let i = 0; i < dieNumber; i++) {
         let newDice = document.createElement('img');
         let diceNumber = generateDiceNumber();
         newDice.setAttribute('pips', diceNumber);
@@ -201,7 +187,7 @@ function handlePipChange(){
     let pipSelector = document.getElementById('pip-selector');
     // Check if the current bet quantity is currently an option of the quantity selector
     let containsCurrentQuantity = false;
-    for (option of quantitySelector.options) {
+    for (let option of quantitySelector.options) {
         if (option.value === currentBet.getAttribute('quantity')) {
             containsCurrentQuantity = true;
         }
@@ -406,7 +392,7 @@ function createOpponentResponse() {
     let secondHighestPip = findHighestPipTotal(totalPipTally)[0];
     let secondHighestPipOccurrences = findHighestPipTotal(totalPipTally)[1];
     // Make computer more likely to call game if overall quantity of dice is higher
-    currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
+    let currentQuantity = document.getElementById('current-bet').getAttribute('quantity');
     if (currentQuantity > 2) {
         callChanceRandomNum += (currentQuantity-2) * (scepticism/3);
     }
@@ -538,7 +524,7 @@ function updateBetOptions(){
     if (quantity == 0) {
         quantity = 1;
     }
-    for (i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 5; i++) {
         let newOption = document.createElement('option');
         newOption.value = quantity + i;
         newOption.innerHTML = quantity + i;
