@@ -192,7 +192,7 @@ hr::after {
 
 #game-status {
     text-align: center;
-    margin: 25px 0;
+    margin: 18px 0;
 }
 
 #player-board h2, #opponent-board h2 {
@@ -224,7 +224,7 @@ hr::after {
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     transition: background ease-in-out 0.3s;
 }
 
@@ -276,6 +276,24 @@ footer iframe {
 
 /* Media query - tablets and larger (768px) */
 @media screen and (min-width:768px) {
+
+    #game-status {
+        margin: 35px 0;
+    }
+
+    /* Increased font-sizes for tablets */
+    #game h2 {
+        font-size: 2rem;
+    }
+
+    .game-text, .option-button {
+        font-size: 1.75rem;
+    }
+
+}
+
+/* Media query - laptops and larger (1028px) */
+@media screen and (min-width:1028px) {
 
     /* Header */
     header a {
@@ -371,11 +389,15 @@ footer iframe {
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: repeat(2, 1fr);
     }    
-}
 
-/* Media query - laptops and larger (1028px) */
-@media screen and (min-width:1028px) {
-    
+    #game h2 {
+        font-size: 1.5rem;
+    }
+
+    .game-text, .option-button {
+        font-size: 1.3rem;
+    }
+
     /* Add hover effects */
     #menu a {
         border-radius: 20px;
