@@ -106,10 +106,15 @@ hr {
     text-align: center;
     height: 5px;
     width: 90%;
+    margin: 5px auto;
+}
+
+.dice-hr {
     margin: 40px auto;
+    display: block;
   }
 
-hr::after {
+.dice-hr::after {
     /* Adds dice image to all horizontal rule elements */
     content: url('../images/dice-logo.webp');
     position: relative;
@@ -294,6 +299,10 @@ footer iframe {
 
 /* Media query - laptops and larger (1028px) */
 @media screen and (min-width:1028px) {
+
+    hr {
+        display: none;
+    }
 
     /* Header */
     header a {
