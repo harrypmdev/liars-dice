@@ -179,20 +179,20 @@ hr::after {
 
 /* Liar's Dice Game */
 #player-hand, #opponent-hand {
-    width: 80%;
+    width: 95%;
     border-radius: 5px;
     background-color: #dadbdd;
-    align-self: center;
     margin: 20px auto;
     box-shadow: 1px 1px 3px #111827 inset;
     /* Parent flex properties */
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
 }
 
 #game-status {
     text-align: center;
+    margin: 25px 0;
 }
 
 #player-board h2, #opponent-board h2 {
@@ -244,7 +244,6 @@ hr::after {
 }
 
 #next-turn {
-    margin-top: 18px;
     background-color: #eba84b;
 }
 
@@ -340,14 +339,14 @@ footer iframe {
     }
 
     /* Liar's Dice Game */
-    .mobile-hr {
-        /* Hide hr elements */
-        display:none;
-    }
-
     #game {
         display: flex;
-        flex-direction: row;
+        align-items: center;
+    }
+    
+    #board {
+        display: flex;
+        align-items: flex-start;
     }
 
     #player-board {
@@ -362,6 +361,16 @@ footer iframe {
     #opponent-board {
         width: 40%;
     }
+
+    #next-turn {
+        margin-top: 18px;
+    }
+
+    #player-hand, #opponent-hand {
+        width: 75%;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }    
 }
 
 /* Media query - laptops and larger (1028px) */

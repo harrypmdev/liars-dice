@@ -34,53 +34,52 @@
     </header>
    <!-- Main page -->
     <main id="game">
-        <!-- The player's 'board', their hand and the bet form -->
-        <div id="player-board">
-            <h2>Your Dice</h2>
-            <div dice='6' id="player-hand">
+        <div id="board">
+            <!-- The player's 'board', their hand and the bet form -->
+            <div id="player-board">
+                <h2>Your Dice</h2>
+                <div dice='6' id="player-hand">
+                </div>
+                <form class="game-text" id="bet-form" action="">
+                    <p>I bet a <label for="quantity-selector">quantity</label> of </p>
+                    <select required name="quantity-selector" id="quantity-selector" class="game-text" name="" id="">
+                        <option class="hide" disabled selected value></option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <p> dice<br>with </p>
+                    <select required name="pip-selector" id="pip-selector"class="game-text" name="" id="">
+                        <option class="hide" disabled selected value></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                    </select>
+                    <label for="pip-selector">pips</label>
+                    <br>
+                    <input class="option-button" id="bet-button" type="submit" value="Bet">
+                    <p class="bold">OR</p>
+                    <button disabled class="option-button" type="button" id="call-button">Call</button>
+                </form>
             </div>
-            <form class="game-text" id="bet-form" action="">
-                <p>I bet a <label for="quantity-selector">quantity</label> of </p>
-                <select required name="quantity-selector" id="quantity-selector" class="game-text" name="" id="">
-                    <option class="hide" disabled selected value></option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-                <p> dice with </p>
-                <select required name="pip-selector" id="pip-selector"class="game-text" name="" id="">
-                    <option class="hide" disabled selected value></option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
-                <label for="pip-selector">pips</label>
-                <br>
-                <input class="option-button" id="bet-button" type="submit" value="Bet">
-                <p class="bold">OR</p>
-                <button disabled class="option-button" type="button" id="call-button">Call</button>
-            </form>
-        </div>
-        <hr class="mobile-hr">
-        <!-- The game status -->
-        <div id="game-status" >
-            <p last-winner="" id="current-bet" class="game-text" quantity="0" pips="0">Current Bet: None</p>
-            <br>
-            <p class="game-text" id="outcome-text"></p>
-            <button disabled class="option-button" id="next-turn">Next turn</button>
-        </div>
-        <hr class="mobile-hr">
-        <!-- The opponent's 'board', their hand and the opponent's text response -->
-        <div id="opponent-board">
-            <h2>Computer's Dice</h2>
-            <div dice='6' id="opponent-hand">
+            <!-- The game status -->
+            <div id="game-status" >
+                <p last-winner="" id="current-bet" class="game-text" quantity="0" pips="0">Current Bet: None</p>
+                <p class="game-text" id="outcome-text"></p>
+                <button disabled class="option-button" id="next-turn">Next turn</button>
             </div>
-            <p id="computer-response" class="game-text">Computer is awaiting your move.</p>
+            <!-- The opponent's 'board', their hand and the opponent's text response -->
+            <div id="opponent-board">
+                <h2>Computer's Dice</h2>
+                <div dice='6' id="opponent-hand">
+                </div>
+                <p id="computer-response" class="game-text">Computer is awaiting your move.</p>
+            </div>
         </div>
     </main>
    <!-- Footer page -->
