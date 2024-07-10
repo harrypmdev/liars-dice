@@ -201,11 +201,11 @@ function checkForGameFinish() {
     let opponentLost = document.getElementById('opponent-hand').getAttribute('dice') <= 0;
     let outcomeTextContent = document.getElementById('outcome-text').innerHTML;
     if (playerLost) {
-        outcomeTextContent += ` You have ran out of dice so you have lost
+        document.getElementById('outcome-text').innerHTML = `${outcomeTextContent} You have ran out of dice so you have lost
         the game! Better luck next time.`
     }
     if (opponentLost) {
-        outcomeTextContent += ` The computer has ran out of dice so you have
+        document.getElementById('outcome-text').innerHTML = `${outcomeTextContent} The computer has ran out of dice so you have
         won the game! Well done.`
     }
     document.getElementById('next-turn').innerText = playerLost || opponentLost ? 'Start New Game' : 'Next turn';
