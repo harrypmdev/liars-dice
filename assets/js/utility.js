@@ -8,8 +8,8 @@ export function generateDiceNumber() {
 
 /**
  * Returns the webp file of the relevant dice image for a dice number.
- * @param {integer} dieNumber The dice number (1-6)
- * @return {string} The path of the relevant dice image. Erroneous arguments will return the 'dice unknown' image
+ * @param {integer} dieNumber The dice number (1-6).
+ * @return {string} The path of the relevant dice image. Erroneous arguments will return the 'dice unknown' image.
  */
 export function getDiceImage(dieNumber) {
     dieNumber = parseInt(dieNumber);
@@ -55,7 +55,7 @@ export function tallyPipTotals(diceArray) {
 
 /**
  * Finds the pip number that occurs the most from a tally of pip totals.
- * @param {Object} pipTally A dictionary which has the tally of the total amount of times
+ * @param {Object} pipTally An object which has the tally of the total amount of times.
  * pip numbers occur in a hand, usually the returned value of tallyPipTotals().
  * @returns {Array} An array with two values: the pip number that occurs the most and the amount of times it occurs.
  */

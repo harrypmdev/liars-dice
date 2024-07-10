@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
  * Adjusts the offset of the main section of the page to account
  * for different header sizes on different devices.
  * On play.html, gives extra padding-top.
- * @param {string} page The page being loaded
+ * @param {string} page The page being loaded (e.g index.html).
  */
 function accountForHeader(page) {
     let height = document.getElementsByTagName('header')[0].offsetHeight;
@@ -32,10 +32,9 @@ function accountForHeader(page) {
 
 /**
  * Starts a new game of Liar's Dice.
- * Runs when play.html first loads and every time the game is restarted
  */
 function startNewGame() {
-    new Bet(0, 0).updateCurrentBet(); // Sets current bet to 'none'
+    document.getElementById('current-bet').setAttribute('last-winner', '');
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
     updateBetOptions();
@@ -43,9 +42,9 @@ function startNewGame() {
 }
 
 /**
- * Populates the player or opponent's hand with dice
- * @param {string} hand the hand which should be populated - 'player-hand' or 'opponent-hand'
- * @param {integer} dieNumber the number of dice which should be added
+ * Populates the player or opponent's hand with dice.
+ * @param {string} hand the hand which should be populated - 'player-hand' or 'opponent-hand'.
+ * @param {integer} dieNumber the number of dice which should be added.
  */
 function populateHand(hand, dieNumber) {
     let cachedHand = document.getElementById(hand);
@@ -67,8 +66,8 @@ function populateHand(hand, dieNumber) {
 }
 
 /**
- * Handles the submission of the bet form
- * @param {*} event The callback event 
+ * Handles the submission of the bet form.
+ * @param {*} event The callback event.
  */
 function handleBet(event) {
     event.preventDefault();
@@ -81,8 +80,8 @@ function handleBet(event) {
 /**
  * Handles the change of the pip value in the pip selector.
  * If the pip value is higher than the current bet, adds the current quantity
- * as an option to the quantity selector. If the pip value goes lower again, removes
- * the current quantity.
+ * as an option to the quantity selector. If the pip value goes lower again,
+ * removes the current quantity.
  */
 function handlePipChange(){
     let currentBet = document.getElementById('current-bet');
@@ -140,7 +139,7 @@ function callGame(caller) {
 }
 
 /**
- * Create a bet from the opponent
+ * Create a response from the opponent (either a new bet or calling the game).
  */
 function createOpponentResponse() {
     let currentBet = document.getElementById('current-bet');
@@ -163,29 +162,40 @@ function createOpponentResponse() {
         callGame('opponent');
         return;
     }
-    let newBet = new Bet(0, 0);
-    randomNum = Math.random();
-    // Pick the pip number
-    if (randomNum < 0.5) {
-        newBet.pips = highestPip[1];
-    } else {
-        newBet.pips = lastWinner ? utility.generateDiceNumber() : currentBet.getAttribute('pips');
-    }
-    // Pick quantity
-    if (newBet.pips > currentBet.getAttribute('pips')) {
-        newBet.quantity = lastWinner ? 2 : currentBet.getAttribute('quantity');
-    } else {
-        newBet.quantity = lastWinner ? 2 : parseInt(currentBet.getAttribute('quantity')) + 1;
-    }
+    let newBet = generateNewBet(highestPip[0], lastWinner);
     // Update the board
     newBet.updateCurrentBet();
     utility.updateOpponentResponseMessage(`The computer has bet ${newBet.quantity} dice with ${newBet.pips} pips.`);
 }
 
 /**
+ * Generates a potential new bet using knowledge of a hand.
+ * @param {number} highestPipNum The pip that occurs most in the hand.
+ * @param {Boolean} firstBet Whether or not this is the first bet in the round.
+ * @returns {Bet} The potential new bet.
+ */
+function generateNewBet(highestPipNum, firstBet) {
+    let newBet = new Bet(0, 0);
+    let randomNum = Math.random();
+    let currentBet = document.getElementById('current-bet');
+    // Pick the pip number
+    if (randomNum < 0.5) {
+        newBet.pips = highestPipNum;
+    } else {
+        newBet.pips = firstBet ? utility.generateDiceNumber() : currentBet.getAttribute('pips');
+    }
+    // Pick quantity
+    if (newBet.pips > currentBet.getAttribute('pips')) {
+        newBet.quantity = firstBet ? 2 : currentBet.getAttribute('quantity');
+    } else {
+        newBet.quantity = firstBet ? 2 : parseInt(currentBet.getAttribute('quantity')) + 1;
+    }
+    return newBet;
+}
+
+/**
  * Checks the hands to see if either has ran out of dice.
- * If so, outputs the end game message and updates the 'next turn'
- * button to 'Start New Game'.
+ * If so, outputs the end game message and updates the 'next turn' button to 'Start New Game'.
  */
 function checkForGameFinish() {
     let playerLost = document.getElementById('player-hand').getAttribute('dice') <= 0;
@@ -216,7 +226,7 @@ function endTurn(){
 }
 
 /** 
- * Reveal the opponent's dice 
+ * Reveal the opponent's dice.
  */
 function revealDice() {
     let opponentHand = document.getElementById('opponent-hand');
@@ -226,7 +236,7 @@ function revealDice() {
 }
 
 /**
- * Update the options the player has for betting in the bet form
+ * Update the options the player has for betting in the bet form.
  */
 function updateBetOptions(){
     let quantitySelector = document.getElementById('quantity-selector');
@@ -238,7 +248,7 @@ function updateBetOptions(){
     if (quantity == 0) {
         quantity = 1; // If first turn of game, don't add an option for one die
     }
-    for (let i = 1; i <= 5; i++) {
+    for (let i = 1; i <= 4; i++) {
         let newOption = document.createElement('option');
         newOption.value = newOption.innerHTML = quantity + i;
         quantitySelector.appendChild(newOption);
@@ -246,9 +256,10 @@ function updateBetOptions(){
 }
 
 /**
- * Handles the next turn button
+ * Handles the next turn button.
  */
 function handleNextTurn() {
+    new Bet(0, 0).updateCurrentBet(); // Resets current bet
     utility.updateOpponentResponseMessage("The computer is awaiting your move.");
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
@@ -262,7 +273,6 @@ function handleNextTurn() {
         startNewGame();
         return;
     }
-    new Bet(0, 0).updateCurrentBet(); // Resets current bet
     populateHand('player-hand', playerDice);
     populateHand('opponent-hand', opponentDice);
     // Starts new round with opponent bet if player lost the last round
