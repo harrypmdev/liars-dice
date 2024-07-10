@@ -1,6 +1,6 @@
 /**
  * Generates a random number between 1 and 6.
- * Takes no parameters
+ * Takes no parameters.
  */
 export function generateDiceNumber() {
     return Math.ceil(Math.random() * 6);
@@ -43,7 +43,7 @@ export function returnDiceArray(hand) {
 /**
  * Tallies up the total amount of times pip numbers occur in a hand.
  * @param {Array} diceArray An array of the dice in a hand, usually the returned value of returnDiceArray().
- * @returns {Object} A dictionary for which the key is the pip number and the value the amount of times it occurs.
+ * @returns {Object} An object for which the key is the pip number and the value the amount of times it occurs.
  */
 export function tallyPipTotals(diceArray) {
     let pipObject = {};
@@ -55,7 +55,7 @@ export function tallyPipTotals(diceArray) {
 
 /**
  * Finds the pip number that occurs the most from a tally of pip totals.
- * @param {Object} pipTally An object which has the tally of the total amount of times.
+ * @param {Object} pipTally An object with a tally of the total amount of times
  * pip numbers occur in a hand, usually the returned value of tallyPipTotals().
  * @returns {Array} An array with two values: the pip number that occurs the most and the amount of times it occurs.
  */
@@ -96,8 +96,8 @@ export function constructOutcomeText(caller, betIsCorrect, pipOccurrences) {
 }
 
 /**
- * Updates the opponent's response section on the board
- * @param {string} response The response the opponent should output
+ * Updates the opponent's response section on the board.
+ * @param {string} response The response the opponent should output.
  */
 export function updateOpponentResponseMessage(response) {
     let opponentResponse = document.getElementById('computer-response')
