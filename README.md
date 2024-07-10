@@ -1,9 +1,8 @@
 # The Liar's Dice Club
 
+The Liar's Dice Club is a website to inform users of a club that meets to play Liar's Dice in the Guildborne Center, Worthing, and offers an online version of the game so people can try it out.
 
-Help Me Pest Control is a website to inform users of common pest issues and how they can seek help through the company **Help Me Pest Control Ltd** based in Worthing, Sussex. The site is targeted towards users already having a pest problem and looking for solutions.
-
-![Responsive Mockup](/assets/documentation/responsive.png)
+![Responsive Mockup](/assets/images/documentation/indexresponsivityimage.webp)
 
 ## Features 
 
