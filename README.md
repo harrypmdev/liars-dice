@@ -85,7 +85,7 @@ the meeting times and an embedded map of the meeting location.
 **Footer**
 
 - The footer is shown at the bottom of both pages like the navbar is at the top, giving both pages consistency
-and providing better UX
+and providing better UX.
 - The club meeting times and an embedded map of the meeting location is included so users are reminded of how
 they can attend the club on both pages.
 
@@ -128,7 +128,7 @@ amounts of starting dice, this version has two players and uses six starting dic
 
 ## Potential Features Yet to be Implemented
 
-The Liar's Dice Club is a functional and complete website. There are however some features that can be implented in future to improve user experience.
+The Liar's Dice Club is a functional and complete website. There are however some features that can be implented in the future to improve user experience.
 
 1. **Starting Dice Selector**
     - Include a selector on page.html which allows users to choose how many dice each player will start with.
@@ -141,7 +141,7 @@ The Liar's Dice Club is a functional and complete website. There are however som
     createOpponentResponse() function in script.js, so a selector which alters this 
     may not be require too much extra code. 
     - The hardest difficulty could 'cheat' and factor in the player's dice like a real life
-    player effectively calling their opponent's bluffs.
+    player, effectively calling their opponent's bluffs.
 3. **Online Multiplayer**
     - Include an option on play.html to play online with other real life players.
     - This would require much more functionality than the website currently includes.
@@ -159,7 +159,7 @@ The site has been tested on mobile, tablet, and laptop/PC screen sizes. The foll
 |---|---|---|
 Navbar|Tap on burger|Menu opens, then closes if tapped again|
 Liar's Dice Game|Tap on Navbar link to play.html|Page opens and generates two hands of six dice in a single horizontal row|
-Liar's Dice Game|Play game to the end of a turn|A die is removed from the furthest right side of the row and the rest of the die are randomly reselected
+Liar's Dice Game|Play game to the end of a turn|A die is removed from the furthest right side of the row and the rest of the dice are randomly reselected
 
 ### Feature testing generic to all screen sizes
 
@@ -264,7 +264,7 @@ The site was tested with Lighthouse and received the following results:
 - The '::after' pseudo-element displays as 'inline' by default. Inline elements cannot be transformed in this manner.
 - 'display: inline-block' was added to the CSS selector in question
     <details>
-    <summary>Bug one WAVE solved</summary>
+    <summary>Bug one solved</summary>
 
     ![bug-one-solved](/assets/images/documentation/bug-one-hr-fixed.webp)
 
@@ -303,7 +303,7 @@ The site was tested with Lighthouse and received the following results:
     <br>
 - The problem was a for loop in 'handlePipChange()'. The for loop iterated through the options of the quantity selector and set a variable if it found the current quantity.
 - The loop would then continue iterating and reset the variable to false because the current quantity was not the last option in the selector. This was causing the current quantity to be missed.
-- The 'break' keyword was added so the loop did not continue after it identified the current quantity
+- The 'break' keyword was added so the loop did not continue after it identified the current quantity.
     <details>
     <summary>Bug three solved</summary>
 
@@ -335,11 +335,11 @@ The site was tested with Lighthouse and received the following results:
 ## Deployment
 
 - The site was deployed to GitHub pages using the following steps: 
-  - In the GitHub repository, navigate to the Settings tab 
-  - From the source section drop-down menu, select the Master Branch
+  - In the GitHub repository, navigate to the 'settings' tab.
+  - From the source section drop-down menu, select the 'master branch'.
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
 
-The live link can be found here - <a target="_blank" href="https://harrypmdev.github.io/liars-dice/">https://harrypmdev.github.io/liars-dice/</a>
+The live link can be found here - <a target="_blank" href="https://harrypmdev.github.io/liars-dice/">https://harrypmdev.github.io/liars-dice/</a>.
 
 
 ## Credits 
