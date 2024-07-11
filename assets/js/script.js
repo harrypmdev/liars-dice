@@ -1,9 +1,8 @@
 import {Bet} from './bet.js';
 import * as utility from './utility.js';
 
-
 /* Runs when the page is loaded */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', function() {
     let path = window.location.pathname
     let fileName = path.substring(path.lastIndexOf('/') + 1); // Find current page and assign to fileName
     if (fileName === 'play.html') {
@@ -15,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('pip-selector').addEventListener('change', handlePipChange)
     }
     accountForHeader(fileName);
-    window.addEventListener("resize", () => {accountForHeader(fileName)});
+    window.addEventListener('resize', () => {accountForHeader(fileName)});
 });
 
 /**
@@ -49,7 +48,7 @@ function startNewGame() {
 function populateHand(hand, dieNumber) {
     let cachedHand = document.getElementById(hand);
     cachedHand.setAttribute('dice', dieNumber);
-    cachedHand.innerHTML = ""; // If any dice currently in hand, then remove them
+    cachedHand.innerHTML = ''; // If any dice currently in hand, then remove them
     // Generate dice
     for(let i = 0; i < dieNumber; i++) {
         let newDie = document.createElement('img');
@@ -154,7 +153,7 @@ function createOpponentResponse() {
     if (currentBet.getAttribute('pips') == highestPip[0]) {
         randomNum -= (highestPip[1]*(confidence/3));
     }
-    let lastWinner = currentBet.getAttribute('last-winner') === "player";
+    let lastWinner = currentBet.getAttribute('last-winner') === 'player';
     currentBet.setAttribute('last-winner', '');
     // Call game or make bet 
     if (randomNum > 0.9 && !lastWinner) {
@@ -239,11 +238,11 @@ function revealDice() {
  */
 function updateBetOptions(){
     let quantitySelector = document.getElementById('quantity-selector');
-    document.getElementById('pip-selector').value = "";
+    document.getElementById('pip-selector').value = '';
     // Clear quantity selector options except for blank default
     quantitySelector.innerHTML = "<option class='hide' disabled selected value></option>";
     // Add new quantity selector options
-    let quantity = parseInt(document.getElementById('current-bet').getAttribute("quantity"));
+    let quantity = parseInt(document.getElementById('current-bet').getAttribute('quantity'));
     if (quantity == 0) {
         quantity = 1; // If first turn of game, don't add an option for one die
     }
@@ -259,12 +258,12 @@ function updateBetOptions(){
  */
 function handleNextTurn() {
     new Bet(0, 0).updateCurrentBet(); // Resets current bet
-    utility.updateOpponentResponseMessage("The computer is awaiting your move.");
+    utility.updateOpponentResponseMessage('The computer is awaiting your move.');
     document.getElementById('bet-button').disabled = false;
     document.getElementById('quantity-selector').disabled = false;
     document.getElementById('pip-selector').disabled = false;
     document.getElementById('next-turn').disabled = true;
-    document.getElementById('outcome-text').innerHTML = "";
+    document.getElementById('outcome-text').innerHTML = '';
     let playerDice = document.getElementById('player-hand').getAttribute('dice');
     let opponentDice = document.getElementById('opponent-hand').getAttribute('dice');
     // If either player's hand is empty, restart the game

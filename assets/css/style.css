@@ -117,7 +117,7 @@ hr {
   }
 
 .dice-hr::after {
-    /* Adds dice image to all horizontal rule elements */
+    /* Add dice image */
     content: url('../images/dice-logo.webp');
     position: relative;
     top: -27px;
@@ -135,11 +135,11 @@ hr {
 }
 
 #play-box {
+    text-align: center;
     /* Parent flex properties */
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
 }
 
 #play-box h2 {
@@ -191,7 +191,7 @@ hr {
     background-color: #dadbdd;
     margin: 20px auto;
     box-shadow: 1px 1px 3px #111827 inset;
-    /* Parent flex properties */
+    /* Parent grid properties */
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: 1fr;
@@ -252,7 +252,7 @@ hr {
 }
 
 #call-button {
-    background-color: #a34433;
+    background-color: #A34433;
 
 }
 
@@ -280,11 +280,11 @@ footer iframe {
 }
 
 .footer-paragraph {
-    flex: 1;
     text-align: center;
     font-size: 1.35rem;
     line-height: 35px;
     margin: 15px;
+    flex: 1;
 }
 
 /* Media query - tablets and larger (768px) */
@@ -292,6 +292,7 @@ footer iframe {
 
     /* Header */
     header a {
+        /* Parent flex properties */
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -299,11 +300,12 @@ footer iframe {
 
     #logo {
         /* Display logo */
-        display: inline-block;
         margin-left: 20px;
-        transform: rotate(45deg);
         height: auto;
         width: auto;
+        /* Rotate 45 degrees */
+        display: inline-block;
+        transform: rotate(45deg);
     }
 
     /* Navbar */
@@ -387,17 +389,13 @@ footer iframe {
         align-items: flex-start;
     }
 
-    #player-board {
+    #player-board, #opponent-board {
         width: 40%;
     }
 
     #game-status {
         width: 20%;
         margin: auto;
-    }
-
-    #opponent-board {
-        width: 40%;
     }
 
     #next-turn {

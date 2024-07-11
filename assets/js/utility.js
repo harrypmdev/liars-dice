@@ -87,7 +87,7 @@ export function constructOutcomeText(caller, betIsCorrect, pipOccurrences) {
     }
     let noDice = pipOccurrences == 0 ? 'were no' : 'was a quantity of';
     if (pipOccurrences == 0) {
-        pipOccurrences = "";
+        pipOccurrences = '';
     }
     let diePhrasing = pipOccurrences == 1 ? 'die' : 'dice';
     let pipPhrasing = currentBet.getAttribute('pips') == 1 ? 'pip' : 'pips';
