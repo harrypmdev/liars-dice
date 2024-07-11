@@ -34,6 +34,7 @@ function accountForHeader(page) {
  */
 function startNewGame() {
     document.getElementById('current-bet').setAttribute('last-winner', '');
+    new Bet(0, 0).updateCurrentBet(); // Sets current bet to none
     populateHand('player-hand', 6);
     populateHand('opponent-hand', 6);
     updateBetOptions();
