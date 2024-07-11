@@ -154,7 +154,7 @@ function createOpponentResponse() {
     if (currentBet.getAttribute('pips') == highestPip[0]) {
         randomNum -= (highestPip[1]*(confidence/3));
     }
-    let lastWinner = currentBet.getAttribute('last-winner') === "opponent";
+    let lastWinner = currentBet.getAttribute('last-winner') === "player";
     currentBet.setAttribute('last-winner', '');
     // Call game or make bet 
     if (randomNum > 0.9 && !lastWinner) {
@@ -275,7 +275,7 @@ function handleNextTurn() {
     populateHand('player-hand', playerDice);
     populateHand('opponent-hand', opponentDice);
     // Starts new round with opponent bet if player lost the last round
-    if (document.getElementById('current-bet').getAttribute('last-winner') == 'opponent') {
+    if (document.getElementById('current-bet').getAttribute('last-winner') == 'player') {
         createOpponentResponse();
         document.getElementById('call-button').disabled = false;
     }
