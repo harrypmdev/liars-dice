@@ -1,6 +1,6 @@
 # The Liar's Dice Club
 
-The Liar's Dice Club is a website to inform users of a club that meets to play Liar's Dice in the Guildborne Center, Worthing, and offer an online version of the game so people can try it out.
+The Liar's Dice Club is a website to inform users of a club that meets to play Liar's Dice in the Guildborne Centre, Worthing, and offer an online version of the game so people can try it out.
 
 ![Responsive Mockup](/assets/images/documentation/index-responsivity-image.webp)
 
