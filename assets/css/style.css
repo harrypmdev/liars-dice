@@ -290,28 +290,6 @@ footer iframe {
 /* Media query - tablets and larger (768px) */
 @media screen and (min-width:768px) {
 
-    #game-status {
-        margin: 35px 0;
-    }
-
-    /* Increased font-sizes for tablets */
-    #game h2 {
-        font-size: 2rem;
-    }
-
-    .game-text, .option-button {
-        font-size: 1.75rem;
-    }
-
-}
-
-/* Media query - laptops and larger (1028px) */
-@media screen and (min-width:1028px) {
-
-    hr {
-        display: none;
-    }
-
     /* Header */
     header a {
         display: flex;
@@ -359,6 +337,29 @@ footer iframe {
     }
 
     /* Main */
+    #game-status {
+        margin: 35px 0;
+    }
+
+    /* Increased font-sizes for tablets */
+    #game h2 {
+        font-size: 2rem;
+    }
+
+    .game-text, .option-button {
+        font-size: 1.75rem;
+    }
+
+}
+
+/* Media query - laptops and larger (1028px) */
+@media screen and (min-width:1028px) {
+
+    /* Main */
+    hr {
+        display: none;
+    }
+
     #intro-box {
         flex-direction: row;
         justify-content: space-evenly;
