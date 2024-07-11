@@ -274,6 +274,7 @@ footer {
 }
 
 footer iframe {
+    border: 0;
     /* Set map to full width on mobile */
     width: 100%;
     flex: 1;
