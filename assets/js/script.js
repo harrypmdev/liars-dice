@@ -3,18 +3,18 @@ import * as utility from './utility.js';
 
 /* Runs when the page is loaded */
 document.addEventListener('DOMContentLoaded', function() {
-    let path = window.location.pathname
+    let path = window.location.pathname;
     let fileName = path.substring(path.lastIndexOf('/') + 1); // Find current page and assign to fileName
     if (fileName === 'play.html') {
         startNewGame();
         // Add liar's dice game event listeners
         document.getElementById('bet-form').addEventListener('submit', handleBet);
-        document.getElementById('call-button').addEventListener('click', () => {callGame('player')});
+        document.getElementById('call-button').addEventListener('click', () => {callGame('player');});
         document.getElementById('next-turn').addEventListener('click', handleNextTurn);
-        document.getElementById('pip-selector').addEventListener('change', handlePipChange)
+        document.getElementById('pip-selector').addEventListener('change', handlePipChange);
     }
     accountForHeader(fileName);
-    window.addEventListener('resize', () => {accountForHeader(fileName)});
+    window.addEventListener('resize', () => {accountForHeader(fileName);});
 });
 
 /**
@@ -119,7 +119,7 @@ function callGame(caller) {
     if (caller === 'opponent') {
         utility.updateOpponentResponseMessage('The computer has called!');
     }
-    let bothHandsDiceArray = utility.returnDiceArray('player-hand') + utility.returnDiceArray('opponent-hand')
+    let bothHandsDiceArray = utility.returnDiceArray('player-hand') + utility.returnDiceArray('opponent-hand');
     let allPipsObject = utility.tallyPipTotals(bothHandsDiceArray);
     let pipOccurrences = allPipsObject[currentBet.getAttribute('pips')]; // Pip occurrences is the total times the current pip appears
     if (pipOccurrences === undefined) {
@@ -202,11 +202,11 @@ function checkForGameFinish() {
     let outcomeTextContent = document.getElementById('outcome-text').innerHTML;
     if (playerLost) {
         document.getElementById('outcome-text').innerHTML = `${outcomeTextContent} You have ran out of dice so you have lost
-        the game! Better luck next time.`
+        the game! Better luck next time.`;
     }
     if (opponentLost) {
         document.getElementById('outcome-text').innerHTML = `${outcomeTextContent} The computer has ran out of dice so you have
-        won the game! Well done.`
+        won the game! Well done.`;
     }
     document.getElementById('next-turn').innerText = playerLost || opponentLost ? 'Start New Game' : 'Next turn';
 }

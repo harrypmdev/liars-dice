@@ -237,24 +237,6 @@ The site was tested with Lighthouse and received the following results:
 - #### SEO - 100
     - Lighthouse rates the page perfect for SEO.
 
-
-### Contact Us Page
-
-![contact-us.html Lighthouse Results](/assets/images/documentation/play-lighthouse.webp)
-
-- #### Performance - 91
-    - The site peformance is 91, which means it overall had good performance. 
-    - Like index.html and services.html, the performance was slightly hindered by the quality of the hero image.
-
-- #### Accessibility - 100
-    - Lighthouse rates the site perfect for accessibility. 
-
-- #### Best practices - 100
-    - Lighthouse rates the site perfect for best practices.
-
-- #### SEO - 100
-    - Lighthouse rates the site perfect for SEO.
-    
 <br>
 
 **It is of course important to note that Lighthouse is an automated anaylsis and improvements can likely be made to all four metrics for each page.**
@@ -266,7 +248,7 @@ The site was tested with Lighthouse and received the following results:
 - No errors returned using <a href="https://validator.w3.org/" target="_blank">W3C validator</a>
 
 #### CSS
-- No errors returned using <a target="_blank" href="https://jigsaw.w3.org/css-validator/)">Jigsaw validator</a>
+- No errors returned using <a href="https://jigsaw.w3.org/css-validator/)" target="_blank">Jigsaw validator</a>
 
 
 ## Bugs

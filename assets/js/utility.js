@@ -22,7 +22,7 @@ export function getDiceImage(dieNumber) {
         'assets/images/dice-faces/dice-four.webp',
         'assets/images/dice-faces/dice-five.webp',
         'assets/images/dice-faces/dice-six.webp'
-    ]
+    ];
     return DiceImages[dieNumber - 1]; // Returns relevant image
 }
 
@@ -100,6 +100,6 @@ export function constructOutcomeText(caller, betIsCorrect, pipOccurrences) {
  * @param {string} response The response the opponent should output.
  */
 export function updateOpponentResponseMessage(response) {
-    let opponentResponse = document.getElementById('computer-response')
+    let opponentResponse = document.getElementById('computer-response');
     opponentResponse.innerHTML = response;
 }
