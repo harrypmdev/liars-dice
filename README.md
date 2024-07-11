@@ -250,6 +250,8 @@ The site was tested with Lighthouse and received the following results:
 #### CSS
 - No errors returned using <a href="https://jigsaw.w3.org/css-validator/)" target="_blank">Jigsaw validator</a>
 
+#### JS
+- No errors returned using <a href="https://jshint.com/" target="_blank">JSHint</a> except warnings r.e ES6 dependency
 
 ## Bugs
 
@@ -336,7 +338,7 @@ The site was tested with Lighthouse and received the following results:
   - From the source section drop-down menu, select the Master Branch
   - Once the master branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment. 
 
-The live link can be found here - <a target="_blank" href="https://harrypmdev.github.io/help-me-pest-control-website/">https://harrypmdev.github.io/help-me-pest-control-website/</a>
+The live link can be found here - <a target="_blank" href="https://harrypmdev.github.io/liars-dice/">https://harrypmdev.github.io/liars-dice/</a>
 
 
 ## Credits 
@@ -345,33 +347,30 @@ All content apart from where stated below is my own work.
 
 ### Content 
 
-- All social media pages and branding belongs to **Help Me Pest Control Limited** for whom the website was built with the consent of the company owner.
-- All font awesome icons including bug-favicon.svg from <a href="https://fontawesome.com/v4/license/">Font Awesome by Dave Gandy.</a>
-- Reviews section links to reviews hosted publicly by Google. Google fonts also from Google are imported on style.css line 1. Map is embedded link provided by Google Maps.
-- Services section pest videos are public Youtube videos hosted by Youtube and utilised with embedded links provided by Youtube.
-- All six Youtube videos are public videos produced by the British Pest Control Association.
+- Font awesome burger icon from <a href="https://fontawesome.com/v4/license/">Font Awesome by Dave Gandy.</a>
+- Google fonts also from Google are imported on style.css line 1. Map is embedded link provided by Google Maps.
 - Web accessibility evaluation provided by <a target="_blank" href="https://wave.webaim.org/">WAVE</a> for help in improving accessibility.
 - HTML and CSS validation provided by <a target="_blank" href="https://validator.w3.org/">W3</a>
-- Tutorials and explanations of CSS properties provided by <a target="_blank" href="https://www.w3schools.com/">W3</a>
+- JavaScript validation provided by <a target="_blank" href="https://jshint.com/">JS Hint</a>
+- Tutorial on styling hr elements with '::after' pseudo-element from <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">MDN Web Docs</a> 
+- Tutorials and explanations of JavaScript syntax provided by <a target="_blank" href="https://www.w3schools.com/">W3</a>
 - README.md deployment section edited from Code Institute demonstration README.md page as process is the same.
 
 
 ### Media
 
 The following images are under a free license:
-- bookshelves.webp image from <a target="_blank" href="https://www.freepik.com/free-photo/person-disinfecting-dangerous-area-while-wearing-protective-suit_12354032.htm#query=pest%20control&position=9&from_view=keyword&track=ais_user&uuid=74b5962d-b2ae-414e-9ccf-92a90d5b4e91">Freepik.</a>
-- wall-custom-cropped-lossy.webp from <a target="_blank" href="https://www.freepik.com/free-photo/people-disinfecting-together-dangerous-area_12354142.htm#page=2&position=44&from_view=collections&uuid=da580347-fa2d-42d1-a86d-b786c9ae3b06">Freepik.</a>
-- pest-paper.webp image from <a target="_blank" href="https://www.freepik.com/free-photo/nurse-wears-protective-suit-mask-covid19-outbreak_10167009.htm#position=2">Freepik.</a>
-- pier-sussex.webp image from <a target="_blank" href="https://www.freepik.com/free-photo/scenic-wooden-bridge-stretching-duxbury-bay_19441916.htm#fromView=search&page=1&position=38&uuid=fa6587fe-a7aa-4c96-b383-1cad86fb04a0">Freepik.</a>
-- bedbug.webp image from <a target="_blank" href="https://phil.cdc.gov/Details.aspx?pid=5460">Public Health Image Library.</a>
-- rat.webp image from <a target="_blank" href="https://phil.cdc.gov/Details.aspx?pid=14282">Public Health Image Library.</a>
-- flea.webp image from <a target="_blank" href="https://phil.cdc.gov/details.aspx?pid=11436">Public Health Image Library.</a>
 
-The following image is licensed under the Creative Commons Attribution-Share Alike 2.5 Generic license:
+- All dice face images
+(dice-one.webp)
+(dice-two.webp)
+(dice-three.webp)
+(dice-four.webp)
+(dice-five.webp)
+(dice-six.webp)
+from <a target="_blank" href="https://www.vecteezy.com/vector-art/6923039-dice-game-line-icon-set-pipped-dices-toss-from-one-to-six-die-for-casino-craps-table-or-board-games-luck-and-random-choice-vector-illustration-isolated">Vecteezy</a>.
+- dice-unknown.webp, dice-logo.webp and dice-rotated-favicon.ico adapted from the same work as above by <a target="_blank" href="https://www.vecteezy.com/vector-art/6923039-dice-game-line-icon-set-pipped-dices-toss-from-one-to-six-die-for-casino-craps-table-or-board-games-luck-and-random-choice-vector-illustration-isolated">Vecteezy</a>.
 
-- wasp.webp image from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Vespula_germanica_Richard_Bartz.jpg">Richard Bartz, Munich aka Makro Freak.</a>
+The following image is licensed under the  Creative Commons Attribution-Share Alike 2.0 Generic license:
 
-The following images are icensed under the Creative Commons Attribution-Share Alike Attribution-Share Alike 4.0 International, 3.0 Unported, 2.5 Generic, 2.0 Generic and 1.0 Generic license:
-
-- weevil.webp image from <a target="_blank" href="https://en.wikipedia.org/wiki/File:Weevil_September_2008-1.jpg">Alvesgaspar.</a>
-- moth.webp image from <a target="_blank" href="https://en.wikipedia.org/wiki/File:Moth_September_2008-3.jpg">Alvesgaspar.</a>
+- dice.webp image from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Dice_(504524747).jpg">Nazir Amin</a>.
