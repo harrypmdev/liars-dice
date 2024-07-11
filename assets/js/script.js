@@ -55,9 +55,9 @@ function populateHand(hand, dieNumber) {
         let newDie = document.createElement('img');
         let dieNumber = utility.generateDiceNumber();
         newDie.setAttribute('pips', dieNumber);
-        newDie.style.padding = '10%';
-        newDie.style.width = '100%';
-        newDie.style.objectFit = 'contain';
+        newDie.setAttribute('class', 'die');
+        newDie.width = '355';
+        newDie.height = '354';
         newDie.alt = dieNumber == 1 ? `A playing die with ${dieNumber} pip` : `A playing die with ${dieNumber} pips`;
         newDie.src = hand == 'player-hand' ? utility.getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
         cachedHand.appendChild(newDie);

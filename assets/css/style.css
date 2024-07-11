@@ -241,6 +241,12 @@ hr {
     background-color: #dadbdd !important;
 }
 
+.die {
+    padding: 10%;
+    width: 100%;
+    height: auto;
+}
+
 #bet-button {
     background-color: #198932;
 }
