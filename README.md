@@ -126,18 +126,28 @@ amounts of starting dice, this version has two players and uses six starting dic
 </details>
 <hr>
 
-## Features Yet to be Implemented
+## Potential Features Yet to be Implemented
 
-Help Me Pest Control is a functional and complete website. There are however some features that can be implented in future to improve user experience.
+The Liar's Dice Club is a functional and complete website. There are however some features that can be implented in future to improve user experience.
 
-1. **Automated email queries:**
-    - Include a button inside each pest division of the services section that links to the contact us page and automatically fills the email query text area with a request for help that matches the pest in question.
-2. **About staff section:**
-    - Include a section that information and pictures of the staff to users so they are familiar with the staff members are given a more personal experience.
-3. **Accolades/awards section:**
-    - List the several accolades/awards won by the company, perhaps as logos that link to the respective award site.
-4. **Interactive pricing section:**
-    - An interactive section in which your pest concern can be inputted and an approximate price will be generated according to how much your issue is likely to cost.
+1. **Starting Dice Selector**
+    - Include a selector on page.html which allows users to choose how many dice each player will start with.
+    - Many real life Liar's Dice players start their games with five dice, and would likely prefer to change
+    the game to this version if possible.
+2. **Difficulty Selector**
+    - Include a selector on page.html which allows users to choose between different difficulty 
+    settings for the Liar's Dice Game. -
+    - Variables that determine the opponent's behavior are already established in the
+    createOpponentResponse() function in script.js, so a selector which alters this 
+    may not be require too much extra code. 
+    - The hardest difficulty could 'cheat' and factor in the player's dice like a real life
+    player effectively calling their opponent's bluffs.
+3. **Online Play**
+    - Include an option on play.html to play online with other real life players.
+    - This would require much more functionality than the website currently includes.
+4. **Gallery**
+    - Include a third html page, gallery.html, that has a gallery of images of the Liar's Dice Club meeting.
+    - This would show new visitors that the club is welcoming and encourage them to attend.
 
 ## Manual Testing 
 
