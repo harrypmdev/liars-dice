@@ -136,7 +136,7 @@ The Liar's Dice Club is a functional and complete website. There are however som
     the game to this version if possible.
 2. **Difficulty Selector**
     - Include a selector on page.html which allows users to choose between different difficulty 
-    settings for the Liar's Dice Game. -
+    settings for the Liar's Dice Game.
     - Variables that determine the opponent's behavior are already established in the
     createOpponentResponse() function in script.js, so a selector which alters this 
     may not be require too much extra code. 
@@ -245,13 +245,13 @@ The site was tested with Lighthouse and received the following results:
 ## Validator Testing 
 
 #### HTML
-- No errors returned using <a href="https://validator.w3.org/" target="_blank">W3C validator</a>
+- No errors returned using <a href="https://validator.w3.org/" target="_blank">W3C validator</a>.
 
 #### CSS
-- No errors returned using <a href="https://jigsaw.w3.org/css-validator/)" target="_blank">Jigsaw validator</a>
+- No errors returned using <a href="https://jigsaw.w3.org/css-validator/)" target="_blank">Jigsaw validator</a>.
 
 #### JS
-- No errors returned using <a href="https://jshint.com/" target="_blank">JSHint</a> except warnings r.e ES6 dependency
+- No errors returned using <a href="https://jshint.com/" target="_blank">JSHint</a> except warnings r.e ES6 dependency.
 
 ## Bugs
 
@@ -348,7 +348,7 @@ All content apart from where stated below is my own work.
 ### Content 
 
 - Font awesome burger icon from <a href="https://fontawesome.com/v4/license/">Font Awesome by Dave Gandy.</a>
-- Google fonts also from Google are imported on style.css line 1. Map is embedded link provided by Google Maps.
+- Google fonts from Google are imported on style.css line 1. Map is embedded link provided by Google Maps.
 - Web accessibility evaluation provided by <a target="_blank" href="https://wave.webaim.org/">WAVE</a> for help in improving accessibility.
 - HTML and CSS validation provided by <a target="_blank" href="https://validator.w3.org/">W3</a>
 - JavaScript validation provided by <a target="_blank" href="https://jshint.com/">JS Hint</a>
