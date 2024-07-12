@@ -30,8 +30,8 @@ The Liar's Dice Club is a website to inform users of a club that meets to play L
 
 **Intro**
 
-- The intro is what the user will likely first look at when they come to the website at index.html.
-- It is simple as to not overwhelm the user, with an image and a h2 with the site's main functions.
+- The intro is what the user will likely first look at when they come to the website at `index.html`.
+- It is simple as to not overwhelm the user, with an image and a `h2` element with the site's main functions.
 - It has two buttons to invite the user to engage with either of the site's main functions.
 
 <details>
@@ -131,22 +131,22 @@ amounts of starting dice, this version has two players and uses six starting dic
 The Liar's Dice Club is a functional and complete website. There are however some features that can be implented in the future to improve user experience.
 
 1. **Starting Dice Selector**
-    - Include a selector on page.html which allows users to choose how many dice each player will start with.
+    - Include a selector on `page.html` which allows users to choose how many dice each player will start with.
     - Many real life Liar's Dice players start their games with five dice, and would likely prefer to change
     the game to this version if possible.
 2. **Difficulty Selector**
-    - Include a selector on page.html which allows users to choose between different difficulty 
+    - Include a selector on `page.html` which allows users to choose between different difficulty 
     settings for the Liar's Dice Game.
     - Variables that determine the opponent's behavior are already established in the
-    createOpponentResponse() function in script.js, so a selector which alters this 
+    `createOpponentResponse()` function in `script.js`, so a selector which alters this 
     may not be require too much extra code. 
     - The hardest difficulty could 'cheat' and factor in the player's dice like a real life
     player, effectively calling their opponent's bluffs.
 3. **Online Multiplayer**
-    - Include an option on play.html to play online with other real life players.
+    - Include an option on `play.html` to play online with other real life players.
     - This would require much more functionality than the website currently includes.
 4. **Gallery**
-    - Include a third html page, gallery.html, that has a gallery of images of the Liar's Dice Club meeting.
+    - Include a third HTML page, `gallery.html`, that has a gallery of images of the Liar's Dice Club meeting.
     - This would show new visitors that the club is welcoming and encourage them to attend.
 
 ## Manual Testing 
@@ -158,7 +158,7 @@ The site has been tested on mobile, tablet, and laptop/PC screen sizes. The foll
 |  Feature |  Testing action | Outcome |
 |---|---|---|
 Navbar|Tap on burger|Menu opens, then closes if tapped again|
-Liar's Dice Game|Tap on Navbar link to play.html|Page opens and generates two hands of six dice in a single horizontal row|
+Liar's Dice Game|Tap on Navbar link to `play.html`|Page opens and generates two hands of six dice in a single horizontal row|
 Liar's Dice Game|Play game to the end of a turn|A die is removed from the furthest right side of the row and the rest of the dice are randomly reselected
 
 ### Feature testing generic to all screen sizes
@@ -168,7 +168,7 @@ The following testing should not change outcome based on screen size, but has be
 |  Feature |  Testing action | Outcome |
 |---|---|---|
 Intro |Click on 'play in person' button|Page smoothly scrolls to explainer section
-Intro |Click 'play online' button|play.html opens
+Intro |Click 'play online' button|`play.html` opens
 Liar's Dice Game|Click on 'call game' button| The turn ends. If the bet is incorrect, the opponent loses a die. If the bet is correct, I lose a die.
 Liar's Dice Game|Select pip number higher than the current bet with the pip selector| The quantity selector adds an option for the current quantity to be bet
 Liar's Dice Game |Select pip number lower than or equal to current bet when current quantity has already been added|The current quantity is removed. If it is currently selected, the selector defaults to the next quantity number up|
@@ -196,7 +196,7 @@ The site was tested with Lighthouse and received the following results:
 
 - #### SEO - 100
     - Lighthouse rates the page perfect for SEO. This is bolstered by the favicon, meta description and semantic HTML.
-    - The rules section using a 'section' element rather than a 'div' is a good example of a best SEO practice, 
+    - The rules section using a `section` element rather than a `div` is a good example of a best SEO practice, 
     because it could easy be pulled by google to answer a generic user question about the rules of Liar's Dice.
 
 ### Play Page
@@ -212,9 +212,9 @@ The site was tested with Lighthouse and received the following results:
 
 - #### Accessibility - 100
     - Lighthouse rates the page perfect for accessibility. 
-    - Lighthouse previously suggested that the dice generated by script.js did not have alternate texts. Script.js
+    - Lighthouse previously suggested that the dice generated by `script.js` did not have alternate texts. `script.js`
     now automatically adds alternate text attributes which interpolate the correct pip number with a template literal.
-    - Lighthouse previously suggested that the 'bet' button's colour contrast was not appropriate for poorly sighted individuals. All play.html buttons were subsequently tested using WebAIM colour contrast checker and colours were changed accordingly.
+    - Lighthouse previously suggested that the 'bet' button's colour contrast was not appropriate for poorly sighted individuals. All `play.html` buttons were subsequently tested using WebAIM colour contrast checker and colours were changed accordingly.
 
 - #### Best practices - 100
     - Lighthouse rates the page perfect for best practices.
@@ -242,7 +242,7 @@ The site was tested with Lighthouse and received the following results:
 
 |  Bug Number |  Problem | Outcome |
 |---|---|---|
-|1 |Hr element's '::after' pseudo-element die image not rotating to 45 degrees| Fixed
+|1 |`.dice-hr` class's '::after' pseudo-element die image not rotating to 45 degrees| Fixed
 |2 |Clicking 'play in person' button takes the user to the wrong part of the page| Fixed
 3 | Current quantity not being removed from quantity selector when appropriate| Fixed
 4 | Dice layout in hand is according to however many can be fit on the screen size causing poor UX | Fixed
@@ -251,9 +251,9 @@ The site was tested with Lighthouse and received the following results:
 <br>
 
 **1.**
-- The Navbar logo and the hr elements seen on index.html both feature the same image, dice-logo.webp.
+- The Navbar logo and the hr elements seen on `index.html` both feature the same image, dice-logo.webp.
 - I thought the image looked best and therefore provided best UX at a 45 degree angle. I achieved this with the logo with relative ease.
-- My attempts to put the hr '::after' pseudo-element image on an axis with CSS were not working.
+- My attempts to put the `.dice-hr::after` pseudo-element image on an axis with CSS were not working.
     <details>
     <summary>Bug one</summary>
 
@@ -261,8 +261,8 @@ The site was tested with Lighthouse and received the following results:
 
     </details>
     <br>
-- The '::after' pseudo-element displays as 'inline' by default. Inline elements cannot be transformed in this manner.
-- 'display: inline-block' was added to the CSS selector in question
+- The `::after` pseudo-element displays as `inline` by default. `inline` elements cannot be transformed in this manner.
+- `display: inline-block` was added to the CSS selector in question
     <details>
     <summary>Bug one solved</summary>
 
@@ -271,7 +271,7 @@ The site was tested with Lighthouse and received the following results:
     </details>
 
 **2.**
-- The 'play in person' button in the intro of index.html was meant to take the user further down the page to the explainer section which gives information about the real life meetings of the Liar's Dice Club.
+- The 'play in person' button in the intro of `index.html` was meant to take the user further down the page to the explainer section which gives information about the real life meetings of the Liar's Dice Club.
 - The button was taking the user to the wrong part of the page.
     <details>
     <summary>Bug two</summary>
@@ -281,7 +281,7 @@ The site was tested with Lighthouse and received the following results:
     </details>
     <br>
 - This is a common issue when using fixed headers.
-- The 'scroll-margin' CSS property can be used to offset the point to which the page scrolls. This was added to the CSS selector in question.
+- The `scroll-margin` CSS property can be used to offset the point to which the page scrolls. This was added to the CSS selector in question.
     <details>
     <summary>Bug two solved</summary>
 
@@ -293,7 +293,7 @@ The site was tested with Lighthouse and received the following results:
 - In the Liar's Dice Game, the player can bet a quantity of dice higher than the current bet. However, they can also bet the same quantity if they race the face value they are betting.
 - For example, if the current bet is 'three dice with four pips', the player could bet three dice with five pips, or three dice with 6 pips. Otherwise, they would need to raise the quantity of dice being bet to four.
 - As such, the quantity selector in the Liar's Dice Game needs to include the current quantity whenever the selected pip value is over the current bet, but otherwise remove it.
-- The script.js function 'handlePipChange()' serves this purpose. It runs whenever the selected pip option is changed. It was not removing the current quantity when the player switched back to a higher pip however, meaning multiple of this number were appearing and the player was allowed to bet illegal moves.
+- The `script.js` function `handlePipChange()` serves this purpose. It runs whenever the selected pip option is changed. It was not removing the current quantity when the player switched back to a higher pip however, meaning multiple of this number were appearing and the player was allowed to bet illegal moves.
     <details>
     <summary>Bug three</summary>
 
@@ -301,9 +301,9 @@ The site was tested with Lighthouse and received the following results:
 
     </details>
     <br>
-- The problem was a for loop in 'handlePipChange()'. The for loop iterated through the options of the quantity selector and set a variable if it found the current quantity.
+- The problem was a `for` loop in `handlePipChange()`. The `for` loop iterated through the options of the quantity selector and set a variable if it found the current quantity.
 - The loop would then continue iterating and reset the variable to false because the current quantity was not the last option in the selector. This was causing the current quantity to be missed.
-- The 'break' keyword was added so the loop did not continue after it identified the current quantity.
+- The `break` keyword was added so the loop did not continue after it identified the current quantity.
     <details>
     <summary>Bug three solved</summary>
 
@@ -312,7 +312,7 @@ The site was tested with Lighthouse and received the following results:
     </details>
 
 **4.**
-- The 'hand' of the player and the opponent is populated with dice as per the 'populateHand()' function.
+- The 'hand' of the player and the opponent is populated with dice as per the `populateHand()` function.
 - The amount of dice generated can range between one and six, so the hand needs to look aesthetically pleasing with any of these dice amounts of a range of screen sizes.
 - On tablet sizes, the arrangement could look particularly awkward, display five dice across three rows and taking up lots of unnecessary space on the page.
     <details>
@@ -322,7 +322,7 @@ The site was tested with Lighthouse and received the following results:
 
     </details>
     <br>
-- The 'hand' holding the dice was a flexbox but this was not producing the intended result. It was changed to a grid, such that the dice would always display in a single row on mobile and tablets and two rows on wider screens.
+- The 'hand' holding the dice was using `display: flex` but this was not producing the intended result. It was changed to a `grid`, such that the dice would always display in a single row on mobile and tablets and two rows on wider screens.
 - This also took up less unnecessary space and allowed the whole game board to fit on one screen on most mobile devices. 
     <details>
     <summary>Bug four solved</summary>
@@ -349,7 +349,7 @@ All content apart from where stated below is my own work.
 ### Content and Development Help
 
 - Font awesome burger icon from <a href="https://fontawesome.com/v4/license/">Font Awesome by Dave Gandy</a>.
-- Google fonts from Google are imported on style.css line 1. Map is embedded link provided by Google Maps. Lighthouse web page quality checker also provided by Google.
+- Google fonts from Google are imported on `style.css` line 1. Map is embedded link provided by Google Maps. Lighthouse web page quality checker also provided by Google.
 - Web accessibility evaluation provided by <a target="_blank" href="https://wave.webaim.org/">WAVE</a> for help in improving accessibility.
 - Colour contrast accessibility checker provided by <a href="https://webaim.org/resources/contrastchecker/">WebAIM</a>.
 - Tutorial on styling hr elements with '::after' pseudo-element from <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/hr">MDN Web Docs</a>.

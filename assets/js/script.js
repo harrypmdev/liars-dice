@@ -58,7 +58,7 @@ function populateHand(hand, dieNumber) {
         newDie.setAttribute('class', 'die');
         newDie.width = '355';
         newDie.height = '354';
-        newDie.alt = dieNumber == 1 ? `A playing die with ${dieNumber} pip` : `A playing die with ${dieNumber} pips`;
+        newDie.alt =  `A playing die with ${dieNumber} pip${dieNumber == 1 ? '' : 's'}`;
         newDie.src = hand == 'player-hand' ? utility.getDiceImage(dieNumber) : 'assets/images/dice-faces/dice-unknown.webp';
         cachedHand.appendChild(newDie);
     }
